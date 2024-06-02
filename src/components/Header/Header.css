@@ -1,0 +1,23 @@
+/* Header.css */
+
+.header-container .content {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  top: 0px;
+  z-index: 10000;
+}
+
+.header-container .content, .header-container .fallback{
+  width: 100%;
+  height: 70px;
+}
+
+.header-container .content img {
+  position: relative;
+  width: auto;
+  height: 100%;
+}
+  

@@ -1,0 +1,27 @@
+[
+  {
+    "url": "Car1.jpeg",
+    "overlay": "Инфа по 1 картинке",
+    "type": "image"
+  },
+  {
+    "url": "Car2.jpeg",
+    "overlay": "Это 2 изображение",
+    "type": "image"
+  },
+  {
+    "url": "Car3.jpeg",
+    "overlay": "",
+    "type": "image"
+  },
+  {
+    "url": "Car4.jpeg",
+    "overlay": "Это 4 изображение",
+    "type": "image"
+  },
+  {
+    "url": "mem.mp4",
+    "overlay": "Это видео",
+    "type": "video"
+  }
+]
