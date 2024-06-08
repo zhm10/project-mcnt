@@ -48,9 +48,9 @@ function MCStories() {
       {stories.length > 0 ? (
         <Stories
           stories={stories}
-          defaultInterval={4000}
-          width={"100%"}
-          height={800}
+          defaultInterval={5000}
+          width={'100%'}
+          height={400}
           loop={true}
         />
       ) : (

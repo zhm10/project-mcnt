@@ -18,10 +18,5 @@
     "url": "Car4.jpeg",
     "overlay": "Это 4 изображение",
     "type": "image"
-  },
-  {
-    "url": "mem.mp4",
-    "overlay": "Это видео",
-    "type": "video"
   }
 ]

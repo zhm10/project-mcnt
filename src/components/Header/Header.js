@@ -1,5 +1,5 @@
 import React from 'react';
-import './Header.css'; // Импортируем файл со стилями
+import './Header.css';
 import headerLogo from "../../assets/HeaderLogo.jpeg?url"
 
 function Header() {
