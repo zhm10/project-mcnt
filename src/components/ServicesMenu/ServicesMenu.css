@@ -1,4 +1,21 @@
-.servicesmenu-container > .content .item {
+
+.servicesmenu {
+    background-color: white;
+}
+
+.servicesmenu.fixed::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: #e8e7e8;
+}
+
+
+
+.servicesmenu > .content .item {
     width: fit-content;
     margin: 10px 20px;
 }

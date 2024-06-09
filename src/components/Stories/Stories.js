@@ -9,7 +9,6 @@ function MCStories() {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
-    try {
       const updatedStories = storiesData.map((story) => {
         // Проверка наличия файла
         let filePath;
@@ -38,9 +37,6 @@ function MCStories() {
       });
 
       setStories(updatedStories);
-    } catch (error) {
-      console.error('Error processing stories data', error);
-    }
   }, []);
 
   return (
@@ -50,11 +46,11 @@ function MCStories() {
           stories={stories}
           defaultInterval={5000}
           width={'100%'}
-          height={400}
+          height={'30vh'}
           loop={true}
         />
       ) : (
-        <div>Loading stories...</div> // Добавьте элемент загрузки
+        <div></div> // Добавьте элемент загрузки
       )}
     </div>
   );

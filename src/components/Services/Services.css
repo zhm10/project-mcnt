@@ -1,23 +1,74 @@
 .services {
     max-height: fit-content;
     display: flex;
+    flex-direction: column;
+}
+
+.services .service-category {
+    height: fit-content;
+    margin: 20px;
+}
+
+.services .service-category>.content {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-
-.services .service {
-    height: fit-content;
+.services .service-category .service {
+    height: auto;
     overflow: hidden;
-    margin: 10px 20px;
-    width: calc(50% - 40px);
+    margin-right: 20px;
+    margin-top: 20px;
+    background: #f0f0f0;
+    /* width: calc(33.3% - 20px); */
+}
+
+.services .service-category .content .service:last-child {
+    margin-right: 0;
+}
+
+/* Медиа-запрос для мобильных телефонов */
+@media only screen and (max-width: 480px) {
+    .services .service-category .content .service {
+        width: calc(50% - 10px);
+        margin-right: 20px;
+    }
+
+    .services .service-category .content .service:nth-child(even) {
+        margin-right: 0;
+    }
+    .services .service-category .content .service:nth-child(odd) {
+        margin-right: 20px;
+    }
+}
+
+/* Медиа-запрос для планшетов */
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+    .services .service-category .service {
+        width: calc(33.3% - 20px);
+        margin-right: 20px;
+    }
+
+    .services .service-category .content .service:nth-child(even) {
+        margin-right: 20px;
+    }
+    /* .services .service-category .content .service:not(:first-child):nth-child(odd) { */
+    .services .service-category .content .service:not(:first-child):nth-child(odd) {
+        margin-right: 0;
+    }
+}
+
+/* Медиа-запрос для устройств с разрешением Full HD и выше */
+@media only screen and (min-width: 1025px) and (max-width: 1920px) {
+    .services .service-category .service {
+        width: calc(25% - 20px);
+    }
 }
 
 .services .service .content {
     padding: 10px;
     text-align: center;
-    background: #f0f0f0;
-    border-radius: 5px;
 }
 
 .services .service img {

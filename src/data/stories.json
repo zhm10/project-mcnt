@@ -5,11 +5,6 @@
     "type": "image"
   },
   {
-    "url": "Car2.jpeg",
-    "overlay": "Это 2 изображение",
-    "type": "image"
-  },
-  {
     "url": "Car3.jpeg",
     "overlay": "",
     "type": "image"

@@ -4,7 +4,7 @@ import headerLogo from "../../assets/HeaderLogo.jpeg?url"
 
 function Header() {
   return (
-    <div className="header-container">
+    <div className="header-wrapper">
       <div className="fallback"></div>
       <div className="content">
         <img src={headerLogo} alt=""/>
