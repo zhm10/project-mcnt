@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import './ServicesMenu.css';
@@ -6,101 +6,101 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 
 import menuData from "../../data/services.json";
-import { FreeMode, Pagination } from 'swiper/modules';
+import { FreeMode } from 'swiper/modules';
 
 let blockHeight;
 let firstBlockHeight;
 
-function ServicesMenu() {
+function ServicesMenu({ activeIndex = null, setActiveIndex = null }) {
     const [fixed, setFixed] = useState(false);
-    const [activeBlock, setActiveBLock] = useState(0);
+    const wrapperMenuRef = useRef(null);
+    const menuRef = useRef(null);
 
     useEffect(() => {
         const handleScroll = () => {
-            const block = document.querySelector(".servicesmenu-wrapper");
+            const block = wrapperMenuRef.current;
+            // const block = document.querySelector(".servicesmenu-wrapper");
             const blockTop = block.getBoundingClientRect().top;
             blockHeight = block.offsetHeight;
-    
+
             firstBlockHeight = document.querySelector(".header-wrapper .content").offsetHeight;
-            console.log("blockTop=" + blockTop, "firstBlockHeight=" + firstBlockHeight);
+            // console.log("blockTop=" + blockTop, "firstBlockHeight=" + firstBlockHeight);
             if (blockTop < firstBlockHeight) {
                 setFixed(true);
             } else {
                 setFixed(false);
             }
+
+            menuRef.current.swiper.updateSize();
         };
-    
+
         const handleLoad = () => {
             window.addEventListener('scroll', handleScroll);
         };
-    
+
         handleLoad();
-    
+
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-    
 
-    // useEffect2(() => {
-    //     const handleScroll = () => {
-    //         const block = document.querySelector(".servicesmenu-wrapper");
-    //         const blockTop = block.getBoundingClientRect().top;
-    //         // const blockBottom = document.querySelector(".services").getBoundingClientRect().bottom;
-    //         blockHeight = block.offsetHeight;
+    const handleItemClick = (index) => {
+        setActiveIndex(index);
 
-    //         // Высота первого блока
-    //         firstBlockHeight = document.querySelector(".header-wrapper .content").offsetHeight; // Пример высоты первого блока
-    //         // console.log("blockTop=" + blockTop, "blockBottom=" + blockBottom, "firstBlockHeight=" + firstBlockHeight);
-    //         if (blockTop <= firstBlockHeight) {
-    //             alert("success")
-    //             setFixed(true);
-    //         } else {
-    //             setFixed(false);
-    //         }
-    //     };
+        const category = document.querySelector('.services .service-id-' + index);
+        if (category) {
+            const bottomOffset = category.getBoundingClientRect().top + window.pageYOffset - 110;
 
-    //     const handleLoad = () => {
-    //         // Добавляем обработчик события прокрутки
-    //         window.addEventListener('scroll', handleScroll);
+            window.scrollTo({
+                top: bottomOffset,
+                behavior: 'instant' // Плавная прокрутка
+            });
+        }
 
-    //         // Вызываем функцию handleScroll один раз при загрузке компонента
-    //         // handleScroll();
-    //     };
+        const activeElement = menuRef.current.querySelector(`.service-id-${index}`);
+        if (activeElement) {
+            const parentElement = activeElement.parentElement;
+            const containerRect = parentElement.getBoundingClientRect();
+            const elementRect = activeElement.getBoundingClientRect();
+            const containerWidth = parentElement.clientWidth; // Ширина видимой части контейнера
+            const elementWidth = activeElement.offsetWidth; // Ширина выбранного элемента
+            const offset = elementRect.left - containerRect.left - (containerWidth - elementWidth) / 2;
+            console.log(offset);
 
-    //     // Ждем полной загрузки страницы
-    //     window.addEventListener('load', handleLoad);
+            parentElement.scrollTo({
+                left: 500, //parentElement.scrollLeft + offset,
+                behavior: 'smooth' // Плавная прокрутка
+            });
+            // menuRef.current.scrollBy(500, 500);
+        }
+    };
 
-    //     // Убираем обработчики событий при размонтировании компонента
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //         window.removeEventListener('load', handleLoad);
-    //     };
-    // }, []);
+
+
+
 
     return (
-        <div className='servicesmenu-wrapper'>
-            <div className={"fallback"}
-                style={{
-                    display: fixed ? "block" : 'none',
-                    height: blockHeight
-                }}
+        <div className='servicesmenu-wrapper' ref={wrapperMenuRef}>
+            <div className={`fallback ${fixed ? 'fixed' : ''}`}
+                style={{ height: blockHeight }}
             ></div>
             <div className={'servicesmenu' + (fixed ? " fixed" : "")}
-                style={{
-                    position: fixed ? 'fixed' : 'inherit',
-                    top: fixed ? firstBlockHeight + 'px' : ''
-                }}
+                style={{ top: fixed ? firstBlockHeight + 'px' : '' }}
             >
                 <Swiper
-                    slidesPerView={"auto"}
+                    slidesPerView={'auto'}
                     freeMode={true}
-                    modules={[FreeMode, Pagination]}
+                    modules={[FreeMode]}
                     className='content'
+                    ref={menuRef}
                 >
-
                     {menuData.map(service => (
-                        <SwiperSlide key={service.id} className='item'>{service.name}</SwiperSlide>
+                        <SwiperSlide
+                            className={`item service-id-${service.id} ${activeIndex === service.id ? 'active-service' : ''}`}
+                            key={service.id}
+                            onClick={() => handleItemClick(service.id)}
+                        >{service.name}</SwiperSlide>
                     ))}
                 </Swiper>
             </div>
