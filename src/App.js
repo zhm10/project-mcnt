@@ -1,5 +1,5 @@
-// import logo from './logo.svg';
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Stories from './components/Stories/Stories';
@@ -7,14 +7,16 @@ import Services from './components/Services/Services';
 
 function App() {
   return (
-    <div className="app">
-      <Header/>
-      <Stories/>
-      <Services/>
-      <div className="products">
-        <span>Что-то еще будет</span>
+    <Router>
+      <div className="app">
+        <Header />
+        <Stories />
+        <Services />
+        <div className="products">
+          <span>Что-то еще будет</span>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
