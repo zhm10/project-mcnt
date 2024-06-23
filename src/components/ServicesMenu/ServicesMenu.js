@@ -1,36 +1,26 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { HashLink as Link } from 'react-router-hash-link';
 import './ServicesMenu.css';
 import 'swiper/css';
 import 'swiper/css/free-mode';
-
 import { FreeMode } from 'swiper/modules';
-
 import menuData from "../../data/services.json";
 
-let blockHeight;
-let firstBlockHeight;
-
-function ServicesMenu() {
+const ServicesMenu = () => {
     const [fixed, setFixed] = useState(false);
     const wrapperMenuRef = useRef(null);
     const swiperRef = useRef(null);
     const [activeIndex, setActiveIndex] = useState(null);
+    const [activeId, setActiveId] = useState(null)
     const sectionRefs = useRef({});
 
     useEffect(() => {
         const handleScroll = () => {
             const block = wrapperMenuRef.current;
             const blockTop = block.getBoundingClientRect().top;
-            blockHeight = block.offsetHeight;
+            const firstBlockHeight = document.querySelector(".header-wrapper .content").offsetHeight;
 
-            firstBlockHeight = document.querySelector(".header-wrapper .content").offsetHeight;
-            if (blockTop < firstBlockHeight) {
-                setFixed(true);
-            } else {
-                setFixed(false);
-            }
+            setFixed(blockTop < firstBlockHeight);
 
             let currentSection = null;
             Object.keys(sectionRefs.current).forEach(key => {
@@ -40,108 +30,156 @@ function ServicesMenu() {
                     currentSection = key;
                 }
             });
-            if (currentSection !== null && currentSection !== activeIndex) {
+
+            if (currentSection !== null && Number(currentSection) !== activeIndex) {
                 setActiveIndex(Number(currentSection));
+                scrollToSlide(Number(currentSection));
             }
         };
 
-        const handleLoad = () => {
+        const addEventListeners = () => {
             window.addEventListener('scroll', handleScroll);
         };
 
-        handleLoad();
-
-        return () => {
+        const removeEventListeners = () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [activeIndex]);
 
-    useEffect(() => {
-        const observerOptions = {
-            root: null,
-            rootMargin: '-110px 0px -99% 0px', // Проверяем пересечение только с верхней границей
-            threshold: [0, 1],
-        };
+        const initIntersectionObserver = () => {
+            // function isMobileDevice() {
+            //     return /Mobi|Android/i.test(navigator.userAgent);
+            // }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id').split('-')[1];
-                    setActiveIndex(Number(id));
-                    window.history.replaceState(null, null, `#service-${id}`);
-                    scrollToSlide(id);
+            // Настройки обсервера для мобильных устройств
+            const observerOptions = {
+                root: null,
+                rootMargin: `-100px 0px -${window.innerHeight - 101}px 0px`,
+                threshold: [0],
+            };
+
+            // Настройки обсервера для ПК и планшетов
+            // const desktopTabletObserverOptions = {
+            //     root: null,
+            //     rootMargin: '0px 0px -100% 0px',
+            //     threshold: [0, 1],
+            // };
+
+            // const observerOptions = isMobileDevice() ? mobileObserverOptions : desktopTabletObserverOptions;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        // setActiveIndex(Number(index));
+                        setActiveId(id)
+                        window.history.replaceState(null, null, `/${id}`);
+                        // scrollToSlide(index);
+                    }
+                });
+            }, observerOptions);
+
+            menuData.forEach((service, index) => {
+                const element = document.getElementById(`${service.id}`);
+                if (element) {
+                    observer.observe(element);
+                    sectionRefs.current[index] = element;
                 }
             });
-        }, observerOptions);
 
-        menuData.forEach(service => {
-            const element = document.getElementById(`service-${service.id}`);
-            if (element) {
-                observer.observe(element);
-                sectionRefs.current[service.id] = element;
-            }
-        });
+            return observer;
+        };
+
+        const observer = initIntersectionObserver();
+        addEventListeners();
 
         return () => {
-            menuData.forEach(service => {
-                const element = document.getElementById(`service-${service.id}`);
-                if (element) {
-                    observer.unobserve(element);
-                }
-            });
+            removeEventListeners();
+            observer.disconnect();
         };
-    })
+    }, [activeId, activeIndex]);
+
+    useEffect(() => {
+
+        const handleLoad = () => {
+            let pathname = window.location.pathname;
+            if (pathname !== '/') {
+                pathname = pathname.slice(1);
+                const element = document.getElementById(pathname);
+                if (element) {
+                    setTimeout(() => {
+                        scrollToCategory(pathname);
+                    }, 100); // Задержка, чтобы элементы успели прорендериться
+                }
+            }
+        };
+
+        if (document.readyState === 'complete') {
+            handleLoad();
+        } else {
+            window.addEventListener('load', handleLoad);
+            document.addEventListener('DOMContentLoaded', handleLoad);
+        }
+
+
+        return () => {
+            window.removeEventListener('load', handleLoad);
+            document.removeEventListener('DOMContentLoaded', handleLoad);
+        };
+    }, [])
 
     const scrollToSlide = (index) => {
         if (swiperRef.current && swiperRef.current.swiper) {
-            const counVisibleCategorys = 1
-            swiperRef.current.swiper.slideTo(index - counVisibleCategorys, 500, false); // Используйте slideTo или slideToLoop в зависимости от потребностей
+            swiperRef.current.swiper.slideTo(index, 1000, false);
         }
     };
 
-
-    const handleClick = (index) => {
-        setActiveIndex(index);
+    const handleClick = (id, index) => {
+        setActiveIndex(Number(index));
         scrollToSlide(index);
+        scrollToCategory(id)
     };
 
-    function scrollWithOffset(el) {
-        const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
-        const yOffset = -120; // Высота шапки
-        window.scrollTo({ top: yCoordinate + yOffset, behavior: 'instant' });
+    const scrollToCategory = (id) => {
+        const element = document.getElementById(`${id}`);
+        if (element) {
+            const yOffset = -100; // Высота шапки
+            const yCoordinate = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            // alert(yCoordinate + " " + window.pageXOffset + " " + yOffset)
+            window.scrollTo({ top: yCoordinate, behavior: 'instant' });
+            window.history.pushState(null, null, `/${id}`);
+        }
     }
 
     return (
         <div className='servicesmenu-wrapper' ref={wrapperMenuRef}>
-            <div className={`fallback ${fixed ? 'fixed' : ''}`}
-                style={{ height: blockHeight }}
-            ></div>
-            <div className={'servicesmenu' + (fixed ? " fixed" : "")}
-                style={{ top: fixed ? firstBlockHeight + 'px' : '' }}
+            <div className={`fallback ${fixed ? 'fixed' : ''}`} style={{ height: '39px' }} />
+            <div
+                className={`servicesmenu ${fixed ? "fixed" : ""}`}
+                style={{ top: fixed ? `${document.querySelector(".header-wrapper .content").offsetHeight}px` : '' }}
             >
                 <div className='content'>
                     <Swiper
                         slidesPerView={'auto'}
                         freeMode={true}
                         modules={[FreeMode]}
-                        // centeredSlides={true}
+                        centeredSlides={true}
+                        centeredSlidesBounds={true}
                         ref={swiperRef}
                     >
-                        {menuData.map(service => (
-                            <SwiperSlide
-                                className={`item`}
-                                key={service.id}
-                            // onClick={() => handleItemClick(service.id)}
-                            >
-                                <Link
+                        {menuData.map((service, service_index) => (
+                            <SwiperSlide className={`item`} key={service.id}>
+                                <a
                                     key={service.id}
-                                    smooth to={`#service-${service.id}`}
-                                    scroll={el => scrollWithOffset(el)}
-                                    className={`${activeIndex === service.id ? 'active-service' : ''}`}
-                                    onClick={() => handleClick(service.id)}
+                                    href={`/${service.id}`}
+                                    className={`${Number(activeIndex) === service_index ? 'active-service' : ''}`}
+                                    data-index={service_index}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleClick(service.id, service_index);
+                                    }}
                                 >
                                     {service.name}
-                                </Link>
+                                </a>
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -149,6 +187,6 @@ function ServicesMenu() {
             </div>
         </div>
     );
-}
+};
 
 export default ServicesMenu;

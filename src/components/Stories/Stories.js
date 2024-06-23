@@ -46,7 +46,7 @@ function MCStories() {
           stories={stories}
           defaultInterval={5000}
           width={'100%'}
-          height={'30vh'}
+          height={'70vh'}
           loop={true}
         />
       ) : (
