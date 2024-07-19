@@ -68,12 +68,16 @@ const ServicesMenu = () => {
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry, index) => {
+                    const id = entry.target.getAttribute('id');
+
                     if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
                         // setActiveIndex(Number(index));
                         setActiveId(id)
                         window.history.replaceState(null, null, `/${id}`);
                         // scrollToSlide(index);
+                    } else if (id === menuData[0].id && !entry.isIntersecting) {
+                        // Если первый элемент не виден
+                        window.history.replaceState(null, null, "/");
                     }
                 });
             }, observerOptions);

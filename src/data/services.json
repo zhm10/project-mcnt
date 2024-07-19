@@ -1,338 +1,144 @@
 [
     {
-        "id": "service-1",
-        "name": "Мойка кузова",
+        "id": "udalenie-vmyatin-bez-pokraski",
+        "name": "Удаление вмятин без покраски",
         "services": [
             {
-                "id": "1",
-                "name": "Быстрая мойка",
-                "description": "Экспресс мойка кузова",
+                "id": "udalenie-vmyatin-bez-pokraski/tehnologiya-pdr",
+                "name": "Технология PDR",
+                "description": "Кузовной ремонт автомобиля без покраски. Сертифицированные специалисты",
                 "price": 15,
-                "url": "img1"
-            },
-            {
-                "id": "1",
-                "name": "Комплексная мойка",
-                "description": "Полная мойка кузова и днища",
-                "price": 30,
-                "url": "img2"
-            },
-            {
-                "id": "1",
-                "name": "Частичная мойка",
-                "description": "Частичная мойка кузова и днища",
-                "price": 230,
-                "url": "img3"
-            },
-            {
-                "id": "1",
-                "name": "1 мойка",
-                "description": "1 мойка кузова и днища",
-                "price": 230,
-                "url": "img3"
+                "img": "Технология PDR.jpg"
             }
         ]
     },
     {
-        "id": "service-2",
-        "name": "Полировка кузова",
+        "id": "polirovka-kuzova-avtomobilya",
+        "name": "Полировка кузова автомобиля",
         "services": [
             {
-                "id": "1",
-                "name": "Поверхностная полировка",
-                "description": "Легкая полировка для придания блеска",
+                "id": "polirovka-kuzova-avtomobilya/vosstanovlenie-bleska",
+                "name": "Восстановление блеска",
+                "description": "Восстановительная абразивная полировка ЛКП",
                 "price": 50,
-                "url": "img3"
-            },
-            {
-                "id": "1",
-                "name": "Глубокая полировка",
-                "description": "Удаление мелких царапин и дефектов",
-                "price": 100,
-                "url": "img4"
+                "img": "Восстановление блеска.jpeg"
             }
         ]
     },
     {
-        "id": "service-3",
-        "name": "Химчистка салона",
+        "id": "zashchita-kuzova-keramikoy",
+        "name": "Защита кузова керамикой",
         "services": [
             {
-                "id": "1",
-                "name": "Химчистка ковриков",
-                "description": "Чистка всех ковриков в салоне",
+                "id": "zashchita-kuzova-keramikoy/everglass",
+                "name": "EverGlass",
+                "description": "Блеск и гладкость. Защита кузова от царапин и дорожных реагентов",
                 "price": 20,
-                "url": "img5"
-            },
-            {
-                "id": "1",
-                "name": "Полная химчистка",
-                "description": "Чистка всех поверхностей в салоне",
-                "price": 80,
-                "url": "img6"
+                "img": "EverGlass.jpeg"
             }
         ]
     },
     {
-        "id": "service-4",
-        "name": "Уход за кожей",
+        "id": "zashchita-kuzova-plenkoy",
+        "name": "Защита кузова пленкой",
         "services": [
             {
-                "id": "1",
-                "name": "Чистка кожаных сидений",
-                "description": "Удаление загрязнений и восстановление цвета",
+                "id": "zashchita-kuzova-plenkoy/okleyka-plenkoy",
+                "name": "Оклейка пленкой",
+                "description": "Защитим кузов автомобиля от сколов и царапин",
                 "price": 60,
-                "url": "img7"
-            },
-            {
-                "id": "1",
-                "name": "Нанесение защитного покрытия",
-                "description": "Защита кожаных поверхностей от износа",
-                "price": 40,
-                "url": "img8"
+                "img": "Оклейка пленкой.jpg"
             }
         ]
     },
     {
-        "id": "service-5",
-        "name": "Удаление запахов",
-        "services": [
-            {
-                "id": "1",
-                "name": "Озонирование салона",
-                "description": "Удаление запахов с помощью озона",
-                "price": 50,
-                "url": "img9"
-            }
-        ]
-    },
-    {
-        "id": "service-6",
-        "name": "Мойка двигателя",
-        "services": [
-            {
-                "id": "1",
-                "name": "Профессиональная мойка двигателя",
-                "description": "Чистка двигателя с использованием безопасных средств",
-                "price": 70,
-                "url": "img10"
-            }
-        ]
-    },
-    {
-        "id": "service-7",
-        "name": "Нанесение воска",
-        "services": [
-            {
-                "id": "1",
-                "name": "Жидкий воск",
-                "description": "Быстрое нанесение защитного слоя",
-                "price": 25,
-                "url": "img11"
-            },
-            {
-                "id": "1",
-                "name": "Твердый воск",
-                "description": "Долговременная защита кузова",
-                "price": 50,
-                "url": "img12"
-            }
-        ]
-    },
-    {
-        "id": "service-8",
-        "name": "Полировка фар",
-        "services": [
-            {
-                "id": "1",
-                "name": "Полировка передних фар",
-                "description": "Восстановление прозрачности фар",
-                "price": 30,
-                "url": "img13"
-            },
-            {
-                "id": "1",
-                "name": "Полировка задних фар",
-                "description": "Удаление мутности и царапин",
-                "price": 30,
-                "url": "img14"
-            }
-        ]
-    },
-    {
-        "id": "service-9",
-        "name": "Чистка дисков",
-        "services": [
-            {
-                "id": "1",
-                "name": "Удаление налета",
-                "description": "Чистка дисков от налета и грязи",
-                "price": 20,
-                "url": "img15"
-            },
-            {
-                "id": "1",
-                "name": "Полировка дисков",
-                "description": "Придание блеска и защита от коррозии",
-                "price": 40,
-                "url": "img16"
-            }
-        ]
-    },
-    {
-        "id": "service-10",
-        "name": "Уход за стеклами",
-        "services": [
-            {
-                "id": "1",
-                "name": "Мойка стекол",
-                "description": "Чистка всех стекол снаружи и внутри",
-                "price": 15,
-                "url": "img17"
-            },
-            {
-                "id": "1",
-                "name": "Нанесение антидождя",
-                "description": "Обработка стекол для лучшего отвода воды",
-                "price": 25,
-                "url": "img18"
-            }
-        ]
-    },
-    {
-        "id": "service-11",
-        "name": "Антигравийная защита",
-        "services": [
-            {
-                "id": "1",
-                "name": "Нанесение антигравийной пленки",
-                "description": "Защита кузова от сколов и царапин",
-                "price": 150,
-                "url": "img19"
-            }
-        ]
-    },
-    {
-        "id": "service-12",
-        "name": "Реставрация салона",
-        "services": [
-            {
-                "id": "1",
-                "name": "Ремонт пластиковых деталей",
-                "description": "Восстановление поврежденных пластиковых элементов",
-                "price": 70,
-                "url": "img20"
-            },
-            {
-                "id": "1",
-                "name": "Ремонт обивки",
-                "description": "Реставрация тканевых и кожаных поверхностей",
-                "price": 90,
-                "url": "img21"
-            }
-        ]
-    },
-    {
-        "id": "service-13",
-        "name": "Уход за резиновыми элементами",
-        "services": [
-            {
-                "id": "1",
-                "name": "Чистка и обработка уплотнителей",
-                "description": "Продление срока службы резиновых уплотнителей",
-                "price": 20,
-                "url": "img22"
-            }
-        ]
-    },
-    {
-        "id": "service-14",
-        "name": "Полировка хрома",
-        "services": [
-            {
-                "id": "1",
-                "name": "Полировка хромированных деталей",
-                "description": "Придание блеска и удаление мелких царапин",
-                "price": 50,
-                "url": "img23"
-            }
-        ]
-    },
-    {
-        "id": "service-15",
-        "name": "Мойка багажника",
-        "services": [
-            {
-                "id": "1",
-                "name": "Полная мойка багажного отделения",
-                "description": "Чистка всех поверхностей багажника",
-                "price": 40,
-                "url": "img24"
-            }
-        ]
-    },
-    {
-        "id": "service-16",
-        "name": "Дезинфекция салона",
-        "services": [
-            {
-                "id": "1",
-                "name": "Дезинфекция всех поверхностей",
-                "description": "Обработка салона от бактерий и вирусов",
-                "price": 60,
-                "url": "img25"
-            }
-        ]
-    },
-    {
-        "id": "service-17",
+        "id": "udalenie-tsarapin",
         "name": "Удаление царапин",
         "services": [
             {
-                "id": "1",
-                "name": "Удаление мелких царапин",
-                "description": "Локальная полировка и удаление царапин",
-                "price": 70,
-                "url": "img26"
+                "id": "udalenie-tsarapin/lokalnaya-polirovka",
+                "name": "Локальная полировка",
+                "description": "Локальная абразивная полировка деталей кузова",
+                "price": 60,
+                "img": "Локальная полировка.jpg"
             }
         ]
     },
     {
-        "id": "service-18",
-        "name": "Очистка воздуховодов",
+        "id": "remont-skolov-kraski",
+        "name": "Ремонт сколов краски",
         "services": [
             {
-                "id": "1",
-                "name": "Чистка кондиционера и воздуховодов",
-                "description": "Удаление пыли и запахов из воздуховодов",
-                "price": 50,
-                "url": "img27"
+                "id": "remont-skolov-kraski/dr-colorchip",
+                "name": "Dr.ColorChip",
+                "description": "Американская технология ремонта сколов краски",
+                "price": 60,
+                "img": "Dr.ColorChip.jpg"
             }
         ]
     },
     {
-        "id": "service-19",
-        "name": "Удаление вмятин",
+        "id": "remont-avtostekol",
+        "name": "Ремонт автостекол",
         "services": [
             {
-                "id": "1",
-                "name": "Удаление мелких вмятин без покраски",
-                "description": "Восстановление формы кузова",
-                "price": 100,
-                "url": "img28"
+                "id": "remont-avtostekol/skoli-i-treshchiny",
+                "name": "Сколы и трещины",
+                "description": "Ремонт осуществляется в удобное для вас время",
+                "price": 60,
+                "img": "Сколы и трещины.jpg"
             }
         ]
     },
     {
-        "id": "service-20",
-        "name": "Антибактериальная обработка",
+        "id": "tonirovka-stekol",
+        "name": "Тонировка стекол",
         "services": [
             {
-                "id": "1",
-                "name": "Обработка всех поверхностей салона",
-                "description": "Уничтожение бактерий и грибков",
-                "price": 80,
-                "url": "img29"
+                "id": "tonirovka-stekol/metallizirovannye-plenki",
+                "name": "Металлизированные пленки",
+                "description": "Тонирование стекол автомобиля американскими пленками",
+                "price": 60,
+                "img": "Металлизированные пленки.jpg"
+            }
+        ]
+    },
+    {
+        "id": "restavratsiya-kozhanih-salonov",
+        "name": "Реставрация кожаных салонов",
+        "services": [
+            {
+                "id": "restavratsiya-kozhanih-salonov/tehnologiya-colourlock",
+                "name": "Технология Colourlock",
+                "description": "Реставрация кожаных салонов без перешива",
+                "price": 60,
+                "img": "ехнология Colourlock.jpg"
+            }
+        ]
+    },
+    {
+        "id": "predprodazhnaya-podgatovka",
+        "name": "Предпродажная подгатовка",
+        "services": [
+            {
+                "id": "predprodazhnaya-podgatovka/prodat-avto-dorozhe-i-bystree",
+                "name": "Продать авто дороже и быстрее",
+                "description": "Удаление вмятин, царапин, восстановление блеска.",
+                "price": 60,
+                "img": "Продать авто дороже и быстрее.jpg"
+            }
+        ]
+    },
+    {
+        "id": "himchistka-salona",
+        "name": "Химчистка салона",
+        "services": [
+            {
+                "id": "himchistka-salona/chistota-v-salone",
+                "name": "Чистота в салоне",
+                "description": "Безопасная химчистка салона с последующей защитой",
+                "price": 60,
+                "img": "Чистота в салоне.jpg"
             }
         ]
     }
