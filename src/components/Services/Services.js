@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import ServicesMenu from '../ServicesMenu/ServicesMenu';
 import './Services.css';
 import detailingServices from "../../data/services.json";
 import defaultImg from "../../assets/services/Car1.jpeg";
+import ModalWindow from "../Modal/ModalWindow";
 const context = require.context('../../assets/services', true);
 
 function Services() {
+    const [open, setOpen] = useState(false);
+    const [selectedService, setSelectedService] = useState(null);
+
+    const handleOpen = (service) => {
+        setSelectedService(service);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        setSelectedService(null);
+    };
+
     // Попытаться загрузить изображение из контекста
     const loadImage = (imageName) => {
         try {
@@ -33,8 +49,10 @@ function Services() {
                                     <div className='content'>
                                         <img src={loadImage(service.img)} alt={service.name} />
                                         <h3>{service.name}</h3>
-                                        <p>{service.description}</p>
-                                        <p>Цена: ${service.price}</p>
+                                        <p>{service.info}</p>
+                                        <Button variant="contained" onClick={() => handleOpen(service)}>
+                                            Подробнее
+                                        </Button>
                                     </div>
                                 </div>
                             ))}
@@ -42,6 +60,22 @@ function Services() {
                     </div>
                 ))}
             </div>
+
+            {selectedService && (
+                <ModalWindow
+                    open={open}
+                    handleClose={handleClose}
+                    title={selectedService.name}
+                    content={selectedService.info}
+                    actions={
+                        <>
+                            <IconButton onClick={handleClose}>
+                                <CloseIcon />
+                            </IconButton>
+                        </>
+                    }
+                />
+            )}
         </div>
     );
 }

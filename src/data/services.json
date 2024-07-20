@@ -6,8 +6,14 @@
             {
                 "id": "udalenie-vmyatin-bez-pokraski/tehnologiya-pdr",
                 "name": "Технология PDR",
-                "description": "Кузовной ремонт автомобиля без покраски. Сертифицированные специалисты",
-                "price": 15,
+                "info": "Кузовной ремонт автомобиля без покраски. Сертифицированные специалисты",
+                "description": "",
+                "priceList": [
+                    {
+                        "name": "test",
+                        "price": "1000"
+                    }
+                ],
                 "img": "Технология PDR.jpg"
             }
         ]
@@ -19,7 +25,8 @@
             {
                 "id": "polirovka-kuzova-avtomobilya/vosstanovlenie-bleska",
                 "name": "Восстановление блеска",
-                "description": "Восстановительная абразивная полировка ЛКП",
+                "info": "Восстановительная абразивная полировка ЛКП",
+                "description": "",
                 "price": 50,
                 "img": "Восстановление блеска.jpeg"
             }
@@ -32,7 +39,8 @@
             {
                 "id": "zashchita-kuzova-keramikoy/everglass",
                 "name": "EverGlass",
-                "description": "Блеск и гладкость. Защита кузова от царапин и дорожных реагентов",
+                "info": "Блеск и гладкость. Защита кузова от царапин и дорожных реагентов",
+                "description": "",
                 "price": 20,
                 "img": "EverGlass.jpeg"
             }
@@ -45,7 +53,8 @@
             {
                 "id": "zashchita-kuzova-plenkoy/okleyka-plenkoy",
                 "name": "Оклейка пленкой",
-                "description": "Защитим кузов автомобиля от сколов и царапин",
+                "info": "Защитим кузов автомобиля от сколов и царапин",
+                "description": "",
                 "price": 60,
                 "img": "Оклейка пленкой.jpg"
             }
@@ -58,7 +67,8 @@
             {
                 "id": "udalenie-tsarapin/lokalnaya-polirovka",
                 "name": "Локальная полировка",
-                "description": "Локальная абразивная полировка деталей кузова",
+                "info": "Локальная абразивная полировка деталей кузова",
+                "description": "",
                 "price": 60,
                 "img": "Локальная полировка.jpg"
             }
@@ -71,7 +81,8 @@
             {
                 "id": "remont-skolov-kraski/dr-colorchip",
                 "name": "Dr.ColorChip",
-                "description": "Американская технология ремонта сколов краски",
+                "info": "Американская технология ремонта сколов краски",
+                "description": "",
                 "price": 60,
                 "img": "Dr.ColorChip.jpg"
             }
@@ -84,7 +95,8 @@
             {
                 "id": "remont-avtostekol/skoli-i-treshchiny",
                 "name": "Сколы и трещины",
-                "description": "Ремонт осуществляется в удобное для вас время",
+                "info": "Ремонт осуществляется в удобное для вас время",
+                "description": "",
                 "price": 60,
                 "img": "Сколы и трещины.jpg"
             }
@@ -97,7 +109,8 @@
             {
                 "id": "tonirovka-stekol/metallizirovannye-plenki",
                 "name": "Металлизированные пленки",
-                "description": "Тонирование стекол автомобиля американскими пленками",
+                "info": "Тонирование стекол автомобиля американскими пленками",
+                "description": "",
                 "price": 60,
                 "img": "Металлизированные пленки.jpg"
             }
@@ -110,7 +123,8 @@
             {
                 "id": "restavratsiya-kozhanih-salonov/tehnologiya-colourlock",
                 "name": "Технология Colourlock",
-                "description": "Реставрация кожаных салонов без перешива",
+                "info": "Реставрация кожаных салонов без перешива",
+                "description": "",
                 "price": 60,
                 "img": "ехнология Colourlock.jpg"
             }
@@ -123,7 +137,8 @@
             {
                 "id": "predprodazhnaya-podgatovka/prodat-avto-dorozhe-i-bystree",
                 "name": "Продать авто дороже и быстрее",
-                "description": "Удаление вмятин, царапин, восстановление блеска.",
+                "info": "Удаление вмятин, царапин, восстановление блеска.",
+                "description": "",
                 "price": 60,
                 "img": "Продать авто дороже и быстрее.jpg"
             }
@@ -136,7 +151,8 @@
             {
                 "id": "himchistka-salona/chistota-v-salone",
                 "name": "Чистота в салоне",
-                "description": "Безопасная химчистка салона с последующей защитой",
+                "info": "Безопасная химчистка салона с последующей защитой",
+                "description": "",
                 "price": 60,
                 "img": "Чистота в салоне.jpg"
             }

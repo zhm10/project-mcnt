@@ -8,14 +8,14 @@ import Services from './components/Services/Services';
 function App() {
   return (
     <Router>
-      <div className="app">
-        <Header />
-        <Stories />
-        <Services />
-        <div className="products">
-          <span>Что-то еще будет</span>
+        <div className="app">
+          <Header />
+          <Stories />
+          <Services />
+          <div className="products">
+            <span>Что-то еще будет</span>
+          </div>
         </div>
-      </div>
     </Router>
   );
 }
