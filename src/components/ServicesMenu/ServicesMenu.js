@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import './ServicesMenu.css';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -137,13 +138,16 @@ const ServicesMenu = () => {
     const scrollToCategory = (id) => {
         const element = document.getElementById(`${id}`);
         if (element) {
-            const yOffset = -120; // Высота шапки
+            const yOffset = isMobile ? -100 : -80; // Высота шапки
             const yCoordinate = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
             // alert(yCoordinate + " " + window.pageXOffset + " " + yOffset)
             window.scrollTo({ top: yCoordinate, behavior: 'instant' });
             window.history.pushState(null, null, `/${id}`);
         }
     }
+
+    // Определяем, является ли текущий экран мобильным
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     return (
         <div className='servicesmenu-wrapper' ref={wrapperMenuRef}>

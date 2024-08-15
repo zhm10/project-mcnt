@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { Button, Container, Box } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import ServicesMenu from '../ServicesMenu/ServicesMenu';
 import './Services.css';
 import detailingServices from "../../data/services.json";
 import defaultImg from "../../assets/services/Car1.jpeg";
 import ModalWindow from "../Modal/ModalWindow";
+
 const context = require.context('../../assets/services', true);
 
 function Services() {
@@ -30,32 +37,63 @@ function Services() {
         }
     };
 
+    // Определяем, является ли текущий экран мобильным
+    const isMobile = useMediaQuery('(max-width:600px)');
+
     return (
         <Box className='services-wrapper'>
             <ServicesMenu />
-            <Container className='services' maxWidth='xl' style={{margin: '50px 0 0 0'}}>
+            <Container className='services' maxWidth='xl' style={{ margin: '0' }}>
                 {detailingServices.map((category, category_index) => (
-                    <div
-                        key={category_index}
-                        id={`${category.id}`}
-                        className={`service-category`}
-                        data-index={category_index}
-                    >
-                        <h1>{category.name}</h1>
-                        <div className='content'>
+                    <div key={category_index} id={`${category.id}`} className='service-category' data-index={category_index}>
+                        {isMobile ? (
+                            <h2 style={{ marginBottom: '20px'}}>{category.name}</h2>
+                        ) : (
+                            <h1 style={{ marginBottom: '20px'}}>{category.name}</h1>
+                        )}
+                        <Box className='content' sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
                             {category.services.map((service, service_index) => (
-                                <div key={service_index} className='service'>
-                                    <div className='content'>
-                                        <img src={loadImage(service.img)} alt={service.name} />
-                                        <h3>{service.name}</h3>
-                                        <p>{service.info}</p>
-                                        <Button variant="contained" onClick={() => handleOpen(service)}>
-                                            Подробнее
-                                        </Button>
-                                    </div>
-                                </div>
+                                <Card
+                                    key={service_index}
+                                    sx={{
+                                        flex: '1 1 100%', // Занимает всю ширину контейнера
+                                        mb: 2,
+                                        display: 'flex',
+                                        flexDirection: { xs: 'column', sm: 'row' },
+                                    }}
+                                >
+                                    <CardMedia
+                                        component="img"
+                                        image={loadImage(service.img)}
+                                        alt={service.name}
+                                        sx={{
+                                            width: { xs: '100%', sm: '50%' },
+                                            height: { xs: 'auto', sm: '100%' },
+                                        }}
+                                    />
+                                    <CardContent
+                                        sx={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            justifyContent: 'space-evenly',
+                                            textAlign: { xs: 'center', sm: 'center' },
+                                            width: { xs: 'auto', sm: '100%' }
+                                        }}>
+                                        <Box>
+                                            <h2>{service.name}</h2>
+                                            <p>{service.info}</p>
+                                        </Box>
+                                        <Box>
+                                            <Button 
+                                                style={{width: '50%'}}
+                                                variant="contained" onClick={() => handleOpen(service)}>
+                                                Подробнее
+                                            </Button>
+                                        </Box>
+                                    </CardContent>
+                                </Card>
                             ))}
-                        </div>
+                        </Box>
                     </div>
                 ))}
             </Container>
