@@ -2,14 +2,4 @@
 
 .app {
   max-width: 100%;
-  /* padding: 10px; */
-}
-
-.products {
-  height: 800px;
-  background-color: lightgray;
-}
-
-.products section {
-  margin-bottom: 20px;
 }

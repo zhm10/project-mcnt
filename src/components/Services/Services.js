@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Button, Container, Box } from '@mui/material';
 import ServicesMenu from '../ServicesMenu/ServicesMenu';
 import './Services.css';
 import detailingServices from "../../data/services.json";
@@ -32,9 +31,9 @@ function Services() {
     };
 
     return (
-        <div className='services-wrapper'>
+        <Box className='services-wrapper'>
             <ServicesMenu />
-            <div className='services'>
+            <Container className='services' maxWidth='xl' style={{margin: '50px 0 0 0'}}>
                 {detailingServices.map((category, category_index) => (
                     <div
                         key={category_index}
@@ -59,7 +58,7 @@ function Services() {
                         </div>
                     </div>
                 ))}
-            </div>
+            </Container>
 
             {selectedService && (
                 <ModalWindow
@@ -67,16 +66,9 @@ function Services() {
                     handleClose={handleClose}
                     title={selectedService.name}
                     content={selectedService.info}
-                    actions={
-                        <>
-                            <IconButton onClick={handleClose}>
-                                <CloseIcon />
-                            </IconButton>
-                        </>
-                    }
                 />
             )}
-        </div>
+        </Box>
     );
 }
 

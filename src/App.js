@@ -4,6 +4,8 @@ import './App.css';
 import Header from './components/Header/Header';
 import Stories from './components/Stories/Stories';
 import Services from './components/Services/Services';
+import MapsTabs from './components/Maps/MapsTabs';
+import Footer from './components/Footer/Footer'
 
 function App() {
   return (
@@ -12,9 +14,8 @@ function App() {
           <Header />
           <Stories />
           <Services />
-          <div className="products">
-            <span>Что-то еще будет</span>
-          </div>
+          <MapsTabs/>
+          <Footer/>
         </div>
     </Router>
   );

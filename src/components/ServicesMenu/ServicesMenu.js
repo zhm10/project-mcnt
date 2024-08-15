@@ -14,6 +14,47 @@ const ServicesMenu = () => {
     const [activeId, setActiveId] = useState(null)
     const sectionRefs = useRef({});
 
+    
+
+    useEffect(() => {
+        const initIntersectionObserver = () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: `-100px 0px -${window.innerHeight - 101}px 0px`,
+                threshold: [0],
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    const id = entry.target.getAttribute('id');
+                    if (entry.isIntersecting) {
+                        setActiveId(id);
+                        window.history.replaceState(null, null, `/${id}`);
+                    } else if (id === menuData[0].id && !entry.isIntersecting) {
+                        window.history.replaceState(null, null, "/");
+                    }
+                });
+            }, observerOptions);
+
+            menuData.forEach((service, index) => {
+                const element = document.getElementById(`${service.id}`);
+                if (element) {
+                    observer.observe(element);
+                    sectionRefs.current[index] = element;
+                }
+            });
+
+            return observer;
+        };
+
+        const observer = initIntersectionObserver();
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []); // Запустится только один раз при монтировании компонента
+
+    // Логика для прокрутки страницы
     useEffect(() => {
         const handleScroll = () => {
             const block = wrapperMenuRef.current;
@@ -45,62 +86,12 @@ const ServicesMenu = () => {
             window.removeEventListener('scroll', handleScroll);
         };
 
-        const initIntersectionObserver = () => {
-            // function isMobileDevice() {
-            //     return /Mobi|Android/i.test(navigator.userAgent);
-            // }
-
-            // Настройки обсервера для мобильных устройств
-            const observerOptions = {
-                root: null,
-                rootMargin: `-100px 0px -${window.innerHeight - 101}px 0px`,
-                threshold: [0],
-            };
-
-            // Настройки обсервера для ПК и планшетов
-            // const desktopTabletObserverOptions = {
-            //     root: null,
-            //     rootMargin: '0px 0px -100% 0px',
-            //     threshold: [0, 1],
-            // };
-
-            // const observerOptions = isMobileDevice() ? mobileObserverOptions : desktopTabletObserverOptions;
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    const id = entry.target.getAttribute('id');
-
-                    if (entry.isIntersecting) {
-                        // setActiveIndex(Number(index));
-                        setActiveId(id)
-                        window.history.replaceState(null, null, `/${id}`);
-                        // scrollToSlide(index);
-                    } else if (id === menuData[0].id && !entry.isIntersecting) {
-                        // Если первый элемент не виден
-                        window.history.replaceState(null, null, "/");
-                    }
-                });
-            }, observerOptions);
-
-            menuData.forEach((service, index) => {
-                const element = document.getElementById(`${service.id}`);
-                if (element) {
-                    observer.observe(element);
-                    sectionRefs.current[index] = element;
-                }
-            });
-
-            return observer;
-        };
-
-        const observer = initIntersectionObserver();
         addEventListeners();
 
         return () => {
             removeEventListeners();
-            observer.disconnect();
         };
-    }, [activeId, activeIndex]);
+    }, [activeIndex]); // Запустится при монтировании и на каждый ререндер компонента с изменением activeIndex
 
     useEffect(() => {
 
@@ -146,7 +137,7 @@ const ServicesMenu = () => {
     const scrollToCategory = (id) => {
         const element = document.getElementById(`${id}`);
         if (element) {
-            const yOffset = -100; // Высота шапки
+            const yOffset = -120; // Высота шапки
             const yCoordinate = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
             // alert(yCoordinate + " " + window.pageXOffset + " " + yOffset)
             window.scrollTo({ top: yCoordinate, behavior: 'instant' });
@@ -159,7 +150,7 @@ const ServicesMenu = () => {
             <div className={`fallback ${fixed ? 'fixed' : ''}`} style={{ height: '39px' }} />
             <div
                 className={`servicesmenu ${fixed ? "fixed" : ""}`}
-                style={{ top: fixed ? `${document.querySelector(".header-wrapper .content").offsetHeight}px` : '' }}
+                style={{ top: fixed ? `${document.querySelector(".header-wrapper .content").offsetHeight}px` : '', zIndex: 10 }}
             >
                 <div className='content'>
                     <Swiper

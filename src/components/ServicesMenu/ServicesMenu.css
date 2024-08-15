@@ -13,11 +13,38 @@
 .servicesmenu {
     position: sticky;
 }
+
+
 .servicesmenu.fixed {
     position: fixed;
     width: 100%;
 }
-.servicesmenu.fixed::after {
+
+/* .servicesmenu .content::before {
+    right: -30px;
+    background: linear-gradient(270deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+    content: "";
+    position: absolute;
+    width: 141px;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    pointer-events: none;
+} */
+
+/* .servicesmenu .content::after {
+    left: -30px;
+    background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+    content: "";
+    position: absolute;
+    width: 141px;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    pointer-events: none;
+} */
+
+.servicesmenu::after {
     content: "";
     position: absolute;
     height: 1px;
@@ -41,10 +68,12 @@
 
 .servicesmenu>.content .item {
     width: fit-content;
-    margin: 10px 20px;
+    margin: 0 10px;
+    padding: 10px 0;
 }
 
 .servicesmenu>.content .item a {
+    /* font-size: 17px; */
     color: #a2a0a2;
     cursor: pointer;
     text-decoration: none;

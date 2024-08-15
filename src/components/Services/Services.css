@@ -6,7 +6,7 @@
 
 .services .service-category {
     height: fit-content;
-    margin: 20px;
+    /* margin: 20px; */
 }
 
 .services .service-category>.content {
@@ -31,15 +31,15 @@
 /* Медиа-запрос для мобильных телефонов */
 @media only screen and (max-width: 480px) {
     .services .service-category .content .service {
-        width: calc(100% - 10px);
-        margin-right: 20px;
+        width: calc(100%);
+        /* margin-right: 20px; */
     }
 
     .services .service-category .content .service:nth-child(even) {
         margin-right: 0;
     }
     .services .service-category .content .service:nth-child(odd) {
-        margin-right: 20px;
+        /* margin-right: 20px; */
     }
 }
 
