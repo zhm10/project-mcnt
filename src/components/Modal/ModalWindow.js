@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Modal, Box, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 
+// Стиль для модального окна
 const style = {
     position: 'fixed',
-    bottom: "-300px",
+    bottom: 0,
     left: 0,
     right: 0,
     bgcolor: 'background.paper',
@@ -14,53 +15,99 @@ const style = {
     borderTopRightRadius: '16px',
     margin: "0 10px",
     p: 4,
-    paddingBottom: "300px",
     zIndex: 10,
     height: '80%',
 };
 
 const AnimatedBox = animated(Box);
 
+// Определяем, является ли устройство мобильным
+const isMobileDevice = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
+};
+
 const ModalWindow = ({ open, handleClose, title, content }) => {
     const [isModalOpen, setIsModalOpen] = useState(open);
+    const isMobile = isMobileDevice();
 
-    const [{ y, opacity }, api] = useSpring(() => ({
+    // Анимационные параметры для открытия/закрытия
+    const [{ y }, api] = useSpring(() => ({
         y: 1000,
-        opacity: 0,
-        config: { duration: 300 },
+        config: { tension: 300, friction: 30 },
     }));
 
+    // Обработка открытия и закрытия модального окна
     useEffect(() => {
         if (open) {
             setIsModalOpen(true);
-            api.start({ y: 0, opacity: 1 });
+            api.start({ y: 0 });
+            // document.body.style.overflow = 'hidden';  // Отключаем прокрутку
         } else {
-            api.start({ y: 1000, opacity: 0 }).then(() => {
+            api.start({ y: 1000 }).then(() => {
                 setIsModalOpen(false);
+                // document.body.style.overflow = 'scroll';  // Включаем прокрутку
             });
         }
     }, [open, api]);
 
+    // Функция для закрытия модального окна
+    const handleModalClose = useCallback(() => {
+        api.start({ y: 1000 });
+        setTimeout(() => {
+            handleClose();
+            // document.body.style.overflow = 'scroll';  // Включаем прокрутку
+        }, 300); // Ожидание завершения анимации
+    }, [api, handleClose]);
+
+    // Мобильный способ обработки касания
+    const startY = useRef(0);
+    const currentY = useRef(0);
+
+    const handleTouchStart = (e) => {
+        startY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e) => {
+        currentY.current = e.touches[0].clientY;
+        const deltaY = currentY.current - startY.current;
+
+        if (deltaY > 0) {  // Движение вниз
+            api.start({ y: deltaY, immediate: true });
+        }
+    };
+
+    const handleTouchEnd = () => {
+        const deltaY = currentY.current - startY.current;
+
+        if (deltaY > 200) {  // Закрытие, если движение вниз больше 100px
+            document.body.style.overflow = 'scroll';  // Включаем прокрутку
+            handleModalClose();
+        } else {
+            api.start({ y: 0 });  // Возврат на место, если меньше 100px
+        }
+    };
+
+    // Настройка для десктопа через useDrag
     const bind = useDrag(
-        ({ down, movement: [, my], memo = y.get() }) => {
-            if (!down && my > 100) {
-                document.body.style.overflow = 'scroll';
+        ({ movement: [, my], memo = y.get(), last, cancel }) => {
+            if (my > 300) { // Закрытие при движении вниз на 300px
+                cancel();
                 handleModalClose();
+            } else if (last) {
+                api.start({ y: 0 }); // Возврат на место
             } else {
-                document.body.style.overflow = 'hidden';
-                api.start({ y: down ? Math.max(memo + my, 0) : 0, immediate: down });
+                api.start({ y: memo + my, immediate: true }); // Перетаскивание
             }
             return memo;
         },
-        { axis: 'y' }
+        {
+            from: () => [0, y.get()],
+            axis: 'y',
+            bounds: { top: 0 },
+            rubberband: true,
+            preventScroll: true,
+        }
     );
-
-    const handleModalClose = useCallback(() => {
-        api.start({ y: 1000, opacity: 0 });
-        setTimeout(() => {
-            handleClose();
-        }, 100); // Убедитесь, что это соответствует длительности анимации
-    }, [api, handleClose]);
 
     return (
         <Modal
@@ -70,12 +117,19 @@ const ModalWindow = ({ open, handleClose, title, content }) => {
             aria-describedby="modal-modal-description"
             closeAfterTransition
             disableAutoFocus
-            style={{zIndex: 10010}}
+            style={{ zIndex: 10010 }}
         >
             <AnimatedBox
                 sx={style}
-                style={{ y, opacity }}
-                {...bind()}
+                style={{ y }}
+                {...(isMobile
+                    ? {
+                        onTouchStart: handleTouchStart,
+                        onTouchMove: handleTouchMove,
+                        onTouchEnd: handleTouchEnd,
+                        touchAction: 'none', // Отключаем нативную прокрутку для мобильных
+                    }
+                    : bind())} // Универсальная обработка для десктопов через useDrag
             >
                 <Box mt={3} style={{ position: "absolute", top: "10px", right: "10px", margin: 0 }}>
                     <IconButton onClick={handleModalClose}>
