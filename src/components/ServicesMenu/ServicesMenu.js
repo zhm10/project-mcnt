@@ -9,145 +9,104 @@ import menuData from "../../data/services.json";
 
 const ServicesMenu = () => {
     const [fixed, setFixed] = useState(false);
-    const wrapperMenuRef = useRef(null);
-    const swiperRef = useRef(null);
     const [activeIndex, setActiveIndex] = useState(null);
-    const [activeId, setActiveId] = useState(null)
+    const [activeId, setActiveId] = useState(null);
+    const swiperRef = useRef(null);
     const sectionRefs = useRef({});
-
-    
+    const wrapperMenuRef = useRef(null);
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     useEffect(() => {
-        const initIntersectionObserver = () => {
-            const observerOptions = {
-                root: null,
-                rootMargin: `-100px 0px -${window.innerHeight - 101}px 0px`,
-                threshold: [0],
-            };
+        // Initialize Intersection Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: `-120px 0px -${window.innerHeight - 100}px 0px`,
+            threshold: [0],
+        };
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    const id = entry.target.getAttribute('id');
-                    if (entry.isIntersecting) {
-                        setActiveId(id);
-                        window.history.replaceState(null, null, `/${id}`);
-                    } else if (id === menuData[0].id && !entry.isIntersecting) {
-                        window.history.replaceState(null, null, "/");
-                    }
-                });
-            }, observerOptions);
-
-            menuData.forEach((service, index) => {
-                const element = document.getElementById(`${service.id}`);
-                if (element) {
-                    observer.observe(element);
-                    sectionRefs.current[index] = element;
+        const observer = new IntersectionObserver((entries) => {
+            let found = false;
+            entries.forEach((entry) => {
+                const id = entry.target.getAttribute('id');
+                if (entry.isIntersecting) {
+                    setActiveId(id);
+                    setActiveIndex(menuData.findIndex(item => item.id === id));
+                    window.history.replaceState(null, null, `/${id}`);
+                    found = true;
                 }
             });
 
-            return observer;
-        };
+            if (!found && activeId !== null) {
+                // Reset URL to default if no category is in view
+                setActiveId(null);
+                setActiveIndex(null);
+                window.history.replaceState(null, null, '/');
+            }
+        }, observerOptions);
 
-        const observer = initIntersectionObserver();
+        menuData.forEach((service) => {
+            const element = document.getElementById(service.id);
+            if (element) {
+                observer.observe(element);
+                sectionRefs.current[service.id] = element;
+            }
+        });
 
-        return () => {
-            observer.disconnect();
-        };
-    }, []); // Запустится только один раз при монтировании компонента
+        return () => observer.disconnect();
+    }, [activeId]);
 
-    // Логика для прокрутки страницы
     useEffect(() => {
         const handleScroll = () => {
-            const block = wrapperMenuRef.current;
-            const blockTop = block.getBoundingClientRect().top;
-            const firstBlockHeight = document.querySelector(".header-wrapper .content").offsetHeight;
+            const blockTop = wrapperMenuRef.current.getBoundingClientRect().top;
+            const headerHeight = document.querySelector(".header-wrapper .content").offsetHeight;
 
-            setFixed(blockTop < firstBlockHeight);
+            setFixed(blockTop < headerHeight);
 
-            let currentSection = null;
-            Object.keys(sectionRefs.current).forEach(key => {
+            const currentSection = Object.keys(sectionRefs.current).find(key => {
                 const section = sectionRefs.current[key];
                 const rect = section.getBoundingClientRect();
-                if (rect.top <= 120 && rect.bottom >= 120) {
-                    currentSection = key;
-                }
+                return rect.top <= 120 && rect.bottom >= 120;
             });
 
-            if (currentSection !== null && Number(currentSection) !== activeIndex) {
-                setActiveIndex(Number(currentSection));
-                scrollToSlide(Number(currentSection));
+            if (currentSection && activeIndex !== menuData.findIndex(item => item.id === currentSection)) {
+                setActiveIndex(menuData.findIndex(item => item.id === currentSection));
+                scrollToSlide(menuData.findIndex(item => item.id === currentSection));
             }
         };
 
-        const addEventListeners = () => {
-            window.addEventListener('scroll', handleScroll);
-        };
-
-        const removeEventListeners = () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-
-        addEventListeners();
-
-        return () => {
-            removeEventListeners();
-        };
-    }, [activeIndex]); // Запустится при монтировании и на каждый ререндер компонента с изменением activeIndex
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [activeIndex]);
 
     useEffect(() => {
-
-        const handleLoad = () => {
-            let pathname = window.location.pathname;
-            if (pathname !== '/') {
-                pathname = pathname.slice(1);
-                const element = document.getElementById(pathname);
-                if (element) {
-                    setTimeout(() => {
-                        scrollToCategory(pathname);
-                    }, 100); // Задержка, чтобы элементы успели прорендериться
-                }
+        const pathname = window.location.pathname.slice(1);
+        if (pathname && menuData.find(item => item.id === pathname)) {
+            const element = document.getElementById(pathname);
+            if (element) {
+                setTimeout(() => scrollToCategory(pathname), 100);
             }
-        };
-
-        if (document.readyState === 'complete') {
-            handleLoad();
-        } else {
-            window.addEventListener('load', handleLoad);
-            document.addEventListener('DOMContentLoaded', handleLoad);
         }
-
-
-        return () => {
-            window.removeEventListener('load', handleLoad);
-            document.removeEventListener('DOMContentLoaded', handleLoad);
-        };
-    }, [])
+    }, []);
 
     const scrollToSlide = (index) => {
-        if (swiperRef.current && swiperRef.current.swiper) {
-            swiperRef.current.swiper.slideTo(index, 1000, false);
-        }
+        swiperRef.current?.swiper?.slideTo(index, 1000, false);
     };
 
     const handleClick = (id, index) => {
-        setActiveIndex(Number(index));
+        setActiveIndex(index);
         scrollToSlide(index);
-        scrollToCategory(id)
+        scrollToCategory(id);
     };
 
     const scrollToCategory = (id) => {
-        const element = document.getElementById(`${id}`);
+        const element = document.getElementById(id);
         if (element) {
-            const yOffset = isMobile ? -100 : -80; // Высота шапки
+            const yOffset = isMobile ? -100 : -80;
             const yCoordinate = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            // alert(yCoordinate + " " + window.pageXOffset + " " + yOffset)
             window.scrollTo({ top: yCoordinate, behavior: 'instant' });
             window.history.pushState(null, null, `/${id}`);
         }
-    }
-
-    // Определяем, является ли текущий экран мобильным
-    const isMobile = useMediaQuery('(max-width:600px)');
+    };
 
     return (
         <div className='servicesmenu-wrapper' ref={wrapperMenuRef}>
@@ -165,16 +124,14 @@ const ServicesMenu = () => {
                         centeredSlidesBounds={true}
                         ref={swiperRef}
                     >
-                        {menuData.map((service, service_index) => (
+                        {menuData.map((service, index) => (
                             <SwiperSlide className={`item`} key={service.id}>
                                 <a
-                                    key={service.id}
                                     href={`/${service.id}`}
-                                    className={`${Number(activeIndex) === service_index ? 'active-service' : ''}`}
-                                    data-index={service_index}
+                                    className={`${activeIndex === index ? 'active-service' : ''}`}
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        handleClick(service.id, service_index);
+                                        handleClick(service.id, index);
                                     }}
                                 >
                                     {service.name}

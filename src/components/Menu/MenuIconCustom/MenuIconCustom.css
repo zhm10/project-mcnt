@@ -1,0 +1,29 @@
+/* MenuIconCustom.css */
+.menu-icon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 15px;
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .menu-icon-bar {
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .menu-icon-container.open .menu-icon-bar:first-child {
+    transform: rotate(45deg);
+    transform-origin: 10% 0%;
+  }
+  
+  .menu-icon-container.open .menu-icon-bar:last-child {
+    transform: rotate(-45deg);
+    transform-origin: 10% 100%;
+  }
+  

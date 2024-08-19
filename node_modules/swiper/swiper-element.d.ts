@@ -42,21 +42,6 @@ interface SwiperContainerEventMap extends Omit<HTMLElementEventMap, 'click' | 'p
    * Event will be fired on mousewheel scroll
    */
   scroll: CustomEvent<[swiper: Swiper, event: WheelEvent]>;/**
-   * Event will be fired on navigation hide
-   */
-  navigationhide: CustomEvent<[swiper: Swiper]>;
-  /**
-   * Event will be fired on navigation show
-   */
-  navigationshow: CustomEvent<[swiper: Swiper]>;
-  /**
-   * Event will be fired on navigation prev button click
-   */
-  navigationprev: CustomEvent<[swiper: Swiper]>;
-  /**
-   * Event will be fired on navigation next button click
-   */
-  navigationnext: CustomEvent<[swiper: Swiper]>;/**
    * Event will be fired after pagination rendered
    */
   paginationrender: CustomEvent<[swiper: Swiper, paginationEl: HTMLElement]>;
@@ -75,6 +60,21 @@ interface SwiperContainerEventMap extends Omit<HTMLElementEventMap, 'click' | 'p
    * Event will be fired on pagination show
    */
   paginationshow: CustomEvent<[swiper: Swiper]>;/**
+   * Event will be fired on navigation hide
+   */
+  navigationhide: CustomEvent<[swiper: Swiper]>;
+  /**
+   * Event will be fired on navigation show
+   */
+  navigationshow: CustomEvent<[swiper: Swiper]>;
+  /**
+   * Event will be fired on navigation prev button click
+   */
+  navigationprev: CustomEvent<[swiper: Swiper]>;
+  /**
+   * Event will be fired on navigation next button click
+   */
+  navigationnext: CustomEvent<[swiper: Swiper]>;/**
    * Event will be fired on draggable scrollbar drag start
    */
   scrollbardragstart: CustomEvent<[swiper: Swiper, event: MouseEvent | TouchEvent | PointerEvent]>;

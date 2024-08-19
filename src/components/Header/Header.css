@@ -1,5 +1,17 @@
 /* Header.css */
 
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f0f0f0;
+  padding: 10px;
+}
+
+.header-wrapper .content img {
+  height: 50px;
+}
+
 .header-wrapper .content {
   display: flex;
   position: fixed;
@@ -7,6 +19,7 @@
   align-items: center;
   background-color: black;
   top: 0px;
+  left: 0px;
   z-index: 10000;
 }
 
@@ -20,4 +33,3 @@
   width: auto;
   height: 100%;
 }
-  

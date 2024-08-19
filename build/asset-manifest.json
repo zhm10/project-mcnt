@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d3c76d6e.css",
+    "main.js": "/static/js/main.b925c800.js",
+    "static/media/mem.mp4": "/static/media/mem.df526ff2b805c6945f08.mp4",
+    "static/media/Car1.jpeg": "/static/media/Car1.f78ae8db60e6c6776ffa.jpeg",
+    "static/media/Car3.jpeg": "/static/media/Car3.f650fb6b6d6a0282b35c.jpeg",
+    "static/media/Car4.jpeg": "/static/media/Car4.ebe9cab0eb576625ba18.jpeg",
+    "static/media/Car2.jpeg": "/static/media/Car2.66de38152799e12f4ffe.jpeg",
+    "static/media/EverGlass.jpeg": "/static/media/EverGlass.4d6b4c2872d999dc4de2.jpeg",
+    "static/media/Чистота в салоне.jpg": "/static/media/Чистота в салоне.11fda8542d16509f9b86.jpg",
+    "static/media/Оклейка пленкой.jpg": "/static/media/Оклейка пленкой.c6287a21ba822fb70126.jpg",
+    "static/media/HeaderLogo.jpeg?url": "/static/media/HeaderLogo.9a5e2019bcc96732c93e.jpeg",
+    "static/media/Продать авто дороже и быстрее.jpg": "/static/media/Продать авто дороже и быстрее.6f82a1a2a42020ed0bc4.jpg",
+    "static/media/Локальная полировка.jpg": "/static/media/Локальная полировка.55bef9f9d6b0e8d586cb.jpg",
+    "static/media/Металлизированные пленки.jpg": "/static/media/Металлизированные пленки.7ec306d61bb8d5fa50f4.jpg",
+    "static/media/Сколы и трещины.jpg": "/static/media/Сколы и трещины.f0ce5273e20924c74315.jpg",
+    "static/media/Технология PDR.jpg": "/static/media/Технология PDR.4875871cdcb83787988f.jpg",
+    "static/media/Восстановление блеска.jpeg": "/static/media/Восстановление блеска.d05c4a2c03becbda7510.jpeg",
+    "static/media/ехнология Colourlock.jpg": "/static/media/ехнология Colourlock.3aaf66d4227e5f1fedc4.jpg",
+    "static/media/Dr.ColorChip.jpg": "/static/media/Dr.ColorChip.9ee2d7a7382afa337950.jpg",
+    "index.html": "/index.html",
+    "main.d3c76d6e.css.map": "/static/css/main.d3c76d6e.css.map",
+    "main.b925c800.js.map": "/static/js/main.b925c800.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d3c76d6e.css",
+    "static/js/main.b925c800.js"
+  ]
+}

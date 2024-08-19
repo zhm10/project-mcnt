@@ -10,12 +10,14 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@react-spring/web": "^9.7.3",
     "@use-gesture/react": "^10.3.1",
+    "@vkontakte/icons": "^2.134.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-insta-stories": "^2.6.2",
+    "react-insta-stories": "^2.7.0",
     "react-router-dom": "^6.23.1",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "5.0.1",
+    "react-swipeable": "^7.0.1",
     "styled-components": "^6.1.12",
     "swiper": "^11.1.4",
     "web-vitals": "^4.2.2"
@@ -46,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "express": "^4.19.2",
     "webpack": "^5.91.0",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^5.1.4"

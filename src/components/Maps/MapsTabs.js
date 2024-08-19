@@ -27,7 +27,14 @@ const MapTabs = () => {
           {
           /* Здесь будет отображаться Яндекс карта */
           // eslint-disable-next-line jsx-a11y/iframe-has-title
-          <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ac2d85a94a1c6419463c5f7162ce4798434c9f93e64d3b379b3c4a4a318f46c4b&amp;source=constructor" width="100%" height="500" frameborder="0"></iframe>
+          <iframe
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3Ac2d85a94a1c6419463c5f7162ce4798434c9f93e64d3b379b3c4a4a318f46c4b&amp;source=constructor" 
+            style={{
+              border: 'none',
+              width: '100%',
+              height: '500px'
+            }}
+          ></iframe>
           }
         </div>}
         {value === 1 && <div id="two-gis-map">

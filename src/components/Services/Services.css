@@ -15,15 +15,6 @@
     flex-wrap: wrap;
 }
 
-.services .service-category .service {
-    height: auto;
-    overflow: hidden;
-    margin-right: 20px;
-    margin-top: 20px;
-    background: #f0f0f0;
-    /* width: calc(33.3% - 20px); */
-}
-
 .services .service-category .content .service:last-child {
     margin-right: 0;
 }
@@ -41,18 +32,4 @@
 
 /* Медиа-запрос для устройств с разрешением Full HD и выше */
 @media only screen and (min-width: 1025px) and (max-width: 1920px) {
-    .services .service-category .service {
-        /* width: calc(25% - 20px); */
-        /* width: calc(50% - 20px); */
-    }
-}
-
-.services .service .content {
-    padding: 10px;
-    text-align: center;
-}
-
-.services .service img {
-    max-width: 100%;
-    height: auto;
 }

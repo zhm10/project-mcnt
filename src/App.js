@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
+// import Stories from './components/StoriesNew/Stories';
 import Stories from './components/Stories/Stories';
 import Services from './components/Services/Services';
 import MapsTabs from './components/Maps/MapsTabs';

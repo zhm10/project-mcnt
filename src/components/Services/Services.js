@@ -85,7 +85,13 @@ function Services() {
                                         </Box>
                                         <Box>
                                             <Button 
-                                                style={{width: '50%'}}
+                                            className='moreDetailed'
+                                                style={{
+                                                    width: '50%',
+                                                    backgroundColor: '#ffc027',
+                                                    color: 'black',
+                                                    fontWeight: 'bold'
+                                                }}
                                                 variant="contained" onClick={() => handleOpen(service)}>
                                                 Подробнее
                                             </Button>
@@ -102,6 +108,7 @@ function Services() {
                 <ModalWindow
                     open={open}
                     handleClose={handleClose}
+                    id={selectedService.id}
                     title={selectedService.name}
                     content={selectedService.info}
                 />

@@ -1,0 +1,24 @@
+/* Menu.css */
+.menu-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Ширина меню */
+  height: 100vh; /* Высота меню на весь экран */
+  background-color: #fff; /* Цвет фона меню */
+  transform: translateX(100%); /* По умолчанию скрыто */
+  transition: transform 0.3s ease; /* Плавный переход */
+  z-index: 1000; /* Чтобы меню было поверх других элементов */
+}
+
+.menu-container.open {
+  transform: translateY(70px); /* При открытом состоянии меню видно */
+}
+
+.menu-container.closed {
+  transform: translateY(-100%); /* При закрытом состоянии меню скрыто */
+}
+
+.menu-content {
+  padding: 20px;
+}

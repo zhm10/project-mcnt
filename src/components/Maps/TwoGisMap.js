@@ -20,7 +20,7 @@ const TwoGisMap = ({ center, zoom }) => {
         {/* {map} */}
         <iframe
             id="map_432275640"
-            frameBorder="0"
+            style={{ border: 'none' }}
             width="100%"
             height="500px"
             sandbox="allow-modals allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation-by-user-activation"
