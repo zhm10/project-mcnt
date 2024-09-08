@@ -7,7 +7,7 @@ const context = require.context('../../assets/stories', true);
 function MCStories({
   defaultInterval = 5000,
   width = '100%',
-  height = '70vh',
+  height = '80vh',
   loop = true
 }) {
   const [stories, setStories] = useState([]);

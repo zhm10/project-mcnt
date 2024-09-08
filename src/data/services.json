@@ -5,29 +5,22 @@
         "services": [
             {
                 "id": "udalenie-vmyatin-bez-pokraski/tehnologiya-pdr",
-                "name": "Технология PDR",
-                "info": "Кузовной ремонт автомобиля без покраски. Сертифицированные специалисты",
-                "description": "",
-                "priceList": [
-                    {
-                        "name": "test",
-                        "price": "1000"
-                    }
-                ],
+                "name": "Технология Paintless Dent Repair (PDR)",
+                "info": "Сертифицированные специалисты компании MASTERCAR осуществляют кузовной ремонт автомобиля без покраски по немецкой технологии Paintless Dent Repair (PDR).",
+                "descriptionId": "tehnologiya-pdr",
                 "img": "Технология PDR.jpg"
             }
         ]
     },
     {
-        "id": "polirovka-kuzova-avtomobilya",
-        "name": "Полировка кузова автомобиля",
+        "id": "okleika-plenkoj",
+        "name": "Оклейка пленкой",
         "services": [
             {
-                "id": "polirovka-kuzova-avtomobilya/vosstanovlenie-bleska",
-                "name": "Восстановление блеска",
-                "info": "Восстановительная абразивная полировка ЛКП",
-                "description": "",
-                "price": 50,
+                "id": "okleika-plenkoj/poliuretanovaya-plenka",
+                "name": "Полиуретановая пленка",
+                "info": "Хотите чтобы автомобиль выглядел всегда как новый? Защитите кузов антигравийной полиуретановой пленкой и Вы навсегда забудете что такое сколы от камней, пескоструй и царапины.",
+                "descriptionId": "poliuretanovaya-plenka",
                 "img": "Восстановление блеска.jpeg"
             }
         ]

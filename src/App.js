@@ -7,6 +7,7 @@ import Stories from './components/Stories/Stories';
 import Services from './components/Services/Services';
 import MapsTabs from './components/Maps/MapsTabs';
 import Footer from './components/Footer/Footer'
+import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Services />
           <MapsTabs/>
           <Footer/>
+          <ScrollToTopButton />
         </div>
     </Router>
   );

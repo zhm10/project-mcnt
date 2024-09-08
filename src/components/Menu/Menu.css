@@ -8,7 +8,7 @@
   background-color: #fff; /* Цвет фона меню */
   transform: translateX(100%); /* По умолчанию скрыто */
   transition: transform 0.3s ease; /* Плавный переход */
-  z-index: 1000; /* Чтобы меню было поверх других элементов */
+  z-index: 1020; /* Чтобы меню было поверх других элементов */
 }
 
 .menu-container.open {

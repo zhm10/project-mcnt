@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.d3c76d6e.css",
-    "main.js": "/static/js/main.b925c800.js",
+    "main.css": "/static/css/main.2aef5323.css",
+    "main.js": "/static/js/main.faf41f62.js",
     "static/media/mem.mp4": "/static/media/mem.df526ff2b805c6945f08.mp4",
     "static/media/Car1.jpeg": "/static/media/Car1.f78ae8db60e6c6776ffa.jpeg",
     "static/media/Car3.jpeg": "/static/media/Car3.f650fb6b6d6a0282b35c.jpeg",
@@ -20,11 +20,11 @@
     "static/media/ехнология Colourlock.jpg": "/static/media/ехнология Colourlock.3aaf66d4227e5f1fedc4.jpg",
     "static/media/Dr.ColorChip.jpg": "/static/media/Dr.ColorChip.9ee2d7a7382afa337950.jpg",
     "index.html": "/index.html",
-    "main.d3c76d6e.css.map": "/static/css/main.d3c76d6e.css.map",
-    "main.b925c800.js.map": "/static/js/main.b925c800.js.map"
+    "main.2aef5323.css.map": "/static/css/main.2aef5323.css.map",
+    "main.faf41f62.js.map": "/static/js/main.faf41f62.js.map"
   },
   "entrypoints": [
-    "static/css/main.d3c76d6e.css",
-    "static/js/main.b925c800.js"
+    "static/css/main.2aef5323.css",
+    "static/js/main.faf41f62.js"
   ]
 }

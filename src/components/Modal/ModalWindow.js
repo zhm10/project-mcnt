@@ -14,9 +14,10 @@ const style = {
     borderTopLeftRadius: '16px',
     borderTopRightRadius: '16px',
     margin: "0 10px",
-    p: 4,
+    p: 2,
     zIndex: 10,
-    height: '80%',
+    height: '85%',
+    paddingTop: '10px'
 };
 
 const AnimatedBox = animated(Box);
@@ -26,8 +27,11 @@ const isMobileDevice = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
 };
 
-const ModalWindow = ({ open, handleClose, title, content }) => {
+const ModalWindow = ({ open, handleClose, title, content, image }) => {
+    // Реф для шторки захвата
+    const dragHandleRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(open);
+    const [isScrollable, setIsScrollable] = useState(false);
     const isMobile = isMobileDevice();
 
     // Анимационные параметры для открытия/закрытия
@@ -41,11 +45,9 @@ const ModalWindow = ({ open, handleClose, title, content }) => {
         if (open) {
             setIsModalOpen(true);
             api.start({ y: 0 });
-            // document.body.style.overflow = 'hidden';  // Отключаем прокрутку
         } else {
             api.start({ y: 1000 }).then(() => {
                 setIsModalOpen(false);
-                // document.body.style.overflow = 'scroll';  // Включаем прокрутку
             });
         }
     }, [open, api]);
@@ -55,7 +57,6 @@ const ModalWindow = ({ open, handleClose, title, content }) => {
         api.start({ y: 1000 });
         setTimeout(() => {
             handleClose();
-            // document.body.style.overflow = 'scroll';  // Включаем прокрутку
         }, 300); // Ожидание завершения анимации
     }, [api, handleClose]);
 
@@ -64,39 +65,48 @@ const ModalWindow = ({ open, handleClose, title, content }) => {
     const currentY = useRef(0);
 
     const handleTouchStart = (e) => {
-        startY.current = e.touches[0].clientY;
+        if (dragHandleRef.current && dragHandleRef.current.contains(e.touches[0].target)) {
+            startY.current = e.touches[0].clientY;
+        } else {
+            startY.current = null; // Запрещаем перетаскивание, если не в области захвата
+        }
     };
 
     const handleTouchMove = (e) => {
-        currentY.current = e.touches[0].clientY;
-        const deltaY = currentY.current - startY.current;
-
-        if (deltaY > 0) {  // Движение вниз
-            api.start({ y: deltaY, immediate: true });
+        if (startY.current !== null) {
+            currentY.current = e.touches[0].clientY;
+            const deltaY = currentY.current - startY.current;
+            if (deltaY > 0) {  // Движение вниз
+                api.start({ y: deltaY, immediate: true });
+            }
         }
     };
 
     const handleTouchEnd = () => {
-        const deltaY = currentY.current - startY.current;
-
-        if (deltaY > 200) {  // Закрытие, если движение вниз больше 100px
-            document.body.style.overflow = 'scroll';  // Включаем прокрутку
-            handleModalClose();
-        } else {
-            api.start({ y: 0 });  // Возврат на место, если меньше 100px
+        if (startY.current !== null) {
+            const deltaY = currentY.current - startY.current;
+            if (deltaY > 200) {  // Закрытие, если движение вниз больше 200px
+                handleModalClose();
+            } else {
+                api.start({ y: 0 });  // Возврат на место, если меньше 200px
+            }
+            startY.current = null; // Сбрасываем состояние касания
         }
     };
 
     // Настройка для десктопа через useDrag
     const bind = useDrag(
-        ({ movement: [, my], memo = y.get(), last, cancel }) => {
-            if (my > 300) { // Закрытие при движении вниз на 300px
-                cancel();
-                handleModalClose();
-            } else if (last) {
-                api.start({ y: 0 }); // Возврат на место
-            } else {
-                api.start({ y: memo + my, immediate: true }); // Перетаскивание
+        ({ movement: [, my], memo = y.get(), last, cancel, event }) => {
+            // Проверка, что перетаскивание началось в верхней части модального окна или в специальной шторке
+            if (event.target === dragHandleRef.current || dragHandleRef.current.contains(event.target)) {
+                if (my > 300) { // Закрытие при движении вниз на 300px
+                    cancel();
+                    handleModalClose();
+                } else if (last) {
+                    api.start({ y: 0 }); // Возврат на место
+                } else {
+                    api.start({ y: memo + my, immediate: true }); // Перетаскивание
+                }
             }
             return memo;
         },
@@ -108,6 +118,12 @@ const ModalWindow = ({ open, handleClose, title, content }) => {
             preventScroll: true,
         }
     );
+
+    // Обработчик для прокрутки
+    const handleScroll = (event) => {
+        const isScrollable = event.target.scrollHeight > event.target.clientHeight;
+        setIsScrollable(isScrollable);
+    };
 
     return (
         <Modal
@@ -131,19 +147,65 @@ const ModalWindow = ({ open, handleClose, title, content }) => {
                     }
                     : bind())} // Универсальная обработка для десктопов через useDrag
             >
+                {/* Шторка для захвата */}
+                <Box
+                    style={{
+                        display: 'flex',
+                        width: '100%',
+                        justifyContent: 'center',
+                        cursor: isScrollable ? 'default' : 'grab'
+                    }}
+                    ref={dragHandleRef}
+                >
+                    <Box
+                        className="close-line"
+                        style={{
+                            backgroundColor: "grey",
+                            height: '3px',
+                            margin: '10px 0 30px 0',
+                            width: '40%',
+                        }}
+                    ></Box>
+                </Box>
+
                 <Box mt={3} style={{ position: "absolute", top: "10px", right: "10px", margin: 0 }}>
                     <IconButton onClick={handleModalClose}>
                         <CloseIcon />
                     </IconButton>
                 </Box>
-                <Typography id="modal-modal-title" variant="h5" component="h2">
-                    <b>{title}</b>
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    {content}
-                </Typography>
+
+                <Box
+                    className="animated-box-content"
+                    style={{
+                        overflow: 'auto',
+                        height: '100%',
+                    }}
+                    onScroll={handleScroll} // Обработчик прокрутки
+                >
+                    <Box
+                        style={{
+                            'paddingBottom': '100px'
+                        }}
+                    >
+                        {image && (
+                            <Box
+                                component="img"
+                                src={image}
+                                alt="Modal Header"
+                                sx={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    maxHeight: '300px',
+                                    borderTopLeftRadius: '16px',
+                                    borderTopRightRadius: '16px',
+                                }}
+                            />
+                        )}
+                        <Box className='Content'>{content}</Box>
+                    </Box>
+                </Box>
             </AnimatedBox>
-        </Modal>
+        </Modal >
     );
 };
 
