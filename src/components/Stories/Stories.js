@@ -65,6 +65,9 @@ function MCStories({
           height={height}
           loop={loop}
           preloadCount={stories.length}
+          style={{
+            background: 'black'
+          }}
         />
       ) : (
         <div>Загрузка...</div>

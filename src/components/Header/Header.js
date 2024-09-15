@@ -17,6 +17,14 @@ function Header() {
     setMenuOpen(false);
   };
 
+  // Функция для скролла к верху
+  const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'instant',
+    });
+};
+
   return (
     <div className="header-wrapper">
       <Container
@@ -39,7 +47,7 @@ function Header() {
             open={menuOpen}
           />
         </IconButton>
-        <img src={headerLogo} alt="Header Logo" />
+        <img onClick={scrollToTop} src={headerLogo} alt="Header Logo" />
       </Container >
 
       <Menu open={menuOpen} onClose={handleCloseMenu} />

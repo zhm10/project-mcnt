@@ -163,7 +163,7 @@ const ModalWindow = ({ open, handleClose, title, content, image }) => {
                             backgroundColor: "grey",
                             height: '3px',
                             margin: '10px 0 30px 0',
-                            width: '40%',
+                            width: '30%',
                         }}
                     ></Box>
                 </Box>

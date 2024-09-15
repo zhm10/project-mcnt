@@ -8,6 +8,7 @@ import Services from './components/Services/Services';
 import MapsTabs from './components/Maps/MapsTabs';
 import Footer from './components/Footer/Footer'
 import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton';
+import ContactInfo from './components/ContactInfo/ContactInfo';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Header />
           <Stories />
           <Services />
+          <ContactInfo/>
           <MapsTabs/>
           <Footer/>
           <ScrollToTopButton />
