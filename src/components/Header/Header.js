@@ -20,13 +20,17 @@ function Header() {
   // Функция для скролла к верху
   const scrollToTop = () => {
     window.scrollTo({
-        top: 0,
-        behavior: 'instant',
+      top: 0,
+      behavior: 'instant',
     });
-};
+  };
 
   return (
-    <div className="header-wrapper">
+    <div className="header-wrapper"
+      style={{
+        marginTop: '50px'
+      }}
+    >
       <Container
         className="content"
         maxWidth={false}

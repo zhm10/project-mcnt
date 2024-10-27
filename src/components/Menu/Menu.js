@@ -3,6 +3,7 @@ import { IconButton, List, ListItem, ListItemText, Divider, Box } from '@mui/mat
 import { Instagram, Telegram } from '@mui/icons-material';
 import { Icon24LogoVk } from '@vkontakte/icons';
 import { useSwipeable } from 'react-swipeable';
+import { Link } from 'react-router-dom'; // Импортируем Link
 import './Menu.css';
 
 function Menu({ open, onClose }) {
@@ -44,11 +45,11 @@ function Menu({ open, onClose }) {
     >
       <div className="menu-content">
         <List>
-          <ListItem button onClick={handleClose}>
+          <ListItem button component={Link} to="/" onClick={handleClose}>
             <ListItemText primary="Главная" />
           </ListItem>
           <Divider />
-          <ListItem button onClick={handleClose}>
+          <ListItem button component={Link} to="/about" onClick={handleClose}>
             <ListItemText primary="О нас" />
           </ListItem>
           <Divider />
@@ -65,9 +66,7 @@ function Menu({ open, onClose }) {
               secondary={<a href="tel:+79004444444">+7 (900) 444-44-44</a>}
             />
           </ListItem>
-
           <Divider />
-
           {/* Социальные сети */}
           <ListItem>
             <IconButton href="https://instagram.com" color="inherit">
@@ -83,10 +82,10 @@ function Menu({ open, onClose }) {
         </List>
         <Box
           style={{
-            paddingLeft: '16px'
+            paddingLeft: '16px',
           }}
         >
-          *<b>Instagram</b> принадлежит компании   Meta, признанной экстремистской организацией и запрещенной в РФ
+          *<b>Instagram</b> принадлежит компании Meta, признанной экстремистской организацией и запрещенной в РФ
         </Box>
       </div>
     </div>

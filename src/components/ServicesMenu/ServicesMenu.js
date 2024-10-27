@@ -7,37 +7,47 @@ import 'swiper/css/free-mode';
 import { FreeMode } from 'swiper/modules';
 import menuData from "../../data/services.json";
 
-const ServicesMenu = () => {
+const ServicesMenu = (openModalWindow) => {
     const [fixed, setFixed] = useState(false);
     const [activeIndex, setActiveIndex] = useState(null);
     const [activeId, setActiveId] = useState(null);
+    // const [currentIndex, setCurrentIndex] = useState(null);
+    const [isScrollingByClick, setIsScrollingByClick] = useState(false);
+    const [currentId, setCurrentId] = useState(null);
     const swiperRef = useRef(null);
     const sectionRefs = useRef({});
     const wrapperMenuRef = useRef(null);
     const isMobile = useMediaQuery('(max-width:600px)');
 
     useEffect(() => {
-        // Initialize Intersection Observer
         const observerOptions = {
             root: null,
             rootMargin: `-120px 0px -${window.innerHeight - 100}px 0px`,
             threshold: [0],
         };
 
+        // Ищет совпадение на видимой области страницы категории которая таргетная сейчас
         const observer = new IntersectionObserver((entries) => {
             let found = false;
+            // console.log(isScrollingByClick, currentId, activeId);
+            
             entries.forEach((entry) => {
                 const id = entry.target.getAttribute('id');
-                if (entry.isIntersecting) {
+                
+                if (isScrollingByClick && currentId !== id) {
+                    setActiveId(currentId);
+                    setActiveIndex(menuData.findIndex(item => item.id === currentId));
+                    window.history.replaceState(null, null, `/#${currentId}`);
+                    found = true;
+                } else if (entry.isIntersecting) {
                     setActiveId(id);
                     setActiveIndex(menuData.findIndex(item => item.id === id));
-                    window.history.replaceState(null, null, `/${id}`);
+                    window.history.replaceState(null, null, `/#${id}`);
                     found = true;
                 }
             });
 
             if (!found && activeId !== null) {
-                // Reset URL to default if no category is in view
                 setActiveId(null);
                 setActiveIndex(null);
                 window.history.replaceState(null, null, '/');
@@ -53,9 +63,10 @@ const ServicesMenu = () => {
         });
 
         return () => observer.disconnect();
-    }, [activeId]);
+    }, [activeId, currentId, isScrollingByClick])
 
     useEffect(() => {
+        // Срабатывает при скроле страницы
         const handleScroll = () => {
             const blockTop = wrapperMenuRef.current.getBoundingClientRect().top;
             const headerHeight = document.querySelector(".header-wrapper .content").offsetHeight;
@@ -68,7 +79,7 @@ const ServicesMenu = () => {
                 return rect.top <= 120 && rect.bottom >= 120;
             });
 
-            if (currentSection && activeIndex !== menuData.findIndex(item => item.id === currentSection)) {
+            if (!isScrollingByClick && currentSection && activeIndex !== menuData.findIndex(item => item.id === currentSection)) {
                 setActiveIndex(menuData.findIndex(item => item.id === currentSection));
                 scrollToSlide(menuData.findIndex(item => item.id === currentSection));
             }
@@ -76,26 +87,47 @@ const ServicesMenu = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [activeIndex]);
+    });
 
     useEffect(() => {
-        const pathname = window.location.pathname.slice(1);
-        if (pathname && menuData.find(item => item.id === pathname)) {
-            const element = document.getElementById(pathname);
+        const hashname = window.location.hash.split('/');
+        if (hashname[0] && menuData.some(item => item.id === hashname[0])) {
+            const category = menuData.find(item => item.id === hashname[0]);
+            const element = document.getElementById(hashname[0]);
+            
             if (element) {
-                setTimeout(() => scrollToCategory(pathname), 100);
+                setIsScrollingByClick(true);
+                scrollToCategory(hashname[0]);
+                // if (hashname[1] !== undefined && hashname[1] !== "") {
+                    // const service = category[hashname[1]];
+                    // openModalWindow(category, service);
+                // }
+
+                setTimeout(() => {
+                    setIsScrollingByClick(false);
+                }, 1000);
             }
-        }
-    }, []);
+        }      
+    });
 
     const scrollToSlide = (index) => {
         swiperRef.current?.swiper?.slideTo(index, 1000, false);
     };
 
+    // Событие по горизонтальному меню категорий
     const handleClick = (id, index) => {
+        setIsScrollingByClick(true);
+
+        setCurrentId(id);
+        // setCurrentIndex(index);
+
         setActiveIndex(index);
         scrollToSlide(index);
         scrollToCategory(id);
+
+        setTimeout(() => {
+            setIsScrollingByClick(false);
+        }, 1000);
     };
 
     const scrollToCategory = (id) => {
@@ -103,8 +135,7 @@ const ServicesMenu = () => {
         if (element) {
             const yOffset = isMobile ? -100 : -80;
             const yCoordinate = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            window.scrollTo({ top: yCoordinate, behavior: 'instant' });
-            window.history.pushState(null, null, `/${id}`);
+            window.scrollTo({ top: yCoordinate, behavior: 'smooth' });
         }
     };
 
@@ -125,7 +156,7 @@ const ServicesMenu = () => {
                         ref={swiperRef}
                     >
                         {menuData.map((service, index) => (
-                            <SwiperSlide className={`item`} key={service.id}>
+                            <SwiperSlide className='item' key={service.id}>
                                 <a
                                     href={`/${service.id}`}
                                     className={`${activeIndex === index ? 'active-service' : ''}`}

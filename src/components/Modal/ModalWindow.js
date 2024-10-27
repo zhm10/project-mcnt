@@ -1,8 +1,18 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Modal, Box, Typography, IconButton } from '@mui/material';
+import { Modal, Box, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import ServiceDescription from '../Services/ServiceDescription/ServiceDescription';
+import defaultImg from "../../assets/HeaderLogo.jpeg";
+
+const context = require.context('../../assets/services', true);
 
 // Стиль для модального окна
 const style = {
@@ -27,20 +37,20 @@ const isMobileDevice = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
 };
 
-const ModalWindow = ({ open, handleClose, title, content, image }) => {
-    // Реф для шторки захвата
+const ModalWindow = ({ open, handleClose, id, images }) => {
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
     const dragHandleRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(open);
     const [isScrollable, setIsScrollable] = useState(false);
     const isMobile = isMobileDevice();
+    const content = <ServiceDescription descriptionId={id} />;
 
-    // Анимационные параметры для открытия/закрытия
     const [{ y }, api] = useSpring(() => ({
         y: 1000,
         config: { tension: 300, friction: 30 },
     }));
 
-    // Обработка открытия и закрытия модального окна
     useEffect(() => {
         if (open) {
             setIsModalOpen(true);
@@ -52,15 +62,13 @@ const ModalWindow = ({ open, handleClose, title, content, image }) => {
         }
     }, [open, api]);
 
-    // Функция для закрытия модального окна
     const handleModalClose = useCallback(() => {
         api.start({ y: 1000 });
         setTimeout(() => {
             handleClose();
-        }, 300); // Ожидание завершения анимации
+        }, 300);
     }, [api, handleClose]);
 
-    // Мобильный способ обработки касания
     const startY = useRef(0);
     const currentY = useRef(0);
 
@@ -68,7 +76,7 @@ const ModalWindow = ({ open, handleClose, title, content, image }) => {
         if (dragHandleRef.current && dragHandleRef.current.contains(e.touches[0].target)) {
             startY.current = e.touches[0].clientY;
         } else {
-            startY.current = null; // Запрещаем перетаскивание, если не в области захвата
+            startY.current = null;
         }
     };
 
@@ -76,7 +84,7 @@ const ModalWindow = ({ open, handleClose, title, content, image }) => {
         if (startY.current !== null) {
             currentY.current = e.touches[0].clientY;
             const deltaY = currentY.current - startY.current;
-            if (deltaY > 0) {  // Движение вниз
+            if (deltaY > 0) {
                 api.start({ y: deltaY, immediate: true });
             }
         }
@@ -85,27 +93,25 @@ const ModalWindow = ({ open, handleClose, title, content, image }) => {
     const handleTouchEnd = () => {
         if (startY.current !== null) {
             const deltaY = currentY.current - startY.current;
-            if (deltaY > 200) {  // Закрытие, если движение вниз больше 200px
+            if (deltaY > 200) {
                 handleModalClose();
             } else {
-                api.start({ y: 0 });  // Возврат на место, если меньше 200px
+                api.start({ y: 0 });
             }
-            startY.current = null; // Сбрасываем состояние касания
+            startY.current = null;
         }
     };
 
-    // Настройка для десктопа через useDrag
     const bind = useDrag(
         ({ movement: [, my], memo = y.get(), last, cancel, event }) => {
-            // Проверка, что перетаскивание началось в верхней части модального окна или в специальной шторке
             if (event.target === dragHandleRef.current || dragHandleRef.current.contains(event.target)) {
-                if (my > 300) { // Закрытие при движении вниз на 300px
+                if (my > 300) {
                     cancel();
                     handleModalClose();
                 } else if (last) {
-                    api.start({ y: 0 }); // Возврат на место
+                    api.start({ y: 0 });
                 } else {
-                    api.start({ y: memo + my, immediate: true }); // Перетаскивание
+                    api.start({ y: memo + my, immediate: true });
                 }
             }
             return memo;
@@ -119,10 +125,18 @@ const ModalWindow = ({ open, handleClose, title, content, image }) => {
         }
     );
 
-    // Обработчик для прокрутки
     const handleScroll = (event) => {
         const isScrollable = event.target.scrollHeight > event.target.clientHeight;
         setIsScrollable(isScrollable);
+    };
+
+    // Функция для получения изображения
+    const getImageSrc = (image) => {
+        try {
+            return context(`./${image}`); // Пытаемся получить изображение
+        } catch (e) {
+            return defaultImg; // Если не удалось, возвращаем заглушку
+        }
     };
 
     return (
@@ -143,11 +157,10 @@ const ModalWindow = ({ open, handleClose, title, content, image }) => {
                         onTouchStart: handleTouchStart,
                         onTouchMove: handleTouchMove,
                         onTouchEnd: handleTouchEnd,
-                        touchAction: 'none', // Отключаем нативную прокрутку для мобильных
+                        touchAction: 'none',
                     }
-                    : bind())} // Универсальная обработка для десктопов через useDrag
+                    : bind())}
             >
-                {/* Шторка для захвата */}
                 <Box
                     style={{
                         display: 'flex',
@@ -180,32 +193,54 @@ const ModalWindow = ({ open, handleClose, title, content, image }) => {
                         overflow: 'auto',
                         height: '100%',
                     }}
-                    onScroll={handleScroll} // Обработчик прокрутки
+                    onScroll={handleScroll}
                 >
-                    <Box
-                        style={{
-                            'paddingBottom': '100px'
-                        }}
-                    >
-                        {image && (
-                            <Box
-                                component="img"
-                                src={image}
-                                alt="Modal Header"
-                                sx={{
-                                    width: '100%',
-                                    height: 'auto',
-                                    maxHeight: '300px',
-                                    borderTopLeftRadius: '16px',
-                                    borderTopRightRadius: '16px',
-                                }}
-                            />
-                        )}
+                    <Box style={{ paddingBottom: '100px' }}>
+                        {/* Слайдер с динамическими изображениями */}
+                        <Swiper
+                            style={{
+                                '--swiper-navigation-color': '#fff',
+                                '--swiper-pagination-color': '#fff',
+                            }}
+                            spaceBetween={10}
+                            navigation={true}
+                            thumbs={{ swiper: thumbsSwiper }}
+                            modules={[FreeMode, Navigation, Thumbs]}
+                            className='mainServiceImage'
+                        >
+                            {images.map((image, index) => (
+                                <SwiperSlide key={index}>
+                                    <img
+                                        src={getImageSrc(image)}
+                                        alt={`Service ${index}`}
+                                    />
+                                </SwiperSlide>
+                            ))}
+                            <Swiper
+                                onSwiper={setThumbsSwiper}
+                                spaceBetween={10}
+                                slidesPerView={4}
+                                freeMode={true}
+                                watchSlidesProgress={true}
+                                modules={[FreeMode, Navigation, Thumbs]}
+                                className='subsServiceImages'
+                            >
+                                {images.map((image, index) => (
+                                    <SwiperSlide key={index}>
+                                        <img
+                                            src={getImageSrc(image)}
+                                            alt={`Service ${index}`}
+                                        />
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        </Swiper>
+
                         <Box className='Content'>{content}</Box>
                     </Box>
                 </Box>
             </AnimatedBox>
-        </Modal >
+        </Modal>
     );
 };
 

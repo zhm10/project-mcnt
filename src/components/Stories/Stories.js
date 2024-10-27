@@ -52,11 +52,7 @@ function MCStories({
   }, []);
 
   return (
-    <div
-      style={{
-        marginTop: '50px'
-      }}
-    >
+    <div>
       {stories.length > 0 ? (
         <Stories
           stories={stories}
