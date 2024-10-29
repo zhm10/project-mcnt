@@ -1,0 +1,42 @@
+
+.animated-box-content .service-window-content-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.animated-box-content .service-window-slider-image {
+    width: 50%;
+    min-height: 200px;
+}
+
+.animated-box-content .main-service-slider-image {
+    height: 400px;
+    margin-bottom: 1px;
+}
+
+.animated-box-content .service-window-prices {
+    width: 50%;
+}
+
+.animated-box-content .main-service-slider-image .swiper-slide {
+    display: flex;
+    align-items: center;
+}
+
+.animated-box-content .main-service-slider-image .swiper-slide img {
+    width: 100%;
+    height: fit-content;
+}
+
+.animated-box-content .sub-service-slider-images {
+    height: 100px;
+}
+
+.animated-box-content .sub-service-slider-images .swiper-slide {
+    width: 25%;
+    padding-right: 1px;
+}
+
+.animated-box-content .sub-service-slider-images .swiper-slide img {
+    width: 100%;
+}

@@ -11,6 +11,7 @@ import 'swiper/css/thumbs';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import ServiceDescription from '../Services/ServiceDescription/ServiceDescription';
 import defaultImg from "../../assets/HeaderLogo.jpeg";
+import './ModalWindow.css';
 
 const context = require.context('../../assets/services', true);
 
@@ -196,47 +197,54 @@ const ModalWindow = ({ open, handleClose, id, images }) => {
                     onScroll={handleScroll}
                 >
                     <Box style={{ paddingBottom: '100px' }}>
-                        {/* Слайдер с динамическими изображениями */}
-                        <Swiper
-                            style={{
-                                '--swiper-navigation-color': '#fff',
-                                '--swiper-pagination-color': '#fff',
-                            }}
-                            spaceBetween={10}
-                            navigation={true}
-                            thumbs={{ swiper: thumbsSwiper }}
-                            modules={[FreeMode, Navigation, Thumbs]}
-                            className='mainServiceImage'
-                        >
-                            {images.map((image, index) => (
-                                <SwiperSlide key={index}>
-                                    <img
-                                        src={getImageSrc(image)}
-                                        alt={`Service ${index}`}
-                                    />
-                                </SwiperSlide>
-                            ))}
-                            <Swiper
-                                onSwiper={setThumbsSwiper}
-                                spaceBetween={10}
-                                slidesPerView={4}
-                                freeMode={true}
-                                watchSlidesProgress={true}
-                                modules={[FreeMode, Navigation, Thumbs]}
-                                className='subsServiceImages'
-                            >
-                                {images.map((image, index) => (
-                                    <SwiperSlide key={index}>
-                                        <img
-                                            src={getImageSrc(image)}
-                                            alt={`Service ${index}`}
-                                        />
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
-                        </Swiper>
+                        <Box className="service-window-content-info">
+                            <Box className="service-window-slider-image">
+                                {/* Слайдер с динамическими изображениями */}
+                                <Swiper
+                                    style={{
+                                        '--swiper-navigation-color': '#fff',
+                                        '--swiper-pagination-color': '#fff',
+                                    }}
+                                    spaceBetween={1}
+                                    navigation={true}
+                                    thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+                                    modules={[FreeMode, Navigation, Thumbs]}
+                                    className='main-service-slider-image'
+                                >
+                                    {images.map((image, index) => (
+                                        <SwiperSlide key={index}>
+                                            <img
+                                                src={getImageSrc(image)}
+                                                alt={`Service ${index}`}
+                                            />
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                                <Swiper
+                                    onSwiper={setThumbsSwiper}
+                                    slidesPerView={'auto'}
+                                    spaceBetween={1}
+                                    freeMode={true}
+                                    watchSlidesProgress={true}
+                                    modules={[FreeMode, Navigation, Thumbs]}
+                                    className='sub-service-slider-images'
+                                >
+                                    {images.map((image, index) => (
+                                        <SwiperSlide key={index}>
+                                            <img
+                                                src={getImageSrc(image)}
+                                                alt={`Service ${index}`}
+                                            />
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                            </Box>
+                            <Box className="service-window-prices">
+                                Цены
+                            </Box>
+                        </Box>
 
-                        <Box className='Content'>{content}</Box>
+                        <Box className='service-window-content-full-description'>{content}</Box>
                     </Box>
                 </Box>
             </AnimatedBox>
