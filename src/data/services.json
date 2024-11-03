@@ -8,7 +8,25 @@
                 "name": "Технология Paintless Dent Repair (PDR)",
                 "info": "Сертифицированные специалисты компании MASTERCAR осуществляют кузовной ремонт автомобиля без покраски по немецкой технологии Paintless Dent Repair (PDR).",
                 "mainImage": "Технология PDR.jpg",
-                "images": ["Car1.jpeg", "Car2.jpeg", "Car3.jpeg", "Car4.jpeg", "Car5.png", "Car6.png", "Car7.png"]
+                "prices": [
+                    {
+                        "name": "test",
+                        "price": 1200
+                    },
+                    {
+                        "name": "Сертифицированные специалисты компании MASTERCAR осуществляют",
+                        "price": 4000
+                    }
+                ],
+                "images": [
+                    "Car1.jpeg",
+                    "Car2.jpeg",
+                    "Car3.jpeg",
+                    "Car4.jpeg",
+                    "Car5.png",
+                    "Car6.png",
+                    "Car7.png"
+                ]
             }
         ]
     },

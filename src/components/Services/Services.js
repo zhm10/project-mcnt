@@ -125,6 +125,7 @@ function Services() {
                     id={selectedService.id}
                     title={selectedService.name}
                     images={selectedService.images}
+                    servicesPrices={selectedService.prices}
                 />
             )}
         </Box>

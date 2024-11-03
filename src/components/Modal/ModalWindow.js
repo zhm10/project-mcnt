@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Modal, Box, IconButton } from '@mui/material';
+import { Modal, Box, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
@@ -38,9 +38,8 @@ const isMobileDevice = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
 };
 
-const ModalWindow = ({ open, handleClose, id, images }) => {
+const ModalWindow = ({ open, handleClose, id, images, servicesPrices }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
     const dragHandleRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(open);
     const [isScrollable, setIsScrollable] = useState(false);
@@ -240,7 +239,28 @@ const ModalWindow = ({ open, handleClose, id, images }) => {
                                 </Swiper>
                             </Box>
                             <Box className="service-window-prices">
-                                Цены
+                                <Box className="service-window-prices-content">
+                                    <TableContainer component={Paper}>
+                                        <Table sx={{ width: '100%' }} aria-label="simple table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Услуга</TableCell>
+                                                    <TableCell>Цена</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {servicesPrices.map((row) => (
+                                                    <TableRow
+                                                        key={row.name}
+                                                    >
+                                                        <TableCell>{row.name}</TableCell>
+                                                        <TableCell>{row.price} руб.</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Box>
                             </Box>
                         </Box>
 
