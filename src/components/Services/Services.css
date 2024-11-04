@@ -15,6 +15,20 @@
     flex-wrap: wrap;
 }
 
+.services .service-category>.content .MuiPaper-root {
+    flex-direction: row;
+    box-shadow: 0px 2px 20px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+}
+
+.services .service-category>.content .MuiCardMedia-root {
+    object-fit: contain;
+    width: 50%;
+}
+
+.services .service-category>.content .MuiCardContent-root {
+    text-align: center;
+}
+
 .services .service-category .content .service:last-child {
     margin-right: 0;
 }
@@ -24,10 +38,26 @@
     .services .service-category {
         padding-top: 10px;
     }
+
+    .services .service-category>.content .MuiCardMedia-root {
+        width: 100%;
+    }
+
+    .services .service-category>.content .MuiPaper-root {
+        flex-direction: column;
+    }
 }
 
 /* Медиа-запрос для планшетов */
 @media only screen and (min-width: 481px) and (max-width: 1024px) {
+
+    .services .service-category>.content .MuiCardMedia-root {
+        width: 100%;
+    }
+
+    .services .service-category>.content .MuiPaper-root {
+        flex-direction: column;
+    }
 }
 
 /* Медиа-запрос для устройств с разрешением Full HD и выше */

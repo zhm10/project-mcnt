@@ -121,10 +121,11 @@ function Services() {
                 <ModalWindow
                     open={open}
                     handleClose={handleClose}
-                    // image={loadImage(selectedService.img)}
-                    id={selectedService.id}
-                    title={selectedService.name}
-                    images={selectedService.images}
+                    categoryName={selectedCategory.name}
+                    serviceId={selectedService.id}
+                    serviceName={selectedService.name}
+                    serviceInfo={selectedService.info}
+                    serviceImages={selectedService.images}
                     servicesPrices={selectedService.prices}
                 />
             )}

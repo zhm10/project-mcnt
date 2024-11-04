@@ -19,12 +19,14 @@
 }
 
 .animated-box-content .service-window-prices-content {
-    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
 }
 
 .animated-box-content .service-window-prices-content .MuiTableContainer-root {
-    width: 90%;
-    box-shadow: 0px 2px 10px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+    /* width: 100%; */
+    box-shadow: 0px 2px 20px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
 }
 
 .animated-box-content .service-window-prices-content .MuiTableHead-root .MuiTableCell-root {
@@ -81,4 +83,51 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.animated-box-content .service-window-content-full-description {
+    padding: 20px;
+}
+
+/* Медиа-запрос для мобильных телефонов */
+@media only screen and (max-width: 480px) {
+    .animated-box-content .service-window-content-info {
+        flex-direction: column;
+    }
+
+    .animated-box-content .service-window-slider-image {
+        width: 100%;
+    }
+    
+    .animated-box-content .service-window-prices {
+        width: 100%;
+    }
+
+    .animated-box-content .service-window-prices-content {
+        padding: 20px 10px;
+    }
+}
+
+/* Медиа-запрос для планшетов */
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+    .animated-box-content .service-window-content-info {
+        flex-direction: column;
+    }
+
+    .animated-box-content .service-window-slider-image {
+        width: 100%;
+    }
+    
+    .animated-box-content .service-window-prices,
+    .animated-box-content .service-window-content-full-description {
+        width: 100%;
+    }
+}
+
+/* Медиа-запрос для устройств с разрешением Full HD и выше */
+@media only screen and (min-width: 1025px) and (max-width: 1920px) {
+    .animated-box-content .service-window-prices,
+    .animated-box-content .service-window-content-full-description {
+        width: 100%;
+    }
 }

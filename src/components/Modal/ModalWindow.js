@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Modal, Box, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import React, { useState, useEffect, useCallback, useRef, Suspense, lazy } from 'react';
+import { Modal, Box, IconButton, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
@@ -9,15 +9,18 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import ServiceDescription from '../Services/ServiceDescription/ServiceDescription';
+// import ServiceDescription from '../Services/ServiceDescription/ServiceDescription';
 import defaultImg from "../../assets/HeaderLogo.jpeg";
 import './ModalWindow.css';
 
+const ServiceDescription = lazy(() => import('../Services/ServiceDescription/ServiceDescription'));
 const context = require.context('../../assets/services', true);
 
 // Стиль для модального окна
 const style = {
     position: 'fixed',
+    display: 'flex',
+    flexDirection: 'column',
     bottom: 0,
     left: 0,
     right: 0,
@@ -28,7 +31,8 @@ const style = {
     p: 2,
     zIndex: 10,
     height: '85%',
-    paddingTop: '10px'
+    paddingTop: '10px',
+    paddingBottom: '0'
 };
 
 const AnimatedBox = animated(Box);
@@ -38,13 +42,14 @@ const isMobileDevice = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
 };
 
-const ModalWindow = ({ open, handleClose, id, images, servicesPrices }) => {
+const ModalWindow = ({ open, handleClose, categoryName, serviceId, serviceImages, servicesPrices, serviceName, serviceInfo }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const dragHandleRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(open);
     const [isScrollable, setIsScrollable] = useState(false);
     const isMobile = isMobileDevice();
-    const content = <ServiceDescription descriptionId={id} />;
+    const content = <ServiceDescription descriptionId={serviceId} />;
+    const [isLoading, setIsLoading] = useState(true);
 
     const [{ y }, api] = useSpring(() => ({
         y: 1000,
@@ -55,12 +60,20 @@ const ModalWindow = ({ open, handleClose, id, images, servicesPrices }) => {
         if (open) {
             setIsModalOpen(true);
             api.start({ y: 0 });
+            setIsLoading(true);
         } else {
             api.start({ y: 1000 }).then(() => {
                 setIsModalOpen(false);
             });
         }
     }, [open, api]);
+
+    useEffect(() => {
+        if (isModalOpen) {
+            const timer = setTimeout(() => setIsLoading(false), 500); // Установка задержки загрузки
+            return () => clearTimeout(timer);
+        }
+    }, [isModalOpen]);
 
     const handleModalClose = useCallback(() => {
         api.start({ y: 1000 });
@@ -161,114 +174,127 @@ const ModalWindow = ({ open, handleClose, id, images, servicesPrices }) => {
                     }
                     : bind())}
             >
-                <Box
-                    style={{
-                        display: 'flex',
-                        width: '100%',
-                        justifyContent: 'center',
-                        cursor: isScrollable ? 'default' : 'grab'
-                    }}
-                    ref={dragHandleRef}
-                >
-                    <Box
-                        className="close-line"
+                {isLoading ? (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                        <CircularProgress />
+                    </Box>
+                ) : (
+                    <Suspense fallback={<CircularProgress />}><Box
                         style={{
-                            backgroundColor: "grey",
-                            height: '3px',
-                            margin: '10px 0 30px 0',
-                            width: '30%',
+                            display: 'flex',
+                            width: '100%',
+                            justifyContent: 'center',
+                            cursor: isScrollable ? 'default' : 'grab'
                         }}
-                    ></Box>
-                </Box>
+                        ref={dragHandleRef}
+                    >
+                        <Box
+                            className="close-line"
+                            style={{
+                                backgroundColor: "grey",
+                                height: '3px',
+                                margin: '10px 0 30px 0',
+                                width: '30%',
+                            }}
+                        ></Box>
+                    </Box>
 
-                <Box mt={3} style={{ position: "absolute", top: "10px", right: "10px", margin: 0 }}>
-                    <IconButton onClick={handleModalClose}>
-                        <CloseIcon />
-                    </IconButton>
-                </Box>
-
-                <Box
-                    className="animated-box-content"
-                    style={{
-                        overflow: 'auto',
-                        height: '100%',
-                    }}
-                    onScroll={handleScroll}
-                >
-                    <Box style={{ paddingBottom: '100px' }}>
-                        <Box className="service-window-content-info">
-                            <Box className="service-window-slider-image">
-                                {/* Слайдер с динамическими изображениями */}
-                                <Swiper
-                                    style={{
-                                        '--swiper-navigation-color': '#fff',
-                                        '--swiper-pagination-color': '#fff',
-                                    }}
-                                    spaceBetween={1}
-                                    navigation={true}
-                                    thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
-                                    modules={[FreeMode, Navigation, Thumbs]}
-                                    className='main-service-slider-image'
-                                >
-                                    {images.map((image, index) => (
-                                        <SwiperSlide key={index}>
-                                            <img
-                                                src={getImageSrc(image)}
-                                                alt={`Service ${index}`}
-                                            />
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                                <Swiper
-                                    onSwiper={setThumbsSwiper}
-                                    slidesPerView={'auto'}
-                                    spaceBetween={1}
-                                    freeMode={true}
-                                    watchSlidesProgress={true}
-                                    modules={[FreeMode, Navigation, Thumbs]}
-                                    className='sub-service-slider-images'
-                                >
-                                    {images.map((image, index) => (
-                                        <SwiperSlide key={index}>
-                                            <img
-                                                src={getImageSrc(image)}
-                                                alt={`Service ${index}`}
-                                            />
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                            </Box>
-                            <Box className="service-window-prices">
-                                <Box className="service-window-prices-content">
-                                    <TableContainer component={Paper}>
-                                        <Table sx={{ width: '100%' }} aria-label="simple table">
-                                            <TableHead>
-                                                <TableRow>
-                                                    <TableCell>Услуга</TableCell>
-                                                    <TableCell>Цена</TableCell>
-                                                </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                {servicesPrices.map((row) => (
-                                                    <TableRow
-                                                        key={row.name}
-                                                    >
-                                                        <TableCell>{row.name}</TableCell>
-                                                        <TableCell>{row.price} руб.</TableCell>
-                                                    </TableRow>
-                                                ))}
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
-                                </Box>
-                            </Box>
+                        <Box mt={3} style={{ position: "absolute", top: "10px", right: "10px", margin: 0 }}>
+                            <IconButton onClick={handleModalClose}>
+                                <CloseIcon />
+                            </IconButton>
                         </Box>
 
-                        <Box className='service-window-content-full-description'>{content}</Box>
-                    </Box>
-                </Box>
-            </AnimatedBox>
-        </Modal>
+                        <Box
+                            className="animated-box-content"
+                            style={{
+                                overflow: 'auto',
+                                height: '100%',
+                            }}
+                            onScroll={handleScroll}
+                        >
+                            <Box>
+                                <Box className="service-window-content-info">
+                                    <Box className="service-window-slider-image">
+                                        {/* Слайдер с динамическими изображениями */}
+                                        <Swiper
+                                            style={{
+                                                '--swiper-navigation-color': '#fff',
+                                                '--swiper-pagination-color': '#fff',
+                                            }}
+                                            spaceBetween={1}
+                                            navigation={true}
+                                            thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+                                            modules={[FreeMode, Navigation, Thumbs]}
+                                            className='main-service-slider-image'
+                                        >
+                                            {serviceImages.map((image, index) => (
+                                                <SwiperSlide key={index}>
+                                                    <img
+                                                        src={getImageSrc(image)}
+                                                        alt={`Service ${index}`}
+                                                    />
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+                                        <Swiper
+                                            onSwiper={setThumbsSwiper}
+                                            slidesPerView={'auto'}
+                                            spaceBetween={1}
+                                            freeMode={true}
+                                            watchSlidesProgress={true}
+                                            modules={[FreeMode, Navigation, Thumbs]}
+                                            className='sub-service-slider-images'
+                                        >
+                                            {serviceImages.map((image, index) => (
+                                                <SwiperSlide key={index}>
+                                                    <img
+                                                        src={getImageSrc(image)}
+                                                        alt={`Service ${index}`}
+                                                    />
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+                                    </Box>
+                                    <Box className="service-window-prices">
+                                        <Box className="service-window-prices-content">
+                                            <h2>{serviceName}</h2>
+                                            <p>{serviceInfo}</p>
+                                            <TableContainer component={Paper}>
+                                                <Table sx={{ width: '100%' }} aria-label="simple table">
+                                                    <TableHead>
+                                                        <TableRow>
+                                                            <TableCell>Услуга</TableCell>
+                                                            <TableCell style={{ whiteSpace: 'nowrap' }}>Цена</TableCell>
+                                                        </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                        {servicesPrices.map((row) => (
+                                                            <TableRow
+                                                                key={row.name}
+                                                            >
+                                                                <TableCell>{row.name}</TableCell>
+                                                                <TableCell style={{ whiteSpace: 'nowrap' }}>{row.price} руб.</TableCell>
+                                                            </TableRow>
+                                                        ))}
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </Box>
+                                    </Box>
+                                </Box>
+
+                                <Suspense fallback={<CircularProgress />}>
+                                    <Box className='service-window-content-full-description'><h2>Подробная информация</h2>{content}</Box>
+                                    <Box style={{ margin: '30px 20px 50px 20px', fontWeight: 'bold' }}>Информация размещённая на сайте не является публичной офертой</Box>
+                                </Suspense>
+                            </Box>
+                        </Box>
+                    </Suspense>
+                )
+                }
+            </AnimatedBox >
+        </Modal >
     );
 };
 
