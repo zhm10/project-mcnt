@@ -27,6 +27,7 @@
 
 .services .service-category>.content .MuiCardContent-root {
     text-align: center;
+    width: calc(100% - 48px);
 }
 
 .services .service-category .content .service:last-child {

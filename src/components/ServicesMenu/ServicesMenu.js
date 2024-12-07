@@ -7,12 +7,10 @@ import 'swiper/css/free-mode';
 import { FreeMode } from 'swiper/modules';
 import menuData from "../../data/services.json";
 
-const ServicesMenu = (openModalWindow) => {
+const ServicesMenu = ({updateActiveCategory, setUpdateActiveCategory}) => {
     const [fixed, setFixed] = useState(false);
     const [activeIndex, setActiveIndex] = useState(null);
     const [activeId, setActiveId] = useState(null);
-    // const [currentIndex, setCurrentIndex] = useState(null);
-    const [isScrollingByClick, setIsScrollingByClick] = useState(false);
     const [currentId, setCurrentId] = useState(null);
     const swiperRef = useRef(null);
     const sectionRefs = useRef({});
@@ -29,12 +27,12 @@ const ServicesMenu = (openModalWindow) => {
         // Ищет совпадение на видимой области страницы категории которая таргетная сейчас
         const observer = new IntersectionObserver((entries) => {
             let found = false;
-            // console.log(isScrollingByClick, currentId, activeId);
-            
+            console.log(updateActiveCategory, currentId, activeId, window.location.hash.split('/'));
+
             entries.forEach((entry) => {
                 const id = entry.target.getAttribute('id');
                 
-                if (isScrollingByClick && currentId !== id) {
+                if (!updateActiveCategory && currentId !== id) {
                     setActiveId(currentId);
                     setActiveIndex(menuData.findIndex(item => item.id === currentId));
                     window.history.replaceState(null, null, `/#${currentId}`);
@@ -63,7 +61,7 @@ const ServicesMenu = (openModalWindow) => {
         });
 
         return () => observer.disconnect();
-    }, [activeId, currentId, isScrollingByClick])
+    }, [activeId, currentId, updateActiveCategory])
 
     useEffect(() => {
         // Срабатывает при скроле страницы
@@ -79,7 +77,7 @@ const ServicesMenu = (openModalWindow) => {
                 return rect.top <= 120 && rect.bottom >= 120;
             });
 
-            if (!isScrollingByClick && currentSection && activeIndex !== menuData.findIndex(item => item.id === currentSection)) {
+            if (updateActiveCategory && currentSection && activeIndex !== menuData.findIndex(item => item.id === currentSection)) {
                 setActiveIndex(menuData.findIndex(item => item.id === currentSection));
                 scrollToSlide(menuData.findIndex(item => item.id === currentSection));
             }
@@ -90,25 +88,44 @@ const ServicesMenu = (openModalWindow) => {
     });
 
     useEffect(() => {
-        const hashname = window.location.hash.split('/');
-        if (hashname[0] && menuData.some(item => item.id === hashname[0])) {
-            const category = menuData.find(item => item.id === hashname[0]);
-            const element = document.getElementById(hashname[0]);
-            
-            if (element) {
-                setIsScrollingByClick(true);
-                scrollToCategory(hashname[0]);
-                // if (hashname[1] !== undefined && hashname[1] !== "") {
-                    // const service = category[hashname[1]];
-                    // openModalWindow(category, service);
-                // }
 
-                setTimeout(() => {
-                    setIsScrollingByClick(false);
-                }, 1000);
+        const handleLoad = () => {
+            const hashname = window.location.hash.split('/');
+            console.log(33);
+            
+            if (hashname.length < 2) return;
+            const urlId = hashname[0] !== undefined && hashname[0] !== "" && hashname[0] !== null ? hashname[0].slice(1) : "";
+            
+            console.log("hashname", hashname);
+            console.log("urlId", urlId);
+
+            console.log(menuData);
+            if (urlId && menuData.some(item => item.id === urlId)) {
+                // console.log(100);
+                //const category = menuData.find(item => item.id === urlId);
+                const element = document.getElementById(urlId);
+                // console.log("element", element);
+
+                if (element) {
+                    // console.log(101);
+                    setUpdateActiveCategory(false);
+                    scrollToCategory(urlId, true);
+
+                    setTimeout(() => {
+                        setUpdateActiveCategory(true);
+                    }, 1000);
+                }
             }
-        }      
-    });
+        }
+
+        // Добавляем слушатель события загрузки страницы
+        window.addEventListener('load', handleLoad);
+
+        // Очищаем слушатель при размонтировании
+        return () => {
+            window.removeEventListener('load', handleLoad);
+        };
+    }, []);
 
     const scrollToSlide = (index) => {
         swiperRef.current?.swiper?.slideTo(index, 1000, false);
@@ -116,26 +133,27 @@ const ServicesMenu = (openModalWindow) => {
 
     // Событие по горизонтальному меню категорий
     const handleClick = (id, index) => {
-        setIsScrollingByClick(true);
+        setUpdateActiveCategory(false);
 
         setCurrentId(id);
         // setCurrentIndex(index);
 
         setActiveIndex(index);
         scrollToSlide(index);
-        scrollToCategory(id);
+        scrollToCategory(id, false);
 
         setTimeout(() => {
-            setIsScrollingByClick(false);
+            setUpdateActiveCategory(true);
         }, 1000);
     };
 
-    const scrollToCategory = (id) => {
+    const scrollToCategory = (id, instant) => {
         const element = document.getElementById(id);
+
         if (element) {
             const yOffset = isMobile ? -100 : -80;
             const yCoordinate = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            window.scrollTo({ top: yCoordinate, behavior: 'smooth' });
+            window.scrollTo({ top: yCoordinate, behavior: instant ? 'instant': 'smooth' });
         }
     };
 

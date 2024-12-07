@@ -15,20 +15,21 @@ import ModalWindow from "../Modal/ModalWindow";
 const context = require.context('../../assets/services', true);
 
 function Services() {
-    const [open, setOpen] = useState(false);
     const [selectedService, setSelectedService] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [updateActiveCategory, setUpdateActiveCategory] = useState(true);
+    const [modalOpen, setModalOpen] = useState(false);
 
     const handleOpen = (category, service) => {
         setSelectedCategory(category);
         setSelectedService(service);
-        setOpen(true);
-        
+        setModalOpen(true);
+
         window.history.replaceState(null, null, `/#${category.id}/${service.id}`);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        setModalOpen(false);
         // setSelectedCategory(null);
         setSelectedService(null);
         window.history.replaceState(null, null, `#${selectedCategory.id}`);
@@ -69,7 +70,7 @@ function Services() {
                 if (service) {
                     setSelectedCategory(selectedCategory);
                     setSelectedService(service);
-                    setOpen(true);
+                    setModalOpen(true);
                 }
             }
         }
@@ -77,7 +78,10 @@ function Services() {
 
     return (
         <Box className='services-wrapper'>
-            <ServicesMenu openModalWindow={handleOpen}/>
+            <ServicesMenu
+                updateActiveCategory={updateActiveCategory}
+                setUpdateActiveCategory={setUpdateActiveCategory}
+            />
             <Container className='services' maxWidth='xl' style={{ margin: '0' }}>
                 {detailingServices.map((category) => (
                     <div key={category.id} id={category.id} className='service-category'>
@@ -119,14 +123,12 @@ function Services() {
 
             {selectedService && (
                 <ModalWindow
-                    open={open}
+                    open={modalOpen}
                     handleClose={handleClose}
+                    updateActiveCategory={updateActiveCategory}
+                    setUpdateActiveCategory={setUpdateActiveCategory}
                     categoryName={selectedCategory.name}
-                    serviceId={selectedService.id}
-                    serviceName={selectedService.name}
-                    serviceInfo={selectedService.info}
-                    serviceImages={selectedService.images}
-                    servicesPrices={selectedService.prices}
+                    service={selectedService}
                 />
             )}
         </Box>

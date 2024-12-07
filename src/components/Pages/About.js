@@ -1,9 +1,14 @@
 // About.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import Footer from '../Footer/Footer';
 import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton';
 
 const About = () => {
+    useEffect(() => {
+        // Скроллит окно на самый верх при монтировании компонента
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div style={{ padding: '50px 20px' }}>
             <h1>О нас (Тестовый текст)</h1>

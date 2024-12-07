@@ -24,6 +24,12 @@
     padding: 20px;
 }
 
+.animated-box-content .service-window-prices-content .price-info {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
 .animated-box-content .service-window-prices-content .MuiTableContainer-root {
     /* width: 100%; */
     box-shadow: 0px 2px 20px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
@@ -86,7 +92,7 @@
 }
 
 .animated-box-content .service-window-content-full-description {
-    padding: 20px;
+    padding: 20px 0;
 }
 
 /* Медиа-запрос для мобильных телефонов */

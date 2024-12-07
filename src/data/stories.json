@@ -1,7 +1,7 @@
 [
   {
     "url": "Car1.jpeg",
-    "overlay": "Инфа по 1 картинке",
+    "overlay": "",
     "type": "image"
   },
   {
@@ -11,7 +11,7 @@
   },
   {
     "url": "Car4.jpeg",
-    "overlay": "Это 4 изображение",
+    "overlay": "",
     "type": "image"
   }
 ]

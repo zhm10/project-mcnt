@@ -69,11 +69,15 @@
 .servicesmenu>.content .item {
     width: fit-content;
     margin: 0 10px;
-    padding: 10px 0;
+    padding: 15px 0;
+}
+
+.servicesmenu>.content .item a:hover {
+    color: #000;
 }
 
 .servicesmenu>.content .item a {
-    /* font-size: 17px; */
+    font-size: 17px;
     color: #a2a0a2;
     cursor: pointer;
     text-decoration: none;

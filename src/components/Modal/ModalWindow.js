@@ -42,13 +42,13 @@ const isMobileDevice = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
 };
 
-const ModalWindow = ({ open, handleClose, categoryName, serviceId, serviceImages, servicesPrices, serviceName, serviceInfo }) => {
+const ModalWindow = ({ open, handleClose, categoryName, service }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const dragHandleRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(open);
     const [isScrollable, setIsScrollable] = useState(false);
     const isMobile = isMobileDevice();
-    const content = <ServiceDescription descriptionId={serviceId} />;
+    const content = <ServiceDescription descriptionId={service.id} />;
     const [isLoading, setIsLoading] = useState(true);
 
     const [{ y }, api] = useSpring(() => ({
@@ -208,7 +208,8 @@ const ModalWindow = ({ open, handleClose, categoryName, serviceId, serviceImages
                         <Box
                             className="animated-box-content"
                             style={{
-                                overflow: 'auto',
+                                overflowY: 'auto',
+                                overflowX: 'hidden',
                                 height: '100%',
                             }}
                             onScroll={handleScroll}
@@ -228,7 +229,7 @@ const ModalWindow = ({ open, handleClose, categoryName, serviceId, serviceImages
                                             modules={[FreeMode, Navigation, Thumbs]}
                                             className='main-service-slider-image'
                                         >
-                                            {serviceImages.map((image, index) => (
+                                            {service.images.map((image, index) => (
                                                 <SwiperSlide key={index}>
                                                     <img
                                                         src={getImageSrc(image)}
@@ -246,7 +247,7 @@ const ModalWindow = ({ open, handleClose, categoryName, serviceId, serviceImages
                                             modules={[FreeMode, Navigation, Thumbs]}
                                             className='sub-service-slider-images'
                                         >
-                                            {serviceImages.map((image, index) => (
+                                            {service.images.map((image, index) => (
                                                 <SwiperSlide key={index}>
                                                     <img
                                                         src={getImageSrc(image)}
@@ -258,34 +259,46 @@ const ModalWindow = ({ open, handleClose, categoryName, serviceId, serviceImages
                                     </Box>
                                     <Box className="service-window-prices">
                                         <Box className="service-window-prices-content">
-                                            <h2>{serviceName}</h2>
-                                            <p>{serviceInfo}</p>
-                                            <TableContainer component={Paper}>
-                                                <Table sx={{ width: '100%' }} aria-label="simple table">
-                                                    <TableHead>
-                                                        <TableRow>
-                                                            <TableCell>Услуга</TableCell>
-                                                            <TableCell style={{ whiteSpace: 'nowrap' }}>Цена</TableCell>
-                                                        </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>
-                                                        {servicesPrices.map((row) => (
-                                                            <TableRow
-                                                                key={row.name}
-                                                            >
-                                                                <TableCell>{row.name}</TableCell>
-                                                                <TableCell style={{ whiteSpace: 'nowrap' }}>{row.price} руб.</TableCell>
+                                            <h2>{service.name}</h2>
+                                            <p>{service.info}</p>
+                                            {/* {service.prices && Array.isArray(service.prices) && (
+                                                <TableContainer component={Paper}>
+                                                    <Table sx={{ width: '100%' }} aria-label="simple table">
+                                                        <TableHead>
+                                                            <TableRow>
+                                                                <TableCell>Услуга</TableCell>
+                                                                <TableCell style={{ whiteSpace: 'nowrap' }}>Цена</TableCell>
                                                             </TableRow>
-                                                        ))}
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
+                                                        </TableHead>
+                                                        <TableBody>
+                                                            {service.prices.map((row) => (
+                                                                <TableRow
+                                                                    key={row.name}
+                                                                >
+                                                                    <TableCell>{row.name}</TableCell>
+                                                                    <TableCell style={{ whiteSpace: 'nowrap' }}>{row.price}</TableCell>
+                                                                </TableRow>
+                                                            ))}
+                                                        </TableBody>
+                                                    </Table>
+                                                </TableContainer>
+                                            )}
+                                            {service.priceInfo && Array.isArray(service.priceInfo) && (
+                                                <div className='price-info'>
+                                                    {service.priceInfo.map((row, index) => (
+                                                        <span key={index}>{row}</span>
+                                                    ))}
+                                                </div>
+                                            )} */}
                                         </Box>
                                     </Box>
                                 </Box>
 
                                 <Suspense fallback={<CircularProgress />}>
-                                    <Box className='service-window-content-full-description'><h2>Подробная информация</h2>{content}</Box>
+                                    <Box className='service-window-content-full-description'>
+                                        {/* <h2>Подробная информация</h2> */}
+                                        {content}
+                                    </Box>
                                     <Box style={{ margin: '30px 20px 50px 20px', fontWeight: 'bold' }}>Информация размещённая на сайте не является публичной офертой</Box>
                                 </Suspense>
                             </Box>
