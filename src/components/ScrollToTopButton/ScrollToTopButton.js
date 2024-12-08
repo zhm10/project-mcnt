@@ -57,6 +57,7 @@ const ScrollToTopButton = () => {
                         outline: 'none', // Убираем стандартное обводку фокуса
                     },
                     transition: 'opacity 0.3s ease', // Плавное скрытие кнопки
+                    zIndex:5
                 }}
             >
                 <ArrowUpwardIcon />

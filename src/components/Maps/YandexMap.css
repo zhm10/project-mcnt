@@ -1,0 +1,20 @@
+.ymaps-2-1-79-ground-pane {
+    -ms-filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+    -moz-filter: grayscale(1);
+    -o-filter: grayscale(1);
+    filter: grayscale(1);
+}
+
+.wrapper-yandex-map-shape {
+    position: absolute;
+    mix-blend-mode: difference;
+    display: flex !important;
+    pointer-events: none;
+    background-color: white;
+    width: 100%;
+    height: 500px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}

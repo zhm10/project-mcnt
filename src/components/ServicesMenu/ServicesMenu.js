@@ -27,7 +27,7 @@ const ServicesMenu = ({updateActiveCategory, setUpdateActiveCategory}) => {
         // Ищет совпадение на видимой области страницы категории которая таргетная сейчас
         const observer = new IntersectionObserver((entries) => {
             let found = false;
-            console.log(updateActiveCategory, currentId, activeId, window.location.hash.split('/'));
+            // console.log(updateActiveCategory, currentId, activeId, window.location.hash.split('/'));
 
             entries.forEach((entry) => {
                 const id = entry.target.getAttribute('id');
