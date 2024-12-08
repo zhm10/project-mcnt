@@ -3,17 +3,18 @@
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .service-content .img-block-count-3 img {
   flex: 1;
-  max-width: calc(33.33% - 10px);
+  max-width: calc(33.33% - 5px);
   height: auto;
 }
 
 .service-content .img-block-count-2 img {
   flex: 1;
-  max-width: calc(50% - 10px);
+  max-width: calc(50% - 5px);
   height: auto;
 }
 
@@ -59,4 +60,8 @@
 
 .service-content .price tbody tr:hover {
   background-color: rgb(245, 211, 130);
+}
+
+.service-content ul, .service-content ol {
+  padding-left: 20px;
 }

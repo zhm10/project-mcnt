@@ -78,6 +78,9 @@ function Services() {
 
     return (
         <Box className='services-wrapper'>
+            <Container className='services' maxWidth='xl' style={{ margin: '0' }}>
+                <h1>Услуги</h1>
+            </Container>
             <ServicesMenu
                 updateActiveCategory={updateActiveCategory}
                 setUpdateActiveCategory={setUpdateActiveCategory}

@@ -179,19 +179,6 @@
         ]
     },
     {
-        "id": "udalenie-tsarapin",
-        "name": "Удаление царапин",
-        "services": [
-            {
-                "id": "lokalnaya-polirovka",
-                "name": "Локальная полировка",
-                "info": "Локальная абразивная полировка деталей кузова",
-                "price": 60,
-                "img": "Локальная полировка.jpg"
-            }
-        ]
-    },
-    {
         "id": "remont-skolov-kraski",
         "name": "Ремонт сколов краски",
         "services": [
@@ -199,21 +186,16 @@
                 "id": "dr-colorchip",
                 "name": "Dr.ColorChip",
                 "info": "Американская технология ремонта сколов краски",
-                "price": 60,
-                "img": "Dr.ColorChip.jpg"
-            }
-        ]
-    },
-    {
-        "id": "remont-avtostekol",
-        "name": "Ремонт автостекол",
-        "services": [
-            {
-                "id": "skoli-i-treshchiny",
-                "name": "Сколы и трещины",
-                "info": "Ремонт осуществляется в удобное для вас время",
-                "price": 60,
-                "img": "Сколы и трещины.jpg"
+                "img": "Dr.ColorChip.jpg",
+                "images": [
+                    "Car1.jpeg",
+                    "Car2.jpeg",
+                    "Car3.jpeg",
+                    "Car4.jpeg",
+                    "Car5.png",
+                    "Car6.png",
+                    "Car7.png"
+                ]
             }
         ]
     },
@@ -225,34 +207,58 @@
                 "id": "metallizirovannye-plenki",
                 "name": "Металлизированные пленки",
                 "info": "Тонирование стекол автомобиля американскими пленками",
-                "price": 60,
-                "img": "Металлизированные пленки.jpg"
+                "img": "Металлизированные пленки.jpg",
+                "images": [
+                    "Car1.jpeg",
+                    "Car2.jpeg",
+                    "Car3.jpeg",
+                    "Car4.jpeg",
+                    "Car5.png",
+                    "Car6.png",
+                    "Car7.png"
+                ]
             }
         ]
     },
     {
-        "id": "restavratsiya-kozhanih-salonov",
-        "name": "Реставрация кожаных салонов",
+        "id": "shumoizolyatsiya",
+        "name": "Шумоизоляция",
         "services": [
             {
-                "id": "tehnologiya-colourlock",
-                "name": "Технология Colourlock",
-                "info": "Реставрация кожаных салонов без перешива",
-                "price": 60,
-                "img": "ехнология Colourlock.jpg"
+                "id": "shumoizolyatsiya",
+                "name": "Шумоизоляция",
+                "info": "",
+                "img": "",
+                "images": [
+                    "Car1.jpeg",
+                    "Car2.jpeg",
+                    "Car3.jpeg",
+                    "Car4.jpeg",
+                    "Car5.png",
+                    "Car6.png",
+                    "Car7.png"
+                ]
             }
         ]
     },
     {
-        "id": "predprodazhnaya-podgatovka",
-        "name": "Предпродажная подгатовка",
+        "id": "аntikhrom",
+        "name": "Антихром",
         "services": [
             {
-                "id": "rodat-avto-dorozhe-i-bystree",
-                "name": "Продать авто дороже и быстрее",
-                "info": "Удаление вмятин, царапин, восстановление блеска.",
-                "price": 60,
-                "img": "Продать авто дороже и быстрее.jpg"
+                "id": "аntikhrom",
+                "name": "Антихром",
+                "info": "",
+                "img": "",
+                "images": [
+                    "Car1.jpeg",
+                    "Car2.jpeg",
+                    "Car3.jpeg",
+                    "Car4.jpeg",
+                    "Car5.png",
+                    "Car6.png",
+                    "Car7.png"
+                ]
             }
         ]
     }

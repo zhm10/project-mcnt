@@ -14,37 +14,37 @@
     margin-bottom: 1px;
 }
 
-.animated-box-content .service-window-prices {
+.animated-box-content .service-window-header {
     width: 50%;
 }
 
-.animated-box-content .service-window-prices-content {
+.animated-box-content .service-window-header-content {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 10px 0;
 }
 
-.animated-box-content .service-window-prices-content .price-info {
+.animated-box-content .service-window-header-content .price-info {
     display: flex;
     flex-direction: column;
     margin: 10px 0;
 }
 
-.animated-box-content .service-window-prices-content .MuiTableContainer-root {
+.animated-box-content .service-window-header-content .MuiTableContainer-root {
     /* width: 100%; */
     box-shadow: 0px 2px 20px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
 }
 
-.animated-box-content .service-window-prices-content .MuiTableHead-root .MuiTableCell-root {
+.animated-box-content .service-window-header-content .MuiTableHead-root .MuiTableCell-root {
     font-weight: bold;
     font-size: 16px;
 }
 
-.animated-box-content .service-window-prices-content .MuiTableBody-root .MuiTableCell-root {
+.animated-box-content .service-window-header-content .MuiTableBody-root .MuiTableCell-root {
     font-size: 16px;
 }
 
-.animated-box-content .service-window-prices-content .MuiTableBody-root .MuiTableRow-root:hover {
+.animated-box-content .service-window-header-content .MuiTableBody-root .MuiTableRow-root:hover {
     background-color: rgb(245, 211, 130);
 }
 
@@ -92,7 +92,7 @@
 }
 
 .animated-box-content .service-window-content-full-description {
-    padding: 20px 0;
+    /* padding: 20px 0; */
 }
 
 /* Медиа-запрос для мобильных телефонов */
@@ -105,12 +105,8 @@
         width: 100%;
     }
     
-    .animated-box-content .service-window-prices {
+    .animated-box-content .service-window-header {
         width: 100%;
-    }
-
-    .animated-box-content .service-window-prices-content {
-        padding: 20px 10px;
     }
 }
 
@@ -124,7 +120,7 @@
         width: 100%;
     }
     
-    .animated-box-content .service-window-prices,
+    .animated-box-content .service-window-header,
     .animated-box-content .service-window-content-full-description {
         width: 100%;
     }
@@ -132,8 +128,12 @@
 
 /* Медиа-запрос для устройств с разрешением Full HD и выше */
 @media only screen and (min-width: 1025px) and (max-width: 1920px) {
-    .animated-box-content .service-window-prices,
+    .animated-box-content .service-window-header,
     .animated-box-content .service-window-content-full-description {
         width: 100%;
+    }
+
+    .animated-box-content .service-window-header-content {
+        padding: 20px;
     }
 }

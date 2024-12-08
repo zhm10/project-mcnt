@@ -257,8 +257,8 @@ const ModalWindow = ({ open, handleClose, categoryName, service }) => {
                                             ))}
                                         </Swiper>
                                     </Box>
-                                    <Box className="service-window-prices">
-                                        <Box className="service-window-prices-content">
+                                    <Box className="service-window-header">
+                                        <Box className="service-window-header-content">
                                             <h2>{service.name}</h2>
                                             <p>{service.info}</p>
                                             {/* {service.prices && Array.isArray(service.prices) && (
@@ -296,10 +296,10 @@ const ModalWindow = ({ open, handleClose, categoryName, service }) => {
 
                                 <Suspense fallback={<CircularProgress />}>
                                     <Box className='service-window-content-full-description'>
-                                        {/* <h2>Подробная информация</h2> */}
+                                        <h2>Подробная информация</h2>
                                         {content}
                                     </Box>
-                                    <Box style={{ margin: '30px 20px 50px 20px', fontWeight: 'bold' }}>Информация размещённая на сайте не является публичной офертой</Box>
+                                    <Box style={{ margin: '30px 0 50px ', fontWeight: 'bold' }}>Информация размещённая на сайте не является публичной офертой</Box>
                                 </Suspense>
                             </Box>
                         </Box>
