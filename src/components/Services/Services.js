@@ -12,7 +12,7 @@ import detailingServices from "../../data/services.json";
 import defaultImg from "../../assets/HeaderLogo.jpeg";
 import ModalWindow from "../Modal/ModalWindow";
 
-const context = require.context('../../assets/services', true);
+const context = require.context('../../assets/services', true, /\.(jpeg|jpg|png)$/); // Правильный контекст для изображений
 
 function Services() {
     const [selectedService, setSelectedService] = useState(null);
@@ -30,16 +30,27 @@ function Services() {
 
     const handleClose = () => {
         setModalOpen(false);
-        // setSelectedCategory(null);
         setSelectedService(null);
         window.history.replaceState(null, null, `#${selectedCategory.id}`);
     };
 
-    const loadImage = (imageName) => {
+    const loadImage = (serviceId, imageName) => {
         try {
-            return context(`./${imageName}`, false, /\.(jpeg|jpg|png)$/);
+            return context(`./${serviceId}/${imageName}`);
         } catch {
             return defaultImg;
+        }
+    };
+
+    const loadAllImage = (serviceId) => {
+        try {
+            // Загружаем все изображения из папки serviceId
+            const folderPath = context.keys().filter(key => key.includes(serviceId)); // Фильтруем файлы по serviceId
+            const images = folderPath.map(key => context(key)); // Загружаем изображения из отфильтрованных путей
+            return images;
+        } catch (e) {
+            console.error("Ошибка при загрузке изображений:", e);
+            return []; // Возвращаем пустой массив в случае ошибки
         }
     };
 
@@ -98,7 +109,7 @@ function Services() {
                                 <Card key={service.id} sx={{ flex: '1 1 100%', mb: 2, display: 'flex' }}>
                                     <CardMedia
                                         component="img"
-                                        image={loadImage(service.img)}
+                                        image={loadImage(service.id, service.img)}
                                         alt={service.name}
                                         sx={{ width: { xs: '100%', sm: '50%' }, height: { xs: 'auto', sm: '100%' } }}
                                     />
@@ -132,6 +143,7 @@ function Services() {
                     setUpdateActiveCategory={setUpdateActiveCategory}
                     categoryName={selectedCategory.name}
                     service={selectedService}
+                    images={loadAllImage(selectedService.id)}
                 />
             )}
         </Box>

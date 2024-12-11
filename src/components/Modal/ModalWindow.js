@@ -14,7 +14,6 @@ import defaultImg from "../../assets/HeaderLogo.jpeg";
 import './ModalWindow.css';
 
 const ServiceDescription = lazy(() => import('../Services/ServiceDescription/ServiceDescription'));
-const context = require.context('../../assets/services', true);
 
 // Стиль для модального окна
 const style = {
@@ -42,7 +41,8 @@ const isMobileDevice = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
 };
 
-const ModalWindow = ({ open, handleClose, categoryName, service }) => {
+
+const ModalWindow = ({ open, handleClose, categoryName, service, images }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const dragHandleRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(open);
@@ -143,15 +143,6 @@ const ModalWindow = ({ open, handleClose, categoryName, service }) => {
         setIsScrollable(isScrollable);
     };
 
-    // Функция для получения изображения
-    const getImageSrc = (image) => {
-        try {
-            return context(`./${image}`); // Пытаемся получить изображение
-        } catch (e) {
-            return defaultImg; // Если не удалось, возвращаем заглушку
-        }
-    };
-
     return (
         <Modal
             open={isModalOpen}
@@ -229,14 +220,23 @@ const ModalWindow = ({ open, handleClose, categoryName, service }) => {
                                             modules={[FreeMode, Navigation, Thumbs]}
                                             className='main-service-slider-image'
                                         >
-                                            {service.images.map((image, index) => (
+                                            {images.map((image, index) => (
                                                 <SwiperSlide key={index}>
                                                     <img
-                                                        src={getImageSrc(image)}
+                                                        src={image} // Используем путь к изображению из объекта
                                                         alt={`Service ${index}`}
                                                     />
                                                 </SwiperSlide>
                                             ))}
+                                            {/* 
+                                            {service.images.map((image, index) => (
+                                                <SwiperSlide key={index}>
+                                                    <img
+                                                        src={loadImage(service.id)}
+                                                        alt={`Service ${index}`}
+                                                    />
+                                                </SwiperSlide>
+                                            ))} */}
                                         </Swiper>
                                         <Swiper
                                             onSwiper={setThumbsSwiper}
@@ -247,14 +247,22 @@ const ModalWindow = ({ open, handleClose, categoryName, service }) => {
                                             modules={[FreeMode, Navigation, Thumbs]}
                                             className='sub-service-slider-images'
                                         >
-                                            {service.images.map((image, index) => (
+                                            {images.map((image, index) => (
                                                 <SwiperSlide key={index}>
                                                     <img
-                                                        src={getImageSrc(image)}
+                                                        src={image} // Используем путь к изображению из объекта
                                                         alt={`Service ${index}`}
                                                     />
                                                 </SwiperSlide>
                                             ))}
+                                            {/* {service.images.map((image, index) => (
+                                                <SwiperSlide key={index}>
+                                                    <img
+                                                        src={loadImage(service.id, image)}
+                                                        alt={`Service ${index}`}
+                                                    />
+                                                </SwiperSlide>
+                                            ))} */}
                                         </Swiper>
                                     </Box>
                                     <Box className="service-window-header">

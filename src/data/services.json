@@ -1,40 +1,5 @@
 [
     {
-        "id": "udalenie-vmyatin-bez-pokraski",
-        "name": "Удаление вмятин без покраски",
-        "services": [
-            {
-                "id": "tehnologiya-pdr",
-                "name": "Технология Paintless Dent Repair (PDR)",
-                "info": "Сертифицированные специалисты компании MASTERCAR осуществляют кузовной ремонт автомобиля без покраски по немецкой технологии Paintless Dent Repair (PDR).",
-                "mainImage": "Технология PDR.jpg",
-                "prices": [
-                    {
-                        "name": "test",
-                        "price": "1200 руб."
-                    },
-                    {
-                        "name": "Сертифицированные специалисты компании MASTERCAR осуществляют",
-                        "price": "4000 руб."
-                    },
-                    {
-                        "name": "Переустановка винды с выездом на дом",
-                        "price": "990000 руб."
-                    }
-                ],
-                "images": [
-                    "Car1.jpeg",
-                    "Car2.jpeg",
-                    "Car3.jpeg",
-                    "Car4.jpeg",
-                    "Car5.png",
-                    "Car6.png",
-                    "Car7.png"
-                ]
-            }
-        ]
-    },
-    {
         "id": "zashchita-kuzova-plenkoy",
         "name": "Защита кузова пленкой",
         "services": [
@@ -42,29 +7,19 @@
                 "id": "okleyka-plenkoy",
                 "name": "Оклейка пленкой",
                 "info": "Защитим кузов автомобиля от сколов и царапин",
-                "img": "",
-                "prices": [
-                    {
-                        "name": "Оклейка зон риска (капот, передние крылья, передний бампер, фары, стойки, полоса на крышу, зеркала, чашки под ручками, зона погрузки багажника, внутренние пороги)",
-                        "price": "от 65000 руб.*"
-                    },
-                    {
-                        "name": "Оклейка всего кузова",
-                        "price": "от 160000 руб.*"
-                    }
-                ],
-                "priceInfo": [
-                    "*в зависимости от размера авто и сложности оклейки"
-                ],
-                "images": [
-                    "Car1.jpeg",
-                    "Car2.jpeg",
-                    "Car3.jpeg",
-                    "Car4.jpeg",
-                    "Car5.png",
-                    "Car6.png",
-                    "Car7.png"
-                ]
+                "img": "-40xK6HXjXA.jpg"
+            }
+        ]
+    },
+    {
+        "id": "udalenie-vmyatin-bez-pokraski",
+        "name": "Удаление вмятин без покраски",
+        "services": [
+            {
+                "id": "tehnologiya-pdr",
+                "name": "Технология Paintless Dent Repair (PDR)",
+                "info": "Сертифицированные специалисты компании MASTERCAR осуществляют кузовной ремонт автомобиля без покраски по немецкой технологии Paintless Dent Repair (PDR).",
+                "img": "2CjaS6IlYH8.jpg"
             }
         ]
     },
@@ -76,68 +31,7 @@
                 "id": "vosstanovlenie-bleska",
                 "name": "Восстановление блеска",
                 "info": "Восстановительная абразивная полировка ЛКП",
-                "img": "Восстановление блеска.jpeg",
-                "prices": [
-                    {
-                        "name": "Освежающая полировка (придает блеск, удаляет до 50% царапин).*",
-                        "price": "от 8000 до 15000 руб."
-                    },
-                    {
-                        "name": "Восстановительная полировка (появляется глубокий насыщенный цвет и блеск, удаляется до 99% царапин).**",
-                        "price": "От 14000 до 30000 руб."
-                    }
-                ],
-                "priceInfo": [
-                    "*Рабочий процесс длится 0,5 – 1,5 дня. Подходит для светлых автомобилей, а также при подготовке к продаже, либо относительно свежих.",
-                    "**Рабочий процесс длится 2 - 3 дня. Подходит для владельцев, которые очень любят свои автомобили. Такой вид полировка необходим перед нанесением защитных составов.",
-                    "***Возможно изменение стоимости для сложных автомобилей. Также стоимость зависит от степени повреждения лакокрасочного покрытия. Автомобилей со сложным лаком."
-                ],
-                "images": [
-                    "Car1.jpeg",
-                    "Car2.jpeg",
-                    "Car3.jpeg",
-                    "Car4.jpeg",
-                    "Car5.png",
-                    "Car6.png",
-                    "Car7.png"
-                ]
-            }
-        ]
-    },
-    {
-        "id": "zashchita-kuzova-keramikoy",
-        "name": "Защита кузова керамикой",
-        "services": [
-            {
-                "id": "everglass",
-                "name": "EverGlass",
-                "info": "Блеск и гладкость. Защита кузова от царапин и дорожных реагентов",
-                "img": "EverGlass.jpeg",
-                "prices": [
-                    {
-                        "name": "Жидкое стекло",
-                        "price": "От 10000 рублей за один слой."
-                    },
-                    {
-                        "name": "Керамика",
-                        "price": "От 10000 рублей за один слой."
-                    },
-                    {
-                        "name": "Жидкое стекло + Керамика",
-                        "price": "От 20000 руб."
-                    }
-                ],
-                "priceInfo": [
-                ],
-                "images": [
-                    "Car1.jpeg",
-                    "Car2.jpeg",
-                    "Car3.jpeg",
-                    "Car4.jpeg",
-                    "Car5.png",
-                    "Car6.png",
-                    "Car7.png"
-                ]
+                "img": "1RcjSBd-vGw.jpg"
             }
         ]
     },
@@ -149,53 +43,7 @@
                 "id": "chistota-v-salone",
                 "name": "Чистота в салоне",
                 "info": "Безопасная химчистка салона с последующей защитой",
-                "img": "Чистота в салоне.jpg",
-                "prices": [
-                    {
-                        "name": "Жидкое стекло",
-                        "price": "От 10000 рублей за один слой."
-                    },
-                    {
-                        "name": "Керамика",
-                        "price": "От 10000 рублей за один слой."
-                    },
-                    {
-                        "name": "Жидкое стекло + Керамика",
-                        "price": "От 20000 руб."
-                    }
-                ],
-                "priceInfo": [
-                ],
-                "images": [
-                    "Car1.jpeg",
-                    "Car2.jpeg",
-                    "Car3.jpeg",
-                    "Car4.jpeg",
-                    "Car5.png",
-                    "Car6.png",
-                    "Car7.png"
-                ]
-            }
-        ]
-    },
-    {
-        "id": "remont-skolov-kraski",
-        "name": "Ремонт сколов краски",
-        "services": [
-            {
-                "id": "dr-colorchip",
-                "name": "Dr.ColorChip",
-                "info": "Американская технология ремонта сколов краски",
-                "img": "Dr.ColorChip.jpg",
-                "images": [
-                    "Car1.jpeg",
-                    "Car2.jpeg",
-                    "Car3.jpeg",
-                    "Car4.jpeg",
-                    "Car5.png",
-                    "Car6.png",
-                    "Car7.png"
-                ]
+                "img": "__bLJrKM2po.jpg"
             }
         ]
     },
@@ -207,16 +55,7 @@
                 "id": "metallizirovannye-plenki",
                 "name": "Металлизированные пленки",
                 "info": "Тонирование стекол автомобиля американскими пленками",
-                "img": "Металлизированные пленки.jpg",
-                "images": [
-                    "Car1.jpeg",
-                    "Car2.jpeg",
-                    "Car3.jpeg",
-                    "Car4.jpeg",
-                    "Car5.png",
-                    "Car6.png",
-                    "Car7.png"
-                ]
+                "img": "DSC02107.jpg"
             }
         ]
     },
@@ -228,16 +67,19 @@
                 "id": "shumoizolyatsiya",
                 "name": "Шумоизоляция",
                 "info": "",
-                "img": "",
-                "images": [
-                    "Car1.jpeg",
-                    "Car2.jpeg",
-                    "Car3.jpeg",
-                    "Car4.jpeg",
-                    "Car5.png",
-                    "Car6.png",
-                    "Car7.png"
-                ]
+                "img": "6SqyPZRMjMs.jpg"
+            }
+        ]
+    },
+    {
+        "id": "zashchita-kuzova-keramikoy",
+        "name": "Защита кузова керамикой",
+        "services": [
+            {
+                "id": "everglass",
+                "name": "EverGlass",
+                "info": "Блеск и гладкость. Защита кузова от царапин и дорожных реагентов",
+                "img": "-DeGUcFi7kY.jpg"
             }
         ]
     },
@@ -249,16 +91,19 @@
                 "id": "аntikhrom",
                 "name": "Антихром",
                 "info": "",
-                "img": "",
-                "images": [
-                    "Car1.jpeg",
-                    "Car2.jpeg",
-                    "Car3.jpeg",
-                    "Car4.jpeg",
-                    "Car5.png",
-                    "Car6.png",
-                    "Car7.png"
-                ]
+                "img": "CfXVrwvP5FE.jpg"
+            }
+        ]
+    },
+    {
+        "id": "remont-skolov-kraski",
+        "name": "Ремонт сколов краски",
+        "services": [
+            {
+                "id": "dr-colorchip",
+                "name": "Dr.ColorChip",
+                "info": "Американская технология ремонта сколов краски",
+                "img": "DSC03307.jpg"
             }
         ]
     }

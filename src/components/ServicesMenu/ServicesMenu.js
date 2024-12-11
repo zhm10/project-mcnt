@@ -91,7 +91,6 @@ const ServicesMenu = ({updateActiveCategory, setUpdateActiveCategory}) => {
 
         const handleLoad = () => {
             const hashname = window.location.hash.split('/');
-            console.log(33);
             
             if (hashname.length < 2) return;
             const urlId = hashname[0] !== undefined && hashname[0] !== "" && hashname[0] !== null ? hashname[0].slice(1) : "";
