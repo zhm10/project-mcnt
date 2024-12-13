@@ -2,6 +2,8 @@
     max-height: fit-content;
     display: flex;
     flex-direction: column;
+    margin: 0 5% !important;
+    width: 90% !important;
 }
 
 .services .service-category {
@@ -22,7 +24,7 @@
 
 .services .service-category>.content .MuiCardMedia-root {
     object-fit: contain;
-    width: 50%;
+    width: 30%;
 }
 
 .services .service-category>.content .MuiCardContent-root {
@@ -36,6 +38,10 @@
 
 /* Медиа-запрос для мобильных телефонов */
 @media only screen and (max-width: 480px) {
+    .services {
+        margin: 0 !important;
+        width: 100% !important;
+    }
     .services .service-category {
         padding-top: 10px;
     }

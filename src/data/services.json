@@ -7,7 +7,8 @@
                 "id": "okleyka-plenkoy",
                 "name": "Оклейка пленкой",
                 "info": "Защитим кузов автомобиля от сколов и царапин",
-                "img": "-40xK6HXjXA.jpg"
+                "firstImage": "IMG_1236.png",
+                "secondImage": "IMG_0898.jpg"
             }
         ]
     },
@@ -19,7 +20,7 @@
                 "id": "tehnologiya-pdr",
                 "name": "Технология Paintless Dent Repair (PDR)",
                 "info": "Сертифицированные специалисты компании MASTERCAR осуществляют кузовной ремонт автомобиля без покраски по немецкой технологии Paintless Dent Repair (PDR).",
-                "img": "2CjaS6IlYH8.jpg"
+                "image": "2CjaS6IlYH8.jpg"
             }
         ]
     },
@@ -31,7 +32,7 @@
                 "id": "vosstanovlenie-bleska",
                 "name": "Восстановление блеска",
                 "info": "Восстановительная абразивная полировка ЛКП",
-                "img": "1RcjSBd-vGw.jpg"
+                "image": "1RcjSBd-vGw.jpg"
             }
         ]
     },
@@ -43,7 +44,7 @@
                 "id": "chistota-v-salone",
                 "name": "Чистота в салоне",
                 "info": "Безопасная химчистка салона с последующей защитой",
-                "img": "__bLJrKM2po.jpg"
+                "image": "__bLJrKM2po.jpg"
             }
         ]
     },
@@ -55,7 +56,7 @@
                 "id": "metallizirovannye-plenki",
                 "name": "Металлизированные пленки",
                 "info": "Тонирование стекол автомобиля американскими пленками",
-                "img": "DSC02107.jpg"
+                "image": "DSC02107.jpg"
             }
         ]
     },
@@ -67,7 +68,7 @@
                 "id": "shumoizolyatsiya",
                 "name": "Шумоизоляция",
                 "info": "",
-                "img": "6SqyPZRMjMs.jpg"
+                "image": "6SqyPZRMjMs.jpg"
             }
         ]
     },
@@ -79,7 +80,7 @@
                 "id": "everglass",
                 "name": "EverGlass",
                 "info": "Блеск и гладкость. Защита кузова от царапин и дорожных реагентов",
-                "img": "-DeGUcFi7kY.jpg"
+                "image": "-DeGUcFi7kY.jpg"
             }
         ]
     },
@@ -91,7 +92,7 @@
                 "id": "аntikhrom",
                 "name": "Антихром",
                 "info": "",
-                "img": "CfXVrwvP5FE.jpg"
+                "image": "CfXVrwvP5FE.jpg"
             }
         ]
     },
@@ -103,7 +104,7 @@
                 "id": "dr-colorchip",
                 "name": "Dr.ColorChip",
                 "info": "Американская технология ремонта сколов краски",
-                "img": "DSC03307.jpg"
+                "image": "DSC03307.jpg"
             }
         ]
     }

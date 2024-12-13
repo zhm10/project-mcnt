@@ -1,0 +1,38 @@
+/* Добавляем стрелки через псевдоэлементы */
+.before-after-slider__delimiter {
+    width: 2px;
+}
+
+.before-after-slider__delimiter::before,
+.before-after-slider__delimiter::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: solid white;
+    border-width: 2px 2px 0 0;
+    transform: rotate(45deg);
+    top: 50%;
+    transform-origin: center;
+    transition: transform 0.2s ease, scale 0.2s ease;
+}
+
+/* Левая стрелка */
+.before-after-slider__delimiter::before {
+    left: -15px;
+    transform: translateY(-50%) rotate(-135deg);
+}
+
+/* Правая стрелка */
+.before-after-slider__delimiter::after {
+    right: -15px;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.before-after-slider__delimiter:hover::before {
+    transform: translateY(-50%) rotate(-135deg) scale(1.2);
+}
+
+.before-after-slider__delimiter:hover::after {
+    transform: translateY(-50%) rotate(45deg) scale(1.2);
+}

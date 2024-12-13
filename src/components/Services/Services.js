@@ -11,6 +11,7 @@ import './Services.css';
 import detailingServices from "../../data/services.json";
 import defaultImg from "../../assets/HeaderLogo.jpeg";
 import ModalWindow from "../Modal/ModalWindow";
+import BeforeAfterSlider from '../BeforeAfterSlider/BeforeAfterSlider';
 
 const context = require.context('../../assets/services', true, /\.(jpeg|jpg|png)$/); // Правильный контекст для изображений
 
@@ -89,14 +90,14 @@ function Services() {
 
     return (
         <Box className='services-wrapper'>
-            <Container className='services' maxWidth='xl' style={{ margin: '0' }}>
+            <Container className='services' maxWidth='xl' >
                 <h1>Услуги</h1>
             </Container>
             <ServicesMenu
                 updateActiveCategory={updateActiveCategory}
                 setUpdateActiveCategory={setUpdateActiveCategory}
             />
-            <Container className='services' maxWidth='xl' style={{ margin: '0' }}>
+            <Container className='services' maxWidth='xl' >
                 {detailingServices.map((category) => (
                     <div key={category.id} id={category.id} className='service-category'>
                         {isMobile ? (
@@ -107,12 +108,19 @@ function Services() {
                         <Box className='content' sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
                             {category.services.map((service) => (
                                 <Card key={service.id} sx={{ flex: '1 1 100%', mb: 2, display: 'flex' }}>
-                                    <CardMedia
-                                        component="img"
-                                        image={loadImage(service.id, service.img)}
-                                        alt={service.name}
-                                        sx={{ width: { xs: '100%', sm: '50%' }, height: { xs: 'auto', sm: '100%' } }}
-                                    />
+                                    {service.firstImage && service.secondImage ? (
+                                        <BeforeAfterSlider
+                                            firstImage={loadImage(service.id, service.firstImage)}
+                                            secondImage={loadImage(service.id, service.secondImage)}
+                                        />
+                                    ) : (
+                                        <CardMedia
+                                            component="img"
+                                            image={loadImage(service.id, service.image)}
+                                            alt={service.name}
+                                            sx={{ width: { xs: '100%', sm: '50%' }, height: { xs: 'auto', sm: '100%' } }}
+                                        />
+                                    )}
                                     <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
                                         <Box>
                                             <h2>{service.name}</h2>
