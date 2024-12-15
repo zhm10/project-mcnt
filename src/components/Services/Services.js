@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import Skeleton from '@mui/material/Skeleton'; // Добавляем Skeleton
 import ServicesMenu from '../ServicesMenu/ServicesMenu';
 import './Services.css';
 import detailingServices from "../../data/services.json";
@@ -13,115 +13,115 @@ import defaultImg from "../../assets/HeaderLogo.jpeg";
 import ModalWindow from "../Modal/ModalWindow";
 import BeforeAfterSlider from '../BeforeAfterSlider/BeforeAfterSlider';
 
-const context = require.context('../../assets/services', true, /\.(jpeg|jpg|png)$/); // Правильный контекст для изображений
+const context = require.context('../../assets/services', true, /\.(jpeg|jpg|png|webp)$/);
 
 function Services() {
     const [selectedService, setSelectedService] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [updateActiveCategory, setUpdateActiveCategory] = useState(true);
+    const [updateActiveService, setUpdateActiveService] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
+    const descriptionUrlName = 'description';
 
-    const handleOpen = (category, service) => {
-        setSelectedCategory(category);
+    const handleOpen = (service) => {
         setSelectedService(service);
         setModalOpen(true);
-
-        window.history.replaceState(null, null, `/#${category.id}/${service.id}`);
+        window.history.replaceState(null, null, `/#${service.id}/${descriptionUrlName}`);
     };
 
     const handleClose = () => {
         setModalOpen(false);
         setSelectedService(null);
-        window.history.replaceState(null, null, `#${selectedCategory.id}`);
+        window.history.replaceState(null, null, `/#${selectedService.id}`);
     };
 
-    const loadImage = (serviceId, imageName) => {
+    const loadImage = (folderName, imageName) => {
         try {
-            return context(`./${serviceId}/${imageName}`);
+            return context(`./${folderName}/${imageName}`);
         } catch {
             return defaultImg;
         }
     };
 
-    const loadAllImage = (serviceId) => {
+    const loadAllImage = (folderName) => {
         try {
-            // Загружаем все изображения из папки serviceId
-            const folderPath = context.keys().filter(key => key.includes(serviceId)); // Фильтруем файлы по serviceId
-            const images = folderPath.map(key => context(key)); // Загружаем изображения из отфильтрованных путей
+            const folderPath = context.keys().filter(key => key.startsWith(`./${folderName}/`));
+            const images = folderPath.map(key => context(key));
             return images;
         } catch (e) {
             console.error("Ошибка при загрузке изображений:", e);
-            return []; // Возвращаем пустой массив в случае ошибки
+            return [];
         }
     };
 
-    const isMobile = useMediaQuery('(max-width:600px)');
-
-    useEffect(() => {
-        const hash = window.location.hash.slice(1);
-        const pathService = window.location.hash.split("/").pop();
-
-        if (hash) {
-            const element = document.getElementById(hash);
-            if (element) {
-                setTimeout(() => {
-                    element.scrollIntoView({ behavior: 'instant' });
-                }, 100);
-            }
-            if (pathService && pathService !== hash) {
-                let selectedCategory;
-                const service = detailingServices.find(category => {
-                    const foundService = category.services.find(service => service.id === pathService);
-                    if (foundService) {
-                        selectedCategory = category;
-                        return true;
-                    }
-                    return false;
-                })?.services.find(service => service.id === pathService);
-
-                if (service) {
-                    setSelectedCategory(selectedCategory);
-                    setSelectedService(service);
-                    setModalOpen(true);
-                }
-            }
-        }
-    }, []);
-
     return (
         <Box className='services-wrapper'>
-            <Container className='services' maxWidth='xl' >
-                <h1>Услуги</h1>
+            <Container className='services' maxWidth='xl'>
+                <div className='section-header'>
+                    <h1 className='section-header-title'>Услуги</h1>
+                    <p className='section-header-text'>Предлагаем вам широкий спектр по защите и уходу за вашим автомобилем</p>
+                </div>
             </Container>
             <ServicesMenu
-                updateActiveCategory={updateActiveCategory}
-                setUpdateActiveCategory={setUpdateActiveCategory}
+                updateActiveService={updateActiveService}
+                setUpdateActiveService={setUpdateActiveService}
+                handleOpen={handleOpen}
+                descriptionUrlName={descriptionUrlName}
             />
-            <Container className='services' maxWidth='xl' >
-                {detailingServices.map((category) => (
-                    <div key={category.id} id={category.id} className='service-category'>
-                        {isMobile ? (
-                            <h2 style={{ marginBottom: '20px' }}>{category.name}</h2>
-                        ) : (
-                            <h1 style={{ marginBottom: '20px' }}>{category.name}</h1>
-                        )}
-                        <Box className='content' sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-                            {category.services.map((service) => (
-                                <Card key={service.id} sx={{ flex: '1 1 100%', mb: 2, display: 'flex' }}>
-                                    {service.firstImage && service.secondImage ? (
-                                        <BeforeAfterSlider
-                                            firstImage={loadImage(service.id, service.firstImage)}
-                                            secondImage={loadImage(service.id, service.secondImage)}
-                                        />
-                                    ) : (
-                                        <CardMedia
-                                            component="img"
-                                            image={loadImage(service.id, service.image)}
-                                            alt={service.name}
-                                            sx={{ width: { xs: '100%', sm: '50%' }, height: { xs: 'auto', sm: '100%' } }}
-                                        />
-                                    )}
-                                    <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
+            <Container className='services' maxWidth='xl'>
+                <Box className='services-content' sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+                    {detailingServices.map((service) => {
+                        // eslint-disable-next-line react-hooks/rules-of-hooks
+                        const [loaded, setLoaded] = useState(false);
+                        const firstImageSrc = loadImage(service.imagesFolderName, service.firstImage);
+                        const secondImageSrc = service.secondImage
+                            ? loadImage(service.imagesFolderName, service.secondImage)
+                            : null;
+
+                        return (
+                            <Box id={service.id} className='service-wrapper'>
+                                <Card key={service.id} className='service' sx={{ flex: '1 1 100%', mb: 2, display: 'flex' }}>
+                                    <Box className='section-images'>
+                                        {service.firstImage && service.secondImage ? (
+                                            <React.Fragment>
+                                                {!loaded && (
+                                                    <Skeleton
+                                                        variant="rectangular"
+                                                        sx={{
+                                                            width: '100%',
+                                                            height: 300,
+                                                            borderRadius: '4px',
+                                                        }}
+                                                    />
+                                                )}
+                                                <BeforeAfterSlider
+                                                    firstImage={firstImageSrc}
+                                                    secondImage={secondImageSrc}
+                                                    onLoad={() => setLoaded(true)}
+                                                />
+                                            </React.Fragment>
+                                        ) : (
+                                            <React.Fragment>
+                                                {!loaded && (
+                                                    <Skeleton
+                                                        variant="rectangular"
+                                                        sx={{
+                                                            width: '100%',
+                                                            height: 300,
+                                                            borderRadius: '4px',
+                                                        }}
+                                                    />
+                                                )}
+                                                <CardMedia
+                                                    component="img"
+                                                    image={firstImageSrc}
+                                                    alt={service.name}
+                                                    sx={{ width: { xs: '100%', sm: '100%' }, height: { xs: 'auto', sm: '100%' } }}
+                                                    onLoad={() => setLoaded(true)}
+                                                    style={loaded ? {} : { display: 'none' }}
+                                                />
+                                            </React.Fragment>
+                                        )}
+                                    </Box>
+                                    <CardContent className='section-content' sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
                                         <Box>
                                             <h2>{service.name}</h2>
                                             <p>{service.info}</p>
@@ -131,27 +131,26 @@ function Services() {
                                                 className='moreDetailed'
                                                 style={{ width: '50%', backgroundColor: '#ffc027', color: 'black', fontWeight: 'bold' }}
                                                 variant="contained"
-                                                onClick={() => handleOpen(category, service)}>
+                                                onClick={() => handleOpen(service)}>
                                                 Подробнее
                                             </Button>
                                         </Box>
                                     </CardContent>
                                 </Card>
-                            ))}
-                        </Box>
-                    </div>
-                ))}
+                            </Box>
+                        );
+                    })}
+                </Box>
             </Container>
 
             {selectedService && (
                 <ModalWindow
                     open={modalOpen}
                     handleClose={handleClose}
-                    updateActiveCategory={updateActiveCategory}
-                    setUpdateActiveCategory={setUpdateActiveCategory}
-                    categoryName={selectedCategory.name}
+                    updateActiveService={updateActiveService}
+                    setUpdateActiveService={setUpdateActiveService}
                     service={selectedService}
-                    images={loadAllImage(selectedService.id)}
+                    images={loadAllImage(selectedService.imagesFolderName)}
                 />
             )}
         </Box>

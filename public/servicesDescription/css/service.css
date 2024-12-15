@@ -1,3 +1,7 @@
+.service-content h1, .service-content h2, .service-content h3, .service-content h4, .service-content h5, .service-content h6, .service-content p {
+  margin: 20px 0;
+}
+
 /* Контейнеры для изображений */
 .service-content .img-block-count-3,
 .service-content .img-block-count-2 {

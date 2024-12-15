@@ -1,67 +1,20 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Link, animateScroll as scroll } from 'react-scroll';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import './ServicesMenu.css';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import { FreeMode } from 'swiper/modules';
 import menuData from "../../data/services.json";
 
-const ServicesMenu = ({updateActiveCategory, setUpdateActiveCategory}) => {
+const ServicesMenu = ({ updateActiveService, setUpdateActiveService, handleOpen, descriptionUrlName }) => {
     const [fixed, setFixed] = useState(false);
     const [activeIndex, setActiveIndex] = useState(null);
-    const [activeId, setActiveId] = useState(null);
-    const [currentId, setCurrentId] = useState(null);
     const swiperRef = useRef(null);
-    const sectionRefs = useRef({});
+    const serviceRefs = useRef({});
     const wrapperMenuRef = useRef(null);
-    const isMobile = useMediaQuery('(max-width:600px)');
-
-    useEffect(() => {
-        const observerOptions = {
-            root: null,
-            rootMargin: `-120px 0px -${window.innerHeight - 100}px 0px`,
-            threshold: [0],
-        };
-
-        // Ищет совпадение на видимой области страницы категории которая таргетная сейчас
-        const observer = new IntersectionObserver((entries) => {
-            let found = false;
-            // console.log(updateActiveCategory, currentId, activeId, window.location.hash.split('/'));
-
-            entries.forEach((entry) => {
-                const id = entry.target.getAttribute('id');
-                
-                if (!updateActiveCategory && currentId !== id) {
-                    setActiveId(currentId);
-                    setActiveIndex(menuData.findIndex(item => item.id === currentId));
-                    window.history.replaceState(null, null, `/#${currentId}`);
-                    found = true;
-                } else if (entry.isIntersecting) {
-                    setActiveId(id);
-                    setActiveIndex(menuData.findIndex(item => item.id === id));
-                    window.history.replaceState(null, null, `/#${id}`);
-                    found = true;
-                }
-            });
-
-            if (!found && activeId !== null) {
-                setActiveId(null);
-                setActiveIndex(null);
-                window.history.replaceState(null, null, '/');
-            }
-        }, observerOptions);
-
-        menuData.forEach((service) => {
-            const element = document.getElementById(service.id);
-            if (element) {
-                observer.observe(element);
-                sectionRefs.current[service.id] = element;
-            }
-        });
-
-        return () => observer.disconnect();
-    }, [activeId, currentId, updateActiveCategory])
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const yOffset = isMobile ? -150 : -150; // Подкорректированное смещение
 
     useEffect(() => {
         // Срабатывает при скроле страницы
@@ -71,15 +24,20 @@ const ServicesMenu = ({updateActiveCategory, setUpdateActiveCategory}) => {
 
             setFixed(blockTop < headerHeight);
 
-            const currentSection = Object.keys(sectionRefs.current).find(key => {
-                const section = sectionRefs.current[key];
-                const rect = section.getBoundingClientRect();
-                return rect.top <= 120 && rect.bottom >= 120;
+            const currentService = Object.keys(serviceRefs.current).find(key => {
+                const service = serviceRefs.current[key];
+                const rect = service.getBoundingClientRect();
+                return rect.top <= 300 && rect.bottom >= 300;
             });
 
-            if (updateActiveCategory && currentSection && activeIndex !== menuData.findIndex(item => item.id === currentSection)) {
-                setActiveIndex(menuData.findIndex(item => item.id === currentSection));
-                scrollToSlide(menuData.findIndex(item => item.id === currentSection));
+            if (updateActiveService && currentService && activeIndex !== menuData.findIndex(item => item.id === currentService)) {
+                setActiveIndex(menuData.findIndex(item => item.id === currentService));
+                scrollToSlide(menuData.findIndex(item => item.id === currentService));
+                window.history.replaceState(null, null, `/#${currentService}`);
+            } else if (updateActiveService && currentService === undefined) {
+                setActiveIndex(null);
+                scrollToSlide(null);
+                window.history.replaceState(null, null, `/`);
             }
         };
 
@@ -88,77 +46,90 @@ const ServicesMenu = ({updateActiveCategory, setUpdateActiveCategory}) => {
     });
 
     useEffect(() => {
+        menuData.forEach((service) => {
+            const element = document.getElementById(service.id);
+            if (element) {
+                serviceRefs.current[service.id] = element;
+            }
+        });
 
         const handleLoad = () => {
             const hashname = window.location.hash.split('/');
-            
-            if (hashname.length < 2) return;
-            const urlId = hashname[0] !== undefined && hashname[0] !== "" && hashname[0] !== null ? hashname[0].slice(1) : "";
-            
-            console.log("hashname", hashname);
-            console.log("urlId", urlId);
+            const urlId = hashname[0] !== undefined && hashname[0] !== "" && hashname[0] !== null ? decodeURI(hashname[0]).slice(1) : "";
 
-            console.log(menuData);
+            let instant = false;
+            if (hashname.length > 1) {
+                let description = decodeURI(hashname[1]).toLowerCase();
+                if (description === descriptionUrlName) instant = true;
+            }
+
             if (urlId && menuData.some(item => item.id === urlId)) {
-                // console.log(100);
-                //const category = menuData.find(item => item.id === urlId);
+                const matchedItem = menuData.find(item => item.id === urlId);
+                const index = menuData.findIndex(item => item.id === urlId);
                 const element = document.getElementById(urlId);
-                // console.log("element", element);
 
                 if (element) {
-                    // console.log(101);
-                    setUpdateActiveCategory(false);
-                    scrollToCategory(urlId, true);
-
-                    setTimeout(() => {
-                        setUpdateActiveCategory(true);
-                    }, 1000);
+                    handleClick(matchedItem.id, index, instant)
+                    if (instant) handleOpen(matchedItem);
                 }
+            }
+        };
+
+        let timedId;
+        if (isMobile) {
+            timedId = setTimeout(() => {
+                handleLoad();
+            }, 500);
+        } else {
+            if (document.readyState === "complete") {
+                timedId = setTimeout(() => {
+                    handleLoad();
+                }, 500);
+            } else {
+                window.addEventListener('load', handleLoad);
             }
         }
 
-        // Добавляем слушатель события загрузки страницы
-        window.addEventListener('load', handleLoad);
-
-        // Очищаем слушатель при размонтировании
         return () => {
+            clearTimeout(timedId);
             window.removeEventListener('load', handleLoad);
         };
+        // eslint-disable-next-line
     }, []);
+
 
     const scrollToSlide = (index) => {
         swiperRef.current?.swiper?.slideTo(index, 1000, false);
     };
 
     // Событие по горизонтальному меню категорий
-    const handleClick = (id, index) => {
-        setUpdateActiveCategory(false);
-
-        setCurrentId(id);
-        // setCurrentIndex(index);
+    const handleClick = (id, index, instant) => {
+        setUpdateActiveService(false);
 
         setActiveIndex(index);
         scrollToSlide(index);
-        scrollToCategory(id, false);
+        scrollToCService(id, false);
+        window.history.replaceState(null, null, `/#${id}`);
 
         setTimeout(() => {
-            setUpdateActiveCategory(true);
+            setUpdateActiveService(true);
         }, 1000);
     };
 
-    const scrollToCategory = (id, instant) => {
+    const scrollToCService = (id, instant) => {
         const element = document.getElementById(id);
 
         if (element) {
-            const yOffset = isMobile ? -100 : -80;
-            const yCoordinate = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            window.scrollTo({ top: yCoordinate, behavior: instant ? 'instant': 'smooth' });
+            scroll.scrollTo(element.offsetTop + yOffset, {
+                duration: instant ? 0 : 1000,
+                smooth: true
+            });
         }
     };
 
     return (
         <div className='servicesmenu-wrapper' ref={wrapperMenuRef}>
-            <div className={`fallback ${fixed ? 'fixed' : ''}`} style={{ height: '39px' }} />
+            <div className={`fallback ${fixed ? 'fixed' : ''}`} style={{ height: '50px' }} />
             <div
                 className={`servicesmenu ${fixed ? "fixed" : ""}`}
                 style={{ top: fixed ? `${document.querySelector(".header-wrapper .content").offsetHeight}px` : '', zIndex: 10 }}
@@ -174,16 +145,14 @@ const ServicesMenu = ({updateActiveCategory, setUpdateActiveCategory}) => {
                     >
                         {menuData.map((service, index) => (
                             <SwiperSlide className='item' key={service.id}>
-                                <a
-                                    href={`/${service.id}`}
+                                <Link
+                                    to={service.id} // Используем Link из react-scroll
+                                    // smooth={true}
+                                    onClick={() => handleClick(service.id, index, false)}
                                     className={`${activeIndex === index ? 'active-service' : ''}`}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleClick(service.id, index);
-                                    }}
                                 >
                                     {service.name}
-                                </a>
+                                </Link>
                             </SwiperSlide>
                         ))}
                     </Swiper>

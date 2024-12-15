@@ -1,3 +1,20 @@
+.animated-box-content .section-content {
+    margin: 0 10px;
+}
+
+.animated-box-content .section-content .swiper {
+    border-radius: 10px;
+}
+
+.animated-box-content .section-content .swiper .swiper-slide {
+    background-color: black;
+}
+
+.animated-box-content .section-content .swiper .swiper-button-prev::after,
+.animated-box-content .section-content .swiper .swiper-button-next::after {
+    color: #FFF;
+}
+
 
 .animated-box-content .service-window-content-info {
     display: flex;
@@ -93,6 +110,10 @@
 
 .animated-box-content .service-window-content-full-description {
     /* padding: 20px 0; */
+}
+
+.animated-box-content .service-window-content-full-description h2 {
+    margin: 20px 0;
 }
 
 /* Медиа-запрос для мобильных телефонов */

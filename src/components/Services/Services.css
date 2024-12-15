@@ -1,3 +1,9 @@
+.services-wrapper {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
 .services {
     max-height: fit-content;
     display: flex;
@@ -6,34 +12,61 @@
     width: 90% !important;
 }
 
-.services .service-category {
-    height: fit-content;
-    padding-top: 30px;
-}
-
-.services .service-category>.content {
+.services .section-header {
     display: flex;
     flex-direction: row;
+    margin: 40px 0;
+}
+
+.services .section-header-title {
+    width: 100%;
+}
+
+.services .section-header-title::before {
+    content: "// ";
+}
+
+.services .section-header-text {
+    text-align: right;
+    width: 100%;
+}
+
+.services .services-content {
+    height: fit-content;
+    padding: 30px 0;
+    display: flex;
     flex-wrap: wrap;
-}
-
-.services .service-category>.content .MuiPaper-root {
-    flex-direction: row;
-    box-shadow: 0px 2px 20px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
-}
-
-.services .service-category>.content .MuiCardMedia-root {
-    object-fit: contain;
-    width: 30%;
-}
-
-.services .service-category>.content .MuiCardContent-root {
     text-align: center;
-    width: calc(100% - 48px);
+    height: 100%;
+    gap: 0px;
 }
 
-.services .service-category .content .service:last-child {
+.services .services-content .service-wrapper {
+    padding: 20px 0;
+}
+
+.services .services-content .service {
+    flex-direction: row;
+    box-shadow: 0px 2px 20px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    margin: 0;
+}
+
+.services .services-content .service:last-child {
     margin-right: 0;
+}
+
+.services .services-content .service .section-images,
+.services .services-content .service .section-content {
+    width: 100%;
+    padding: 0px;
+}
+
+.services .services-content .service .section-content h2 {
+    margin: 10px 5px;
+}
+
+.services .services-content .service .section-content p {
+    margin: 0 5px 20px 5px;
 }
 
 /* Медиа-запрос для мобильных телефонов */
@@ -42,31 +75,48 @@
         margin: 0 !important;
         width: 100% !important;
     }
-    .services .service-category {
-        padding-top: 10px;
-    }
 
-    .services .service-category>.content .MuiCardMedia-root {
-        width: 100%;
-    }
-
-    .services .service-category>.content .MuiPaper-root {
+    .services .section-header {
         flex-direction: column;
+    }
+
+    .services .section-header-title {
+        margin-bottom: 10px;
+    }
+
+    .services .services-content .service {
+        flex-direction: column;
+    }
+
+    .services .services-content .service .section-content {
+        padding: 30px 0;
+    }
+
+    .services .services-content .service .section-content button {
+        margin: 0 0 20px 0;
     }
 }
 
-/* Медиа-запрос для планшетов */
-@media only screen and (min-width: 481px) and (max-width: 1024px) {
-
-    .services .service-category>.content .MuiCardMedia-root {
-        width: 100%;
+/* Медиа-запросы для планшетов */
+@media only screen and (min-width: 481px) and (max-width: 800px) {
+    .services .services-content .service {
+        flex-direction: column;
     }
 
-    .services .service-category>.content .MuiPaper-root {
-        flex-direction: column;
+    .services .services-content .service .section-content {
+        padding: 30px 0;
+    }
+
+    .services .services-content .service .section-content button {
+        margin: 0 0 20px 0;
+    }
+}
+@media only screen and (min-width: 801px) and (max-width: 1024px) {
+    .services {
+        margin: 0 !important;
+        width: 100% !important;
     }
 }
 
 /* Медиа-запрос для устройств с разрешением Full HD и выше */
-@media only screen and (min-width: 1025px) and (max-width: 1920px) {
-}
+@media only screen and (min-width: 1025px) and (max-width: 1920px) {}

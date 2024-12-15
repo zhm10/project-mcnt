@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef, Suspense, lazy } from 'react';
-import { Modal, Box, IconButton, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Modal, Box, IconButton, CircularProgress } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
@@ -8,9 +8,8 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
+import ContactInfo from '../ContactInfo/ContactInfo';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-// import ServiceDescription from '../Services/ServiceDescription/ServiceDescription';
-import defaultImg from "../../assets/HeaderLogo.jpeg";
 import './ModalWindow.css';
 
 const ServiceDescription = lazy(() => import('../Services/ServiceDescription/ServiceDescription'));
@@ -27,7 +26,7 @@ const style = {
     borderTopLeftRadius: '16px',
     borderTopRightRadius: '16px',
     margin: "0 10px",
-    p: 2,
+    p: 0,
     zIndex: 10,
     height: '85%',
     paddingTop: '10px',
@@ -42,13 +41,13 @@ const isMobileDevice = () => {
 };
 
 
-const ModalWindow = ({ open, handleClose, categoryName, service, images }) => {
+const ModalWindow = ({ open, handleClose, service, images }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const dragHandleRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(open);
     const [isScrollable, setIsScrollable] = useState(false);
     const isMobile = isMobileDevice();
-    const content = <ServiceDescription descriptionId={service.id} />;
+    const content = <ServiceDescription descriptionId={service.descriptionId} />;
     const [isLoading, setIsLoading] = useState(true);
 
     const [{ y }, api] = useSpring(() => ({
@@ -205,7 +204,7 @@ const ModalWindow = ({ open, handleClose, categoryName, service, images }) => {
                             }}
                             onScroll={handleScroll}
                         >
-                            <Box>
+                            <Box className="section-content">
                                 <Box className="service-window-content-info">
                                     <Box className="service-window-slider-image">
                                         {/* Слайдер с динамическими изображениями */}
@@ -225,24 +224,17 @@ const ModalWindow = ({ open, handleClose, categoryName, service, images }) => {
                                                     <img
                                                         src={image} // Используем путь к изображению из объекта
                                                         alt={`Service ${index}`}
+                                                        loading="lazy"
                                                     />
                                                 </SwiperSlide>
                                             ))}
-                                            {/* 
-                                            {service.images.map((image, index) => (
-                                                <SwiperSlide key={index}>
-                                                    <img
-                                                        src={loadImage(service.id)}
-                                                        alt={`Service ${index}`}
-                                                    />
-                                                </SwiperSlide>
-                                            ))} */}
                                         </Swiper>
                                         <Swiper
                                             onSwiper={setThumbsSwiper}
                                             slidesPerView={'auto'}
                                             spaceBetween={1}
                                             freeMode={true}
+                                            navigation={true}
                                             watchSlidesProgress={true}
                                             modules={[FreeMode, Navigation, Thumbs]}
                                             className='sub-service-slider-images'
@@ -252,52 +244,16 @@ const ModalWindow = ({ open, handleClose, categoryName, service, images }) => {
                                                     <img
                                                         src={image} // Используем путь к изображению из объекта
                                                         alt={`Service ${index}`}
+                                                        loading="lazy"
                                                     />
                                                 </SwiperSlide>
                                             ))}
-                                            {/* {service.images.map((image, index) => (
-                                                <SwiperSlide key={index}>
-                                                    <img
-                                                        src={loadImage(service.id, image)}
-                                                        alt={`Service ${index}`}
-                                                    />
-                                                </SwiperSlide>
-                                            ))} */}
                                         </Swiper>
                                     </Box>
                                     <Box className="service-window-header">
                                         <Box className="service-window-header-content">
                                             <h2>{service.name}</h2>
                                             <p>{service.info}</p>
-                                            {/* {service.prices && Array.isArray(service.prices) && (
-                                                <TableContainer component={Paper}>
-                                                    <Table sx={{ width: '100%' }} aria-label="simple table">
-                                                        <TableHead>
-                                                            <TableRow>
-                                                                <TableCell>Услуга</TableCell>
-                                                                <TableCell style={{ whiteSpace: 'nowrap' }}>Цена</TableCell>
-                                                            </TableRow>
-                                                        </TableHead>
-                                                        <TableBody>
-                                                            {service.prices.map((row) => (
-                                                                <TableRow
-                                                                    key={row.name}
-                                                                >
-                                                                    <TableCell>{row.name}</TableCell>
-                                                                    <TableCell style={{ whiteSpace: 'nowrap' }}>{row.price}</TableCell>
-                                                                </TableRow>
-                                                            ))}
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                            )}
-                                            {service.priceInfo && Array.isArray(service.priceInfo) && (
-                                                <div className='price-info'>
-                                                    {service.priceInfo.map((row, index) => (
-                                                        <span key={index}>{row}</span>
-                                                    ))}
-                                                </div>
-                                            )} */}
                                         </Box>
                                     </Box>
                                 </Box>
@@ -307,9 +263,10 @@ const ModalWindow = ({ open, handleClose, categoryName, service, images }) => {
                                         <h2>Подробная информация</h2>
                                         {content}
                                     </Box>
-                                    <Box style={{ margin: '30px 0 50px ', fontWeight: 'bold' }}>Информация размещённая на сайте не является публичной офертой</Box>
+                                    <Box style={{ margin: '30px 0', fontWeight: 'bold' }}>Информация размещённая на сайте не является публичной офертой</Box>
                                 </Suspense>
                             </Box>
+                            < ContactInfo />
                         </Box>
                     </Suspense>
                 )

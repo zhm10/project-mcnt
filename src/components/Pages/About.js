@@ -1,7 +1,5 @@
 // About.js
 import React, { useEffect } from 'react';
-import Footer from '../Footer/Footer';
-import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton';
 
 const About = () => {
     useEffect(() => {

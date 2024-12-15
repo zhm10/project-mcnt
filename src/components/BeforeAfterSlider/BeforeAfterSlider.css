@@ -1,8 +1,8 @@
-/* Добавляем стрелки через псевдоэлементы */
 .before-after-slider__delimiter {
     width: 2px;
 }
 
+/* Добавляем стрелки через псевдоэлементы */
 .before-after-slider__delimiter::before,
 .before-after-slider__delimiter::after {
     content: '';
@@ -15,6 +15,7 @@
     top: 50%;
     transform-origin: center;
     transition: transform 0.2s ease, scale 0.2s ease;
+    cursor: pointer;
 }
 
 /* Левая стрелка */

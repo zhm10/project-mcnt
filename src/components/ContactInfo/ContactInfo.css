@@ -1,6 +1,7 @@
 .contact-info-wrapper {
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: black;
     padding: 50px 0;
     color: white;

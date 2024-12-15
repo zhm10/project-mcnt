@@ -18,31 +18,8 @@
 .servicesmenu.fixed {
     position: fixed;
     width: 100%;
+    left: 0;
 }
-
-/* .servicesmenu .content::before {
-    right: -30px;
-    background: linear-gradient(270deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
-    content: "";
-    position: absolute;
-    width: 141px;
-    top: 0;
-    bottom: 0;
-    z-index: 10;
-    pointer-events: none;
-} */
-
-/* .servicesmenu .content::after {
-    left: -30px;
-    background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
-    content: "";
-    position: absolute;
-    width: 141px;
-    top: 0;
-    bottom: 0;
-    z-index: 10;
-    pointer-events: none;
-} */
 
 .servicesmenu::after {
     content: "";

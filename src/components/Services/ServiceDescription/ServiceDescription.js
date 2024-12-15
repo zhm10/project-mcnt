@@ -7,11 +7,9 @@ const ServiceDescription = ({ descriptionId }) => {
 
   useEffect(() => {
     const loadHtmlContent = async () => {
-      console.log(descriptionId);
-      
       try {
         const response = await fetch(`/servicesDescription/${descriptionId}.html`);
-        
+
         if (!response.ok) {
           throw new Error('Ошибка загрузки описания услуги');
         }
