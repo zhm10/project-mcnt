@@ -10,12 +10,6 @@
     background-color: black;
 }
 
-.animated-box-content .section-content .swiper .swiper-button-prev::after,
-.animated-box-content .section-content .swiper .swiper-button-next::after {
-    color: #FFF;
-}
-
-
 .animated-box-content .service-window-content-info {
     display: flex;
     flex-direction: row;

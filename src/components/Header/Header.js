@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Container, IconButton } from '@mui/material';
 import MenuIconCustom from '../Menu/MenuIconCustom/MenuIconCustom'; // Импортируем новый компонент иконки
-import Menu from '../Menu/Menu'; // Импортируем компонент меню
+import Menu from '../Menu/Menu';
 import headerLogo from "../../assets/HeaderLogoWithoutBackground.png?url";
 import './Header.css';
 

@@ -8,3 +8,39 @@
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
+
+/* Swiper arrow button style */
+.swiper .swiper-button-prev,
+.swiper .swiper-button-next {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    position: absolute;
+    border: 1px solid #fff;
+    background-color: transparent;
+    transition: .3s ease-out;
+}
+
+.swiper .swiper-button-prev {
+    left: 10px;
+}
+
+.swiper .swiper-button-next {
+    right: 10px;
+}
+
+.swiper .swiper-button-prev:hover,
+.swiper .swiper-button-next:hover {
+    background-color: rgba(43, 43, 46, .8);
+}
+
+.swiper .swiper-button-prev::after,
+.swiper .swiper-button-next::after {
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    display: flex;
+    font-size: 15px;
+    align-items: center;
+    justify-content: center;
+}

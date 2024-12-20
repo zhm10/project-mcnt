@@ -24,12 +24,6 @@ function Menu({ open, onClose }) {
 
   useEffect(() => {
     setMenuOpen(open);
-
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'scroll';
-    }
   }, [open]);
 
   const handleClose = () => {

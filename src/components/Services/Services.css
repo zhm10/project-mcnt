@@ -42,6 +42,7 @@
 }
 
 .services .services-content .service-wrapper {
+    width: 100%;
     padding: 20px 0;
 }
 

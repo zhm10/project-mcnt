@@ -138,8 +138,8 @@ const ModalWindow = ({ open, handleClose, service, images }) => {
     );
 
     const handleScroll = (event) => {
-        const isScrollable = event.target.scrollHeight > event.target.clientHeight;
-        setIsScrollable(isScrollable);
+        //const isScrollable = event.target.scrollHeight > event.target.clientHeight;
+        //setIsScrollable(isScrollable);
     };
 
     return (
