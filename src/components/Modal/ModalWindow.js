@@ -215,6 +215,7 @@ const ModalWindow = ({ open, handleClose, service, images }) => {
                                             }}
                                             spaceBetween={1}
                                             navigation={true}
+                                            loop
                                             thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
                                             modules={[FreeMode, Navigation, Thumbs]}
                                             className='main-service-slider-image'
@@ -235,6 +236,7 @@ const ModalWindow = ({ open, handleClose, service, images }) => {
                                             spaceBetween={1}
                                             freeMode={true}
                                             navigation={true}
+                                            loop
                                             watchSlidesProgress={true}
                                             modules={[FreeMode, Navigation, Thumbs]}
                                             className='sub-service-slider-images'

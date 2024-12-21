@@ -60,7 +60,8 @@ const Slider = () => {
                   autoPlay
                   loop
                   muted
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  playsInline
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }}
                   loading="lazy"
                 />
                 {text && (
