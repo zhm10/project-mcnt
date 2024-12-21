@@ -3,8 +3,9 @@ import { IconButton, List, ListItem, ListItemText, Divider, Box } from '@mui/mat
 import { Instagram, Telegram } from '@mui/icons-material';
 import { Icon24LogoVk } from '@vkontakte/icons';
 import { useSwipeable } from 'react-swipeable';
-import { Link } from 'react-router-dom'; // Импортируем Link
+import { Link } from 'react-router-dom';
 import './Menu.css';
+import menu from '../../data/menu.json';
 
 function Menu({ open, onClose }) {
   const [menuOpen, setMenuOpen] = useState(open);
@@ -39,14 +40,25 @@ function Menu({ open, onClose }) {
     >
       <div className="menu-content">
         <List>
-          <ListItem button component={Link} to="/" onClick={handleClose}>
-            <ListItemText primary="Главная" />
+          {Object.keys(menu).map(key => {
+            const menuItem = menu[key];
+            return (
+              <>
+                <ListItem component={Link} to={menuItem.path} onClick={handleClose}>
+                  <ListItemText primary={menuItem.name} />
+                </ListItem>
+                <Divider />
+              </>
+            );
+          })}
+          {/* <ListItem button component={Link} to={menu.main.path} onClick={handleClose}>
+            <ListItemText primary={menu.main.name} />
           </ListItem>
           <Divider />
-          <ListItem button component={Link} to="/about" onClick={handleClose}>
-            <ListItemText primary="О нас" />
+          <ListItem button component={Link} to={menu.about.path} onClick={handleClose}>
+            <ListItemText primary={menu.about.name} />
           </ListItem>
-          <Divider />
+          <Divider /> */}
           <ListItem>
             <ListItemText
               primary="Сотрудничать с нами:"

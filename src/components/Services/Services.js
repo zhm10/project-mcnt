@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Skeleton from '@mui/material/Skeleton'; // Добавляем Skeleton
+import { Card, CardContent, CardMedia, Button, Box, Container, Skeleton } from '@mui/material';
 import ServicesMenu from '../ServicesMenu/ServicesMenu';
 import './Services.css';
 import detailingServices from "../../data/services.json";
