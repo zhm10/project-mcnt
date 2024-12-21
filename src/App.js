@@ -10,6 +10,7 @@ import Footer from './components/Footer/Footer';
 import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton';
 import ContactInfo from './components/ContactInfo/ContactInfo';
 import About from './components/Pages/About'; // Импортируем компонент About
+import menu from './data/menu.json';
 
 function App() {
   return (
@@ -17,14 +18,14 @@ function App() {
       <div className="app">
         <Header />
         <Routes>
-          <Route path="/about" element={
+          <Route path={menu.about.path} element={
             <>
               <About />
               <ContactInfo />
               <MapsTabs />
             </>
           } />
-          <Route path="/" element={
+          <Route path={menu.main.path} element={
             <>
               <Slider />
               <Services />

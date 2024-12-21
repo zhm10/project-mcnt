@@ -12,12 +12,10 @@ import Box from '@mui/material/Box';
 const context = require.context('../../assets/slider', true, /\.(mp4)$/);
 
 const Slider = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  // Определяем тип устройства (мобильное или десктоп)
-  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);  
 
-  // Функция для получения пути к нужному медиафайлу
   const getMediaPath = (slide) => {
     const media = isMobile ? slide.mobile : slide.desktop;
     const mediaPath = context(`./${media.name}`);
@@ -31,7 +29,7 @@ const Slider = () => {
         <Skeleton
           variant="rectangular"
           width="100%"
-          height="100vh"
+          height="100dvh"
           animation="wave"
           style={{ position: 'absolute', top: 0, left: 0, zIndex: 10 }}
         />
@@ -50,34 +48,21 @@ const Slider = () => {
         modules={[Navigation, Pagination]}
         loop
         onSwiper={() => setLoading(false)}
-        preloadImages={false}
       >
         {slides.map((slide, index) => {
           const { path, alt, text } = getMediaPath(slide);
           return (
             <SwiperSlide key={slide.id}>
-              <Box style={{ position: 'relative', width: '100%', height: '100vh' }}>
-                {index === 0 ? (
-                  <video
-                    src={path}
-                    alt={alt}
-                    autoPlay
-                    loop
-                    muted
-                    onCanPlayThrough={() => setLoading(false)}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  <video
-                    src={path}
-                    alt={alt}
-                    autoPlay
-                    loop
-                    muted
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    loading="lazy"
-                  />
-                )}
+              <Box className="swiper-slide-transform" style={{ position: 'relative', width: '100%', height: '100dvh' }}>
+                <video
+                  src={path}
+                  alt={alt}
+                  autoPlay
+                  loop
+                  muted
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  loading="lazy"
+                />
                 {text && (
                   <Box className="slider-content-text">
                     {text}
@@ -87,7 +72,7 @@ const Slider = () => {
             </SwiperSlide>
           );
         })}
-        
+
         {/* Блок навигации и пагинации */}
         <Box className="slider-controls">
           <div className="swiper-pagination" />

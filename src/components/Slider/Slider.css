@@ -9,11 +9,15 @@
     border-radius: 5px;
     font-size: 50px;
     max-width: 50%;
+    letter-spacing: .01em;
+    -webkit-transform: translate3d(0, 0, 0);
 }
+
 
 .slider-wrapper .swiper .slider-controls {
     display: flex;
     flex-direction: column;
+    align-items: center;
     position: absolute;
     right: 10%;
     bottom: 10%;
@@ -27,21 +31,26 @@
 .slider-wrapper .swiper .swiper-button-prev,
 .slider-wrapper .swiper .swiper-button-next {
     position: relative;
-    left: unset;
-    top: unset;
-    right: unset;
-    bottom: unset;
-    margin: 0 10px;
+    left: inherit;
+    top: inherit;
+    right: inherit;
+    bottom: inherit;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slider-wrapper .swiper .swiper-button-prev {
+    margin-right: 20px;
 }
 
 .slider-wrapper .swiper .swiper-pagination {
     color: #fff;
-    font-size: 35px;
+    font-size: 25px;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 5px;
-    width: unset;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    /* padding: 10px; */
+    /* border-radius: 5px; */
+    width: max-content;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,7 +60,7 @@
 
 
 .slider-wrapper .swiper .swiper-pagination .swiper-pagination-total,
-.slider-wrapper .swiper .swiper-pagination .swiper-pagination-current{
+.slider-wrapper .swiper .swiper-pagination .swiper-pagination-current {
     margin: 0 10px;
     width: fit-content;
 }
@@ -60,13 +69,28 @@
     color: #a7a7a7;
 }
 
-/* Медиа-запрос для мобильных телефонов */
-@media only screen and (max-width: 480px) {}
+/* Медиа-запрос для мобильных телефонов и планшетов */
+@media only screen and (max-width: 800px) {
+    .slider-wrapper .slider-content-text {
+        bottom: 25%;
+        max-width: 100%;
+        margin: 0 2.5%;
+    }
 
-/* Медиа-запросы для планшетов */
-@media only screen and (min-width: 481px) and (max-width: 800px) {}
+    .slider-wrapper .swiper .slider-controls {
+        width: 95%;
+        margin: 0 2.5%;
+        right: inherit;
+        align-items: flex-end;
+    }
 
-@media only screen and (min-width: 801px) and (max-width: 1024px) {}
+    .slider-wrapper .swiper .slider-controls .slider-controls-arrows {
+        justify-content: space-between;
+        width: 100%;
+    }
 
-/* Медиа-запрос для устройств с разрешением Full HD и выше */
-@media only screen and (min-width: 1025px) and (max-width: 1920px) {}
+    .slider-wrapper .swiper .swiper-pagination {
+        font-size: 15px;
+
+    }
+}
