@@ -1,3 +1,7 @@
+.slider-wrapper {
+    background-color: #000;
+}
+
 .slider-wrapper .slider-content-text {
     position: absolute;
     bottom: 10%;

@@ -12,8 +12,6 @@ import Box from '@mui/material/Box';
 const context = require.context('../../assets/slider', true, /\.(mp4)$/);
 
 const Slider = () => {
-  const [loading, setLoading] = useState(false);
-
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);  
 
   const getMediaPath = (slide) => {
@@ -25,15 +23,6 @@ const Slider = () => {
 
   return (
     <Box className="slider-wrapper" style={{ position: 'relative' }}>
-      {loading && (
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height="100dvh"
-          animation="wave"
-          style={{ position: 'absolute', top: 0, left: 0, zIndex: 10 }}
-        />
-      )}
       <Swiper
         spaceBetween={0}
         slidesPerView={1}
@@ -47,7 +36,6 @@ const Slider = () => {
         }}
         modules={[Navigation, Pagination]}
         loop
-        onSwiper={() => setLoading(false)}
       >
         {slides.map((slide, index) => {
           const { path, alt, text } = getMediaPath(slide);
@@ -73,8 +61,6 @@ const Slider = () => {
             </SwiperSlide>
           );
         })}
-
-        {/* Блок навигации и пагинации */}
         <Box className="slider-controls">
           <div className="swiper-pagination" />
           <Box className="slider-controls-arrows">
