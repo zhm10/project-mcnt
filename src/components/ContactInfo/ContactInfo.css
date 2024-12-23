@@ -13,6 +13,11 @@
     justify-content: space-around;
 }
 
+.contact-info-wrapper .contact-info-content .content-phone .sub-title {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
 .contact-info-wrapper .contact-info-button {
     display: flex;
     justify-content: center;
@@ -40,6 +45,17 @@
     font-size: 25px;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+/* Swiper style */
+.contact-info-wrapper .contact-info-content .swiper {
+    width: 100%;
+    margin: 0;
+}
+
+.contact-info-wrapper .contact-info-content .swiper .swiper-slide {
+    display: flex;
+    justify-content: center;
 }
 
 @media only screen and (max-width: 1024px) {

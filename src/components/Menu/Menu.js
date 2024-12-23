@@ -5,9 +5,8 @@ import { Icon24LogoVk } from '@vkontakte/icons';
 import { useSwipeable } from 'react-swipeable';
 import { Link } from 'react-router-dom';
 import './Menu.css';
-import menu from '../../data/menu.json';
 
-function Menu({ open, onClose }) {
+function Menu({ open, onClose, phones, menu }) {
   const [menuOpen, setMenuOpen] = useState(open);
   const menuRef = useRef(null);
 
@@ -51,28 +50,17 @@ function Menu({ open, onClose }) {
               </>
             );
           })}
-          {/* <ListItem button component={Link} to={menu.main.path} onClick={handleClose}>
-            <ListItemText primary={menu.main.name} />
-          </ListItem>
-          <Divider />
-          <ListItem button component={Link} to={menu.about.path} onClick={handleClose}>
-            <ListItemText primary={menu.about.name} />
-          </ListItem>
-          <Divider /> */}
-          <ListItem>
-            <ListItemText
-              primary="Сотрудничать с нами:"
-              secondary={<a href="tel:+79001111111">+7 (900) 111-11-11</a>}
-            />
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText
-              primary="Работать у нас:"
-              secondary={<a href="tel:+79004444444">+7 (900) 444-44-44</a>}
-            />
-          </ListItem>
-          <Divider />
+          {phones.map(phone => (
+            <>
+              <ListItem>
+                <ListItemText
+                  primary={phone.subtitle}
+                  secondary={<a href={phone.number}>{phone.name}</a>}
+                />
+              </ListItem>
+              <Divider />
+            </>
+          ))}
           {/* Социальные сети */}
           <ListItem>
             <IconButton href="https://instagram.com" color="inherit">

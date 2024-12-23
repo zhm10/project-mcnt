@@ -7,6 +7,7 @@ import headerLogo from "../../assets/HeaderLogoWithoutBackground.png?url";
 import './Header.css';
 import { Link } from 'react-router-dom';
 import menu from '../../data/menu.json';
+import contactsInfo from '../../data/contactsInfo.json';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,11 +42,6 @@ function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   });
-
-  const phoneNumbers = [
-    { id: 1, number: '+79001231231122', name: '+7(900)1231-231-122' },
-    { id: 2, number: '+79203213213344', name: '+7(920)3213-213-344' },
-  ];
 
   return (
     <div className="header-wrapper">
@@ -82,10 +78,11 @@ function Header() {
               loop
               className="phone-slider"
             >
-              {phoneNumbers.map(phone => (
+              {contactsInfo.phones.map(phone => (
                 <SwiperSlide key={phone.id}>
                   <a href={`tel:${phone.number}`} className="phone-link">
-                    {phone.name}
+                    {phone.name}<br />
+                    <Box className="sub-title">({phone.subtitle})</Box>
                   </a>
                 </SwiperSlide>
               ))}
@@ -108,7 +105,12 @@ function Header() {
         </Box>
       </Container >
 
-      <Menu open={menuOpen} onClose={handleCloseMenu} />
+      <Menu
+        open={menuOpen}
+        onClose={handleCloseMenu}
+        phones={contactsInfo.phones}
+        menu={menu}
+      />
     </div>
   );
 }

@@ -89,12 +89,18 @@
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
-  letter-spacing: -.05em;
+  letter-spacing: .01em;
   padding: 10px 5px;
+  text-align: center;
 }
 
 .header-wrapper .content .content-info .info-phones .phone-link:hover {
   color: rgb(245, 211, 130);
+}
+
+.header-wrapper .content .content-info .info-phones .phone-link .sub-title {
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .header-wrapper .content .content-menu-button {
@@ -147,7 +153,7 @@
   }
 
   .header-wrapper .content .content-info .info-wrapper-logo-and-menu .info-logo img {
-    height: 25px;
+    height: 30px;
   }
 
   .header-wrapper .content .content-menu-button {
