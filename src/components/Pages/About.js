@@ -2,13 +2,15 @@
 import React, { useEffect } from 'react';
 
 const About = () => {
+    const headerHeight = document.querySelector(".header-wrapper .content").offsetHeight;
+
     useEffect(() => {
         // Скроллит окно на самый верх при монтировании компонента
         window.scrollTo(0, 0);
     }, []);
 
     return (
-        <div style={{ padding: '50px 20px' }}>
+        <div style={{ padding: headerHeight + 50 + 'px 20px' }}>
             <h1>О нас (Тестовый текст)</h1>
             <p>Это страница о нашем приложении.</p>
             <p>За несколько лет непрерывной практики мы накопили богатый опыт в области восстановления повреждений по технологии

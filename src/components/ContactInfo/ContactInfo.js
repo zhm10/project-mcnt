@@ -43,7 +43,7 @@ const ContactInfo = () => {
                   <Typography className='content-paragraph'>
                     <a href={"tel:" + phone.number} style={{ color: 'inherit', textDecoration: 'none' }}>
                       {phone.name}<br/>
-                      <Box className="sub-title">({phone.subtitle})</Box>
+                      <Box className="sub-title">{phone.subtitle}</Box>
                     </a>
                   </Typography>
                 </SwiperSlide>
@@ -66,7 +66,7 @@ const ContactInfo = () => {
               {contactInfo.addresses.map((address, index) => (
                 <SwiperSlide key={index}>
                   <Typography key={index} className='content-paragraph'>
-                    {"г." + address.city + " Ул. " + address.street}
+                    {address.city + ", " + address.street}
                   </Typography>
                 </SwiperSlide>
               ))}

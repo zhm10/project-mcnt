@@ -5,7 +5,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import Slider from './components/Slider/Slider';
 import Services from './components/Services/Services';
-import MapsTabs from './components/Maps/MapsTabs';
+import MapsTabs from './components/MapsTabs/MapsTabs';
 import Footer from './components/Footer/Footer';
 import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton';
 import ContactInfo from './components/ContactInfo/ContactInfo';

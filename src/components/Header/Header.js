@@ -82,7 +82,7 @@ function Header() {
                 <SwiperSlide key={phone.id}>
                   <a href={`tel:${phone.number}`} className="phone-link">
                     {phone.name}<br />
-                    <Box className="sub-title">({phone.subtitle})</Box>
+                    <Box className="sub-title">{phone.subtitle}</Box>
                   </a>
                 </SwiperSlide>
               ))}
