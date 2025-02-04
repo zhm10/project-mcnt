@@ -145,6 +145,7 @@ function Services() {
                     setUpdateActiveService={setUpdateActiveService}
                     service={selectedService}
                     images={loadAllImage(selectedService.imagesFolderName)}
+                    loadImage={loadImage}
                 />
             )}
         </Box>

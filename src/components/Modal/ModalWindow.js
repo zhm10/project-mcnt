@@ -9,8 +9,10 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import ContactInfo from '../ContactInfo/ContactInfo';
+import Footer from '../Footer/Footer';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import './ModalWindow.css';
+import BeforeAfterSlider from '../BeforeAfterSlider/BeforeAfterSlider';
 
 const ServiceDescription = lazy(() => import('../Services/ServiceDescription/ServiceDescription'));
 
@@ -41,7 +43,7 @@ const isMobileDevice = () => {
 };
 
 
-const ModalWindow = ({ open, handleClose, service, images }) => {
+const ModalWindow = ({ open, handleClose, service, images, loadImage}) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const dragHandleRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(open);
@@ -265,10 +267,26 @@ const ModalWindow = ({ open, handleClose, service, images }) => {
                                         <h2>Подробная информация</h2>
                                         {content}
                                     </Box>
-                                    <Box style={{ margin: '30px 0', fontWeight: 'bold' }}>Информация размещённая на сайте не является публичной офертой</Box>
+                                    {/* <Box style={{ margin: '30px 0', fontWeight: 'bold' }}>Информация размещённая на сайте не является публичной офертой</Box> */}
+                                    
+                                    {/* {service.descriptionImages && service.descriptionImages.length > 0 && (
+                                        <div>
+                                            {service.descriptionImages.map((image, index) => (
+                                                <BeforeAfterSlider
+                                                    key={index}
+                                                    firstImage={loadImage(service.imagesFolderName, image.firstImage)}
+                                                    secondImage={service.secondImage
+                                                        ? loadImage(service.imagesFolderName, image.secondImage)
+                                                        : null}
+                                                    onLoad={() => true}
+                                                />
+                                            ))}
+                                        </div>
+                                    )} */}
                                 </Suspense>
                             </Box>
                             < ContactInfo />
+                            <Footer />
                         </Box>
                     </Suspense>
                 )
