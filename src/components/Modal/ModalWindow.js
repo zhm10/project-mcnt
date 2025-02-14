@@ -285,7 +285,7 @@ const ModalWindow = ({ open, handleClose, service, images, loadImage}) => {
                                     )} */}
                                 </Suspense>
                             </Box>
-                            < ContactInfo />
+                            < ContactInfo phoneIds={service.contactInfo.phoneIds} addressIds={service.contactInfo.addressIds} />
                             <Footer />
                         </Box>
                     </Suspense>

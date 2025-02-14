@@ -6,7 +6,11 @@
         "firstImage": "IMG_1236.webp",
         "secondImage": "IMG_0898.webp",
         "imagesFolderName": "1",
-        "descriptionId": "1"
+        "descriptionId": "1",
+        "contactInfo": {
+            "phoneIds": [1],
+            "addressIds": [1]
+        }
     },
     {
         "id": "udalenie-vmyatin-bez-pokraski",
@@ -14,7 +18,11 @@
         "info": "Сертифицированные специалисты компании MASTERCAR осуществляют кузовной ремонт автомобиля без покраски по немецкой технологии Paintless Dent Repair (PDR).",
         "firstImage": "2CjaS6IlYH8.webp",
         "imagesFolderName": "2",
-        "descriptionId": "2"
+        "descriptionId": "2",
+        "contactInfo": {
+            "phoneIds": [2],
+            "addressIds": [2]
+        }
     },
     {
         "id": "polirovka-kuzova-avtomobilya",
@@ -22,7 +30,11 @@
         "info": "Полная и освежающая абразивная полировка кузова и элементов салона для удаления царапин и восстановления ровного блеска и гладкости лакокрасочного покрытия автомобиля.",
         "firstImage": "1RcjSBd-vGw.webp",
         "imagesFolderName": "3",
-        "descriptionId": "3"
+        "descriptionId": "3",
+        "contactInfo": {
+            "phoneIds": [1],
+            "addressIds": [1]
+        }
     },
     {
         "id": "himchistka-salona",
@@ -30,7 +42,11 @@
         "info": "Безопасная химчистка салона с последующей защитой",
         "firstImage": "__bLJrKM2po.webp",
         "imagesFolderName": "4",
-        "descriptionId": "4"
+        "descriptionId": "4",
+        "contactInfo": {
+            "phoneIds": [1],
+            "addressIds": [1]
+        }
     },
     {
         "id": "tonirovka-stekol",
@@ -38,7 +54,11 @@
         "info": "Тонирование стекол автомобиля американскими пленками",
         "firstImage": "DSC02107.webp",
         "imagesFolderName": "5",
-        "descriptionId": "5"
+        "descriptionId": "5",
+        "contactInfo": {
+            "phoneIds": [1],
+            "addressIds": [1]
+        }
     },
     {
         "id": "shumoizolyatsiya",
@@ -46,7 +66,11 @@
         "info": "",
         "firstImage": "6SqyPZRMjMs.webp",
         "imagesFolderName": "6",
-        "descriptionId": "6"
+        "descriptionId": "6",
+        "contactInfo": {
+            "phoneIds": [1],
+            "addressIds": [1]
+        }
     },
     {
         "id": "zashchita-kuzova-keramikoy",
@@ -54,15 +78,23 @@
         "info": "Блеск и гладкость. Защита кузова от царапин и дорожных реагентов",
         "firstImage": "-DeGUcFi7kY.webp",
         "imagesFolderName": "7",
-        "descriptionId": "7"
+        "descriptionId": "7",
+        "contactInfo": {
+            "phoneIds": [1],
+            "addressIds": [1]
+        }
     },
     {
         "id": "аntikhrom",
         "name": "Антихром",
-        "info": "",
+        "info": "Ремонт сколов краски",
         "firstImage": "CfXVrwvP5FE.webp",
         "imagesFolderName": "8",
-        "descriptionId": "8"
+        "descriptionId": "8",
+        "contactInfo": {
+            "phoneIds": [1],
+            "addressIds": [1]
+        }
     },
     {
         "id": "remont-skolov-kraski",
@@ -70,6 +102,10 @@
         "info": "Американская технология ремонта сколов краски",
         "firstImage": "DSC03307.webp",
         "imagesFolderName": "9",
-        "descriptionId": "9"
+        "descriptionId": "9",
+        "contactInfo": {
+            "phoneIds": [],
+            "addressIds": []
+        }
     }
 ]

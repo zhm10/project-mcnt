@@ -6,8 +6,16 @@ import { Autoplay } from 'swiper/modules';
 import './ContactInfo.css';
 import contactInfo from '../../data/contactsInfo.json';
 
-const ContactInfo = () => {
-  const [currentPhone, setCurrentPhone] = useState(contactInfo.phones[0].number);
+const ContactInfo = ({ phoneIds = [], addressIds = [] }) => {
+  const filteredPhones = phoneIds.length > 0 
+    ? contactInfo.phones.filter(phone => phoneIds.includes(phone.id))
+    : contactInfo.phones;
+
+  const filteredAddresses = addressIds.length > 0 
+    ? contactInfo.addresses.filter(address => addressIds.includes(address.id))
+    : contactInfo.addresses;
+
+  const [currentPhone, setCurrentPhone] = useState(filteredPhones[0]?.number || '');
 
   return (
     <Box className="contact-info-wrapper">
@@ -33,15 +41,15 @@ const ContactInfo = () => {
               autoplay={{ delay: 5000 }}
               onSlideChange={(swiper) => {
                 const currentIndex = swiper.realIndex;
-                setCurrentPhone(contactInfo.phones[currentIndex].number);
+                setCurrentPhone(filteredPhones[currentIndex]?.number || '');
               }}
               modules={[Autoplay]}
               className="phone-swiper"
             >
-              {contactInfo.phones.map((phone, index) => (
-                <SwiperSlide key={index}>
+              {filteredPhones.map((phone, index) => (
+                <SwiperSlide key={phone.id}>
                   <Typography className='content-paragraph'>
-                    <a href={"tel:" + phone.number} style={{ color: 'inherit', textDecoration: 'none' }}>
+                    <a href={`tel:${phone.number}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                       {phone.name}<br/>
                       <Box className="sub-title">{phone.subtitle}</Box>
                     </a>
@@ -63,10 +71,10 @@ const ContactInfo = () => {
               modules={[Autoplay]}
               className="addresses-swiper"
             >
-              {contactInfo.addresses.map((address, index) => (
-                <SwiperSlide key={index}>
-                  <Typography key={index} className='content-paragraph'>
-                    {address.city + ", " + address.street}
+              {filteredAddresses.map((address) => (
+                <SwiperSlide key={address.id}>
+                  <Typography className='content-paragraph'>
+                    {address.city}, {address.street}
                   </Typography>
                 </SwiperSlide>
               ))}
@@ -84,7 +92,7 @@ const ContactInfo = () => {
               fontWeight: 'bold'
             }}
             variant="contained"
-            href={"tel:" + currentPhone}
+            href={`tel:${currentPhone}`}
             sx={{ marginTop: 3 }}
           >
             Позвонить
