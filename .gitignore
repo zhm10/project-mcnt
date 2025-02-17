@@ -1,4 +1,4 @@
 /build
 /node_modules
-/src/assets/services
-/public/servicesDescription
+# /src/assets/services
+# /public/servicesDescription
