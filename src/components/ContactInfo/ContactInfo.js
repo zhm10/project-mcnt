@@ -74,7 +74,9 @@ const ContactInfo = ({ phoneIds = [], addressIds = [] }) => {
               {filteredAddresses.map((address) => (
                 <SwiperSlide key={address.id}>
                   <Typography className='content-paragraph'>
-                    {address.city}, {address.street}
+                    {address.city}
+                    <br/>
+                    {address.street}
                   </Typography>
                 </SwiperSlide>
               ))}
