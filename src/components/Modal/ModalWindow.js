@@ -12,7 +12,7 @@ import ContactInfo from '../ContactInfo/ContactInfo';
 import Footer from '../Footer/Footer';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import './ModalWindow.css';
-import BeforeAfterSlider from '../BeforeAfterSlider/BeforeAfterSlider';
+// import BeforeAfterSlider from '../BeforeAfterSlider/BeforeAfterSlider';
 
 const ServiceDescription = lazy(() => import('../Services/ServiceDescription/ServiceDescription'));
 
@@ -43,7 +43,7 @@ const isMobileDevice = () => {
 };
 
 
-const ModalWindow = ({ open, handleClose, service, images, loadImage}) => {
+const ModalWindow = ({ open, handleClose, service, images, loadImage }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const dragHandleRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(open);
@@ -218,7 +218,9 @@ const ModalWindow = ({ open, handleClose, service, images, loadImage}) => {
                                             spaceBetween={1}
                                             navigation={true}
                                             loop
-                                            thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+                                            thumbs={{
+                                                swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
+                                            }}
                                             modules={[FreeMode, Navigation, Thumbs]}
                                             className='main-service-slider-image'
                                         >
@@ -268,7 +270,7 @@ const ModalWindow = ({ open, handleClose, service, images, loadImage}) => {
                                         {content}
                                     </Box>
                                     {/* <Box style={{ margin: '30px 0', fontWeight: 'bold' }}>Информация размещённая на сайте не является публичной офертой</Box> */}
-                                    
+
                                     {/* {service.descriptionImages && service.descriptionImages.length > 0 && (
                                         <div>
                                             {service.descriptionImages.map((image, index) => (

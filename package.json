@@ -12,6 +12,8 @@
     "@react-spring/web": "^9.7.3",
     "@use-gesture/react": "^10.3.1",
     "@vkontakte/icons": "^2.134.0",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
     "react": "^18.3.1",
     "react-before-after-slider-component": "^1.1.8",
     "react-dom": "^18.3.1",
@@ -21,7 +23,7 @@
     "react-scroll": "^1.9.0",
     "react-swipeable": "^7.0.1",
     "styled-components": "^6.1.12",
-    "swiper": "^11.1.4",
+    "swiper": "^11.2.4",
     "web-vitals": "^4.2.2"
   },
   "scripts": {
@@ -29,7 +31,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "analyze": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json"
+    "analyze": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json",
+    "generate-sitemap": "node sitemap-generator.js"
   },
   "eslintConfig": {
     "extends": [

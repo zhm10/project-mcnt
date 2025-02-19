@@ -9,6 +9,48 @@ import BeforeAfterSlider from '../BeforeAfterSlider/BeforeAfterSlider';
 
 const context = require.context('../../assets/services', true, /\.(jpeg|jpg|png|webp)$/);
 
+const loadImage = (folderName, imageName) => {
+    try {
+        return context(`./${folderName}/${imageName}`);
+    } catch {
+        return defaultImg;
+    }
+};
+
+const ServiceImage = ({ firstImageSrc, secondImageSrc }) => {
+    const [loaded, setLoaded] = useState(false);
+
+    return (
+        <Box className="section-images">
+            {!loaded && (
+                <Skeleton
+                    variant="rectangular"
+                    sx={{
+                        width: '100%',
+                        height: 300,
+                        borderRadius: '4px',
+                    }}
+                />
+            )}
+            {secondImageSrc ? (
+                <BeforeAfterSlider
+                    firstImage={firstImageSrc}
+                    secondImage={secondImageSrc}
+                    onLoad={() => setLoaded(true)}
+                />
+            ) : (
+                <CardMedia
+                    component="img"
+                    image={firstImageSrc}
+                    alt="Service Image"
+                    sx={{ width: '100%', height: 'auto', display: loaded ? 'block' : 'none' }}
+                    onLoad={() => setLoaded(true)}
+                />
+            )}
+        </Box>
+    );
+};
+
 function Services() {
     const [selectedService, setSelectedService] = useState(null);
     const [updateActiveService, setUpdateActiveService] = useState(true);
@@ -25,14 +67,6 @@ function Services() {
         setModalOpen(false);
         setSelectedService(null);
         window.history.replaceState(null, null, `/#${selectedService.id}`);
-    };
-
-    const loadImage = (folderName, imageName) => {
-        try {
-            return context(`./${folderName}/${imageName}`);
-        } catch {
-            return defaultImg;
-        }
     };
 
     const loadAllImage = (folderName) => {
@@ -63,58 +97,15 @@ function Services() {
             <Container className='services' maxWidth='xl'>
                 <Box className='services-content' sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
                     {detailingServices.map((service) => {
-                        // eslint-disable-next-line react-hooks/rules-of-hooks
-                        const [loaded, setLoaded] = useState(false);
                         const firstImageSrc = loadImage(service.imagesFolderName, service.firstImage);
                         const secondImageSrc = service.secondImage
                             ? loadImage(service.imagesFolderName, service.secondImage)
                             : null;
 
                         return (
-                            <Box id={service.id} className='service-wrapper'>
-                                <Card key={service.id} className='service' sx={{ flex: '1 1 100%', mb: 2, display: 'flex' }}>
-                                    <Box className='section-images'>
-                                        {service.firstImage && service.secondImage ? (
-                                            <React.Fragment>
-                                                {!loaded && (
-                                                    <Skeleton
-                                                        variant="rectangular"
-                                                        sx={{
-                                                            width: '100%',
-                                                            height: 300,
-                                                            borderRadius: '4px',
-                                                        }}
-                                                    />
-                                                )}
-                                                <BeforeAfterSlider
-                                                    firstImage={firstImageSrc}
-                                                    secondImage={secondImageSrc}
-                                                    onLoad={() => setLoaded(true)}
-                                                />
-                                            </React.Fragment>
-                                        ) : (
-                                            <React.Fragment>
-                                                {!loaded && (
-                                                    <Skeleton
-                                                        variant="rectangular"
-                                                        sx={{
-                                                            width: '100%',
-                                                            height: 300,
-                                                            borderRadius: '4px',
-                                                        }}
-                                                    />
-                                                )}
-                                                <CardMedia
-                                                    component="img"
-                                                    image={firstImageSrc}
-                                                    alt={service.name}
-                                                    sx={{ width: { xs: '100%', sm: '100%' }, height: { xs: 'auto', sm: '100%' } }}
-                                                    onLoad={() => setLoaded(true)}
-                                                    style={loaded ? {} : { display: 'none' }}
-                                                />
-                                            </React.Fragment>
-                                        )}
-                                    </Box>
+                            <Box key={service.id} id={service.id} className='service-wrapper'>
+                                <Card className='service' sx={{ flex: '1 1 100%', mb: 2, display: 'flex' }}>
+                                    <ServiceImage firstImageSrc={firstImageSrc} secondImageSrc={secondImageSrc} />
                                     <CardContent className='section-content' sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
                                         <Box>
                                             <h2>{service.name}</h2>
@@ -125,7 +116,8 @@ function Services() {
                                                 className='moreDetailed'
                                                 style={{ width: '50%', backgroundColor: '#ffc027', color: 'black', fontWeight: 'bold' }}
                                                 variant="contained"
-                                                onClick={() => handleOpen(service)}>
+                                                onClick={() => handleOpen(service)}
+                                            >
                                                 Подробнее
                                             </Button>
                                         </Box>
